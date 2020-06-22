@@ -48,9 +48,8 @@ function deleteSession() {
  */
 export function signup(user) {
   return (dispatch) => {
-    debugger
     return postUser(user)
-      .then(/** @param {User} user*/(user) => dispatch(receiveSession(user)));
+      .then(/** @param {User} user*/(user) => dispatch(receiveSession(user)), (err) => console.log(err));
   }
 }
 
