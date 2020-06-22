@@ -1,17 +1,11 @@
-/**
- * @type {{user: User | null}}
- */
 import { DELETE_SESSION, RECEIVE_SESSION } from "../actions/session_actions";
 
-/**
- * @type RootState
- */
 const defaultState = {
   user: null
 }
 
 /**
- * @param {RootState} state
+ * @param {{user: User | null}} state
  * @param {SessionActions} action
  */
 export default function sessionReducer(state = defaultState, action) {
