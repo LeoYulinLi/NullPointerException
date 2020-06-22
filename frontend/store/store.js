@@ -3,6 +3,12 @@ import rootReducer from "../reducers/root_reducer";
 import thunk from "redux-thunk";
 
 
-export default function configureStore(preloadedState = {}) {
-  return createStore(rootReducer, preloadedState, applyMiddleware(thunk))
+export default function configureStore() {
+  const storeData = JSON.parse(localStorage.getItem("storeData"));
+  const preloadedState = storeData ? storeData : {}
+  const store = createStore(rootReducer, preloadedState, applyMiddleware(thunk));
+  store.subscribe(() => {
+    localStorage.setItem("storeData", JSON.stringify(store.getState()));
+  });
+  return store;
 }

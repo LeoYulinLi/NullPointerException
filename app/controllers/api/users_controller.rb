@@ -3,6 +3,10 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.new(create_params)
     if @user.save
+      # TODO: refactor out login logic
+      token = SecureRandom.urlsafe_base64
+      Session.create!(user: @user, session_token: token, info: {})
+      session[:session_token] = token
       render :show
     else
       render json: @user.errors.full_messages, status: 422
