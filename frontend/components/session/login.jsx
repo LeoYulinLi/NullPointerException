@@ -1,6 +1,7 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { FormEvent } from "react";
 import { login } from "../../actions/session_actions";
+import ErrorAlert from "../error/error_alert";
 
 const { useState } = require("react");
 
@@ -18,6 +19,15 @@ const Login = () => {
   const dispatch = useDispatch();
 
   /**
+   *
+   * @param {RootState} state
+   * @returns {string[]}
+   */
+  const errorsSelector = state => state.errors.session
+
+  const errors = useSelector(errorsSelector);
+
+  /**
    * @param {FormEvent} event
    */
   function handleSubmit(event) {
@@ -25,7 +35,8 @@ const Login = () => {
     dispatch(login({ username, password }))
   }
 
-  return <div className="signup">
+  return <div className="login">
+    <ErrorAlert errors={errors} />
     <form onSubmit={handleSubmit}>
       <label>Username
         <input type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
