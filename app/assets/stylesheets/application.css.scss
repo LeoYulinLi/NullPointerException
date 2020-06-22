@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+$color-primary-background: #53afff;
+
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.button {
+  color: inherit;
+  border-radius: 0.2em;
+  padding: 0.8em;
+  border: 1px solid transparent;
+  background: $color-primary-background;
+  &:hover {
+    background: darken($color-primary-background, 0.05);
+  }
+  &:active {
+    background: darken($color-primary-background, 0.07);
+  }
+}

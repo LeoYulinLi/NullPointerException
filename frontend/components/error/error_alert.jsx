@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * @param {string[]} errors
+ */
 const ErrorAlert = ({errors}) => {
   return errors && <div className="alert danger">
     <ul>
