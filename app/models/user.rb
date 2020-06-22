@@ -1,10 +1,14 @@
 class User < ApplicationRecord
 
+  attr_reader :password
+
   validates :username, :email, :display_name, :password_digest, presence: true
   validates :username, :email, uniqueness: true
 
   validates :username, length: { minimum: 3 }
   validates :password, length: { minimum: 8 }
+
+  before_commit :set_default_display_name
 
   # @param [String] password
   def password=(password)
@@ -17,11 +21,15 @@ class User < ApplicationRecord
     BCrypt::Password.new(password_digest).is_password?(password)
   end
 
-  # @param [String] username
-  def username=(username)
-    self.username = username
+  def set_default_display_name
     self.display_name = username
   end
+
+  # # @param [String] username
+  # def username=(username)
+  #   @username = username
+  #   self.display_name = username
+  # end
 
   # @param [String] username
   # @param [String] password
