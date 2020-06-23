@@ -22,15 +22,15 @@ const App = () => {
 
   return <HashRouter>
     <MainNav />
-    <Switch>
-      <div className="main">
+    <div className="main">
+      <Switch>
         <Route path="/" exact>
           <h1>Hello, { username ? username : "Guest" }</h1>
         </Route>
         <AuthRoute path="/signup" component={Signup} />
         <AuthRoute path="/login" component={Login} />
-      </div>
-    </Switch>
+      </Switch>
+    </div>
   </HashRouter>
 }
 

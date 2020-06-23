@@ -18,7 +18,7 @@ const MainNav = () => {
       <div className="control-nav">
         { isLoggedIn ? (<button className="button primary" onClick={() => dispatch(logout()) }>Log out</button>) :
           (<>
-            <Link to="/login" className="button secondary">Log in</Link>
+            <Link to="/login" className="button login">Log in</Link>
             <Link to="/signup" className="button primary">Sign up</Link>
           </>) }
       </div>

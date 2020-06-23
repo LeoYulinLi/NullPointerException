@@ -22,6 +22,7 @@ $color-primary: #0e98db;
 $color-secondary: #89eaea;
 $color-warning: #f6ba13;
 $color-danger: #ef7240;
+$color-muted: #cccccc;
 $border-color: #a3a3a3;
 $default-border-radius: 0.25rem;
 
@@ -29,7 +30,8 @@ $themes: (
         primary: $color-primary,
         secondary: $color-secondary,
         warning: $color-warning,
-        danger: $color-danger
+        danger: $color-danger,
+        muted: $color-muted
 );
 
 body {
@@ -168,7 +170,7 @@ input, textarea {
     box-shadow: 0 0 0.25rem rgba($button-color, 0.5);
   }
   &:hover, &:focus {
-    background-color: darken($button-color, 3%);
+    background-color: darken($button-color, 5%);
   }
   &:active {
     background-color: lighten($button-color, 5%);
@@ -193,6 +195,10 @@ input, textarea {
     &.#{$theme} {
       @include button-theme($color);
     }
+  }
+  &.login {
+    @include button-theme(#e3f3f6);
+    color: #0c465a;
   }
 }
 
