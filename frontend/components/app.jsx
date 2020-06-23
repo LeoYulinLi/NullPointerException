@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import Signup from "./session/signup";
 import Login from "./session/login";
-import { AuthRoute } from "../utils/route_util";
+import { AuthRoute, ProtectedRoute } from "../utils/route_util";
 import { useDispatch, useSelector } from "react-redux";
 import MainNav from "./main_nav";
 import { refreshSession } from "../actions/session_actions";
 import { clearSessionError } from "../actions/error_actions";
+import Ask from "./post/ask";
 
 const App = () => {
 
@@ -29,6 +30,7 @@ const App = () => {
         </Route>
         <AuthRoute path="/signup" component={Signup} />
         <AuthRoute path="/login" component={Login} />
+        <ProtectedRoute path="/ask" component={Ask} />
       </Switch>
     </div>
   </HashRouter>

@@ -33,3 +33,25 @@ export function getSession() {
     url: `/api/session`
   });
 }
+
+/**
+ * @param {AskForm} question
+ */
+export function postQuestion(question) {
+  return $.ajax({
+    url: `/api/questions`,
+    method: 'POST',
+    data: { question }
+  });
+}
+
+/**
+ * @param {EditQuestionForm} question
+ */
+export function patchQuestion(question) {
+  return $.ajax({
+    url: `/api/questions/${question.id}`,
+    method: 'PATCH',
+    data: { question }
+  })
+}

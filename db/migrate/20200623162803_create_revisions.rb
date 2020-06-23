@@ -9,6 +9,5 @@ class CreateRevisions < ActiveRecord::Migration[5.2]
 
       t.timestamps null: false
     end
-    add_index :revisions, %i[target_type target_id]
   end
 end
