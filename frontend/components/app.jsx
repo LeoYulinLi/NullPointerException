@@ -6,6 +6,7 @@ import { AuthRoute } from "../utils/route_util";
 import { useDispatch, useSelector } from "react-redux";
 import MainNav from "./main_nav";
 import { refresh } from "../actions/session_actions";
+import { clearSessionError } from "../actions/error_actions";
 
 const App = () => {
 
@@ -16,6 +17,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(refresh());
+    dispatch(clearSessionError());
   })
 
   return <HashRouter>

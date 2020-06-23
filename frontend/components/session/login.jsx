@@ -35,9 +35,18 @@ const Login = () => {
     dispatch(login({ username, password }))
   }
 
+  /**
+   * @param {React.MouseEvent<HTMLButtonElement>} event
+   */
+  function fillDemo(event) {
+    event.preventDefault();
+    setUsername("demo");
+    setPassword("demodemodemo");
+  }
+
   return <div className="session">
-    <ErrorAlert errors={errors} />
-    <form onSubmit={handleSubmit}>
+    <ErrorAlert errors={ errors }/>
+    <form onSubmit={ handleSubmit }>
       <div className="form-group">
         <label htmlFor="username">Username</label>
         <input id="username" type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
@@ -46,6 +55,7 @@ const Login = () => {
         <label htmlFor="password">Password</label>
         <input id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
       </div>
+      <button className="button secondary" onClick={ event => fillDemo(event) }>Fill Demo Login</button>
       <button className="button primary">Login</button>
     </form>
   </div>
