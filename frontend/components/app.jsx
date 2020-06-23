@@ -18,18 +18,18 @@ const App = () => {
     dispatch(refresh());
   })
 
-  return <div className="main">
+  return <HashRouter>
     <MainNav />
-    <HashRouter>
-      <Switch>
+    <Switch>
+      <div className="main">
         <Route path="/" exact>
           <h1>Hello, { username ? username : "Guest" }</h1>
         </Route>
         <AuthRoute path="/signup" component={Signup} />
         <AuthRoute path="/login" component={Login} />
-      </Switch>
-    </HashRouter>
-  </div>
+      </div>
+    </Switch>
+  </HashRouter>
 }
 
 export default App;

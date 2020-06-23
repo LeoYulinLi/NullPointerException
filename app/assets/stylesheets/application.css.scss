@@ -13,26 +13,165 @@
  *= require_tree .
  *= require_self
  */
-$color-primary-background: #53afff;
+$background-color: #ffffff;
+$background-color-light: #efefef;
+$text-default: #333333;
+$text-default-secondary: #666666;
+$color-theme: #ffa11a;
+$color-primary: #0e98db;
+$color-secondary: #89eaea;
+$color-warning: #f6ba13;
+$color-danger: #ef7240;
+$border-color: #a3a3a3;
+$default-border-radius: 0.25rem;
+
+$themes: (
+        primary: $color-primary,
+        secondary: $color-secondary,
+        warning: $color-warning,
+        danger: $color-danger
+);
 
 body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: $text-default;
+  font-size: 13px;
   margin: 0;
+  background: $background-color;
+}
+
+a {
+  color: $text-default;
+  text-decoration: underline;
+
+  &:active {
+    color: $text-default-secondary;
+    text-decoration: underline;
+  }
+}
+
+.main {
+  max-width: 768px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: baseline;
+  padding: 1rem;
+
+  h1, h2, h3, h4, h5, h6, p, small, span {
+    @each $theme, $color in $themes {
+      &.#{$theme} {
+        color: darken($color, 10%);
+      }
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin: 1rem 0;
+  }
+
+  small {
+    color: $text-default-secondary;
+  }
+
+  p {
+    margin: 0 0 1rem 0;
+  }
+}
+
+.main-nav {
+  display: flex;
+  border-top: 0.2em solid $color-theme;
+  width: 100%;
+  box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.3);
+}
+
+.session {
+  margin: auto;
+  width: 240px;
+  padding: 1rem;
+  background: white;
+  border-radius: $default-border-radius;
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5);
+
+  .button {
+    width: 100%;
+  }
+}
+
+.form-group {
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+  }
+}
+
+@mixin input-theme($color) {
+  border: 1px solid $color;
+  &:focus {
+    border-color: $color;
+    box-shadow: 0 0 0.25rem rgba($color, 0.5);
+    outline: $color;
+  }
+}
+
+input, textarea {
+  padding: 0.5em;
+  border: 1px solid $border-color;
+  border-radius: $default-border-radius;
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0.25rem rgba($color-primary, 0.5);
+    outline: $color-primary;
+  }
+
+  @each $theme, $color in $themes {
+    &.#{$theme} {
+      @include input-theme($color);
+    }
+  }
+}
+
+@mixin button-theme($button-color) {
+  background-color: $button-color;
+  color: white;
+  &:focus {
+    box-shadow: 0 0 0.25rem rgba($button-color, 0.5);
+  }
+  &:hover, &:focus {
+    background-color: darken($button-color, 3%);
+  }
+  &:active {
+    background-color: lighten($button-color, 5%);
+  }
+}
+
+.button {
+  outline: none;
+  border: none;
+  border-radius: $default-border-radius;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: $text-default-secondary;
+  background-color: $background-color;
+  margin: 0.25rem;
+  text-decoration: none;
+  font-weight: normal;
+  @each $theme, $color in $themes {
+    &.#{$theme} {
+      @include button-theme($color);
+    }
+  }
 }
 
 * {
   box-sizing: border-box;
-}
-
-.primary-button {
-  color: inherit;
-  border-radius: 0.2em;
-  padding: 0.8em;
-  border: 1px solid transparent;
-  background: $color-primary-background;
-  &:hover {
-    background: darken($color-primary-background, 0.05);
-  }
-  &:active {
-    background: darken($color-primary-background, 0.07);
-  }
 }

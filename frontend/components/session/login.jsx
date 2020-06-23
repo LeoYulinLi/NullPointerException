@@ -35,16 +35,18 @@ const Login = () => {
     dispatch(login({ username, password }))
   }
 
-  return <div className="login">
+  return <div className="session">
     <ErrorAlert errors={errors} />
     <form onSubmit={handleSubmit}>
-      <label>Username
-        <input type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
-      </label>
-      <label>Password
-        <input type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
-      </label>
-      <button className="button-primary">Login</button>
+      <div className="form-group">
+        <label htmlFor="username">Username</label>
+        <input id="username" type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
+      </div>
+      <button className="button primary">Login</button>
     </form>
   </div>
 

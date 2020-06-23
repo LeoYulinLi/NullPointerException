@@ -37,19 +37,22 @@ const Signup = () => {
     dispatch(signup({ username, password, email }))
   }
 
-  return <div className="signup">
+  return <div className="session">
     <ErrorAlert errors={errors} />
     <form onSubmit={ handleSubmit }>
-      <label>Username
-        <input type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
-      </label>
-      <label>Email
-        <input type="text" value={ email } onChange={ event => setEmail(event.target.value) }/>
-      </label>
-      <label>Password
-        <input type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
-      </label>
-      <button>Sign Up</button>
+      <div className="form-group">
+        <label htmlFor="username">Username</label>
+        <input id="username" type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
+      </div>
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input id="email" type="email" value={ email } onChange={ event => setEmail(event.target.value) }/>
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
+      </div>
+      <button className="button primary">Sign Up</button>
     </form>
   </div>
 
