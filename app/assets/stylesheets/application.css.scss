@@ -21,7 +21,7 @@ $color-theme: #ffa11a;
 $color-primary: #0e98db;
 $color-secondary: #89eaea;
 $color-warning: #f6ba13;
-$color-danger: #ef7240;
+$color-danger: #ef5440;
 $color-muted: #cccccc;
 $border-color: #a3a3a3;
 $default-border-radius: 0.25rem;
@@ -138,13 +138,28 @@ a {
 
 .session {
   width: 100%;
-  padding: 1rem;
+  padding: 1em;
   background: white;
   border-radius: $default-border-radius;
   box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5);
   .button {
     width: 100%;
   }
+}
+
+.alert {
+  border-radius: $default-border-radius;
+  padding: 1em;
+  @each $theme, $color in $themes {
+    &.#{$theme} {
+      background: lighten($color, 20%);
+      color: darken($color, 40%);
+    }
+  }
+  & > ul {
+    padding: 0 0 0 1rem;
+  }
+  margin-bottom: 1.5rem;
 }
 
 .form-group {
