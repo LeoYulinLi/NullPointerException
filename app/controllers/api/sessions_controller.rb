@@ -13,9 +13,18 @@ class Api::SessionsController < ApplicationController
     end
   end
 
+  def show
+    result = Session.find_by_session_token(session[:session_token])
+    if result
+      render json: {}, status: 200
+    else
+      render json: ["Unauthorized access"], status: 401
+    end
+  end
+
   def destroy
-    Session.destroy(params[:session_token])
-    render nothing: true, status: 204
+    Session.find_by_session_token(session[:session_token]).destroy
+    render json: {}, status: 204
   end
 
 end

@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import Signup from "./session/signup";
 import Login from "./session/login";
 import { AuthRoute } from "../utils/route_util";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import MainNav from "./main_nav";
+import { refresh } from "../actions/session_actions";
 
 const App = () => {
 
-  const usernameSelector = state => state.session.user.username;
-
+  const usernameSelector = state => state.session.user ? state.session.user.username : null;
   const username = useSelector(usernameSelector);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refresh());
+  })
+
   return <div className="main">
+    <MainNav />
     <HashRouter>
       <Switch>
-        <Route path="/">
+        <Route path="/" exact>
           <h1>Hello, { username ? username : "Guest" }</h1>
         </Route>
         <AuthRoute path="/signup" component={Signup} />

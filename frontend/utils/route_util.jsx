@@ -12,4 +12,12 @@ const Auth = ({ path, component: Component }) => {
   } />;
 };
 
+const Protected = ({ path, component: Component }) => {
+  const isLoggedIn = useSelector(isLoggedInSelector);
+  return <Route path={ path } render={ props =>
+    isLoggedIn ? <Component { ...props } /> : <Redirect to="/login" />
+  } />;
+};
+
 export const AuthRoute = withRouter(Auth);
+export const ProtectedRoute = withRouter(Protected);

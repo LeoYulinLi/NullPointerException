@@ -1,5 +1,5 @@
 import { Action, Dispatch } from 'redux';
-import { postSession, postUser } from "../utils/api_utlis";
+import { deleteSessionCurrent, getSession, postSession, postUser } from "../utils/api_utlis";
 import { clearSessionError, receiveSessionError } from "./error_actions";
 
 export const RECEIVE_SESSION = 'RECEIVE_SESSION';
@@ -68,8 +68,28 @@ export function login(user) {
       .then(/** @param {User} user*/(user) => {
         dispatch(clearSessionError());
         dispatch(receiveSession(user));
-      } , (err) => {
+      }, (err) => {
         dispatch(receiveSessionError(err));
       });
   };
+}
+
+export function logout() {
+  return (dispatch) => {
+    return deleteSessionCurrent()
+      .then(() => {
+        dispatch(deleteSession());
+      }, (err) => {
+        dispatch(receiveSessionError(err));
+      });
+  }
+}
+
+export function refresh() {
+  return (dispatch) => {
+    return getSession()
+      .then(() => {}, () => {
+        dispatch(deleteSession());
+      })
+  }
 }
