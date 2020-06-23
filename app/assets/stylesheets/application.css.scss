@@ -69,6 +69,21 @@ a {
     }
   }
 
+  a {
+    text-decoration: none;
+    @each $theme, $color in $themes {
+      &.#{$theme} {
+        color: darken($color, 10%);
+      }
+      &:hover.#{$theme} {
+        color: $color;
+      }
+      &:active.#{$theme} {
+        color: darken($color, 5%);
+      }
+    }
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     margin: 1rem 0;
@@ -111,14 +126,22 @@ a {
   }
 }
 
-.session {
+.session-page {
   margin: auto;
   width: 240px;
+
+  .session-help {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+}
+
+.session {
+  width: 100%;
   padding: 1rem;
   background: white;
   border-radius: $default-border-radius;
   box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5);
-
   .button {
     width: 100%;
   }
@@ -173,7 +196,7 @@ input, textarea {
     background-color: darken($button-color, 5%);
   }
   &:active {
-    background-color: lighten($button-color, 5%);
+    background-color: lighten($button-color, 3%);
   }
 }
 

@@ -5,7 +5,7 @@ import Login from "./session/login";
 import { AuthRoute } from "../utils/route_util";
 import { useDispatch, useSelector } from "react-redux";
 import MainNav from "./main_nav";
-import { refresh } from "../actions/session_actions";
+import { refreshSession } from "../actions/session_actions";
 import { clearSessionError } from "../actions/error_actions";
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(refresh());
+    dispatch(refreshSession());
     dispatch(clearSessionError());
   })
 

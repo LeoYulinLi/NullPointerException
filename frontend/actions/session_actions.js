@@ -85,7 +85,7 @@ export function logout() {
   }
 }
 
-export function refresh() {
+export function refreshSession() {
   return (dispatch) => {
     return getSession()
       .then(() => {}, () => {
