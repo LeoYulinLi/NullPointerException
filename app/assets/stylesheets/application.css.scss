@@ -237,6 +237,7 @@ input, textarea {
   &.login {
     @include button-theme(#e3f3f6);
     color: #0c465a;
+    border: 1px solid #257089;
   }
 }
 
