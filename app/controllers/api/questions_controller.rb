@@ -19,6 +19,18 @@ class Api::QuestionsController < ApplicationController
     end
   end
 
+  def index
+    all_questions = Question.all
+    @questions = all_questions.map{ |q| q.posts.first.current }
+    render json: @questions
+  end
+  
+  def show
+    posts = Post.where(question_id: params[:id]).includes(:revisions)
+    @thread = posts.map(&:current)
+    render json: @thread
+  end
+
   def update
     post = Post.find_by_question_id(params[:id])
     revision = Revision.new(
