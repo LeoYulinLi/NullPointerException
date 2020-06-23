@@ -25,11 +25,11 @@ class Api::QuestionsController < ApplicationController
     @revisions = @question_posts.map(&:current)
     render :index
   end
-  
+
   def show
-    posts = Post.where(question_id: params[:id]).includes(:revisions)
-    @thread = posts.map(&:current)
-    render json: @thread
+    @posts = Post.where(question_id: params[:id]).includes(:revisions)
+    @thread = @posts.map(&:current)
+    render :show
   end
 
   def update
