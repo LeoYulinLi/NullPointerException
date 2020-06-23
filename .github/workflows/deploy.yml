@@ -1,0 +1,35 @@
+
+name: Deploy to Heroku
+
+on: [push]
+
+jobs:
+  heroku:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to Heroku
+      env: 
+        email: ${{ secrets.HEROKU_EMAIL }}
+        api_key: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        tee ~/.netrc << END
+        machine api.heroku.com
+            login $email
+            password $api_key
+        machine git.heroku.com
+            login $email
+            password $api_key
+        END
+    - name: Setup Heroku CLI
+      run: |
+        curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+    - name: Deploy to Heroku
+      run: |
+        heroku git:remote -a npe-app
+        git push heroku master
+    - name: Migrate DB
+      run: |
+        heroku run rails db:migrate
