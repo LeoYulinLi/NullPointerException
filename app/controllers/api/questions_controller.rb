@@ -20,9 +20,10 @@ class Api::QuestionsController < ApplicationController
   end
 
   def index
-    all_questions = Question.all
-    @questions = all_questions.map{ |q| q.posts.first.current }
-    render json: @questions
+    @all_questions = Question.all
+    @question_posts = @all_questions.map { |question| question.posts.first }
+    @revisions = @question_posts.map(&:current)
+    render :index
   end
   
   def show
