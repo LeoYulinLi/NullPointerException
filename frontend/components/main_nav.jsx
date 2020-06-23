@@ -10,12 +10,19 @@ const MainNav = () => {
   const isLoggedInSelector = state => !!state.session.user
   const isLoggedIn = useSelector(isLoggedInSelector)
 
-  return <nav className="main-nav">
-    { isLoggedIn ? (<button className="button primary" onClick={() => dispatch(logout()) }>Log out</button>) :
-      (<>
-        <Link to="/login" className="button secondary">Log in</Link>
-        <Link to="/signup" className="button primary">Sign up</Link>
-      </>) }
+  return <nav className="header">
+    <div className="nav-container">
+      <div className="main-nav">
+        <Link to="/"><p>Logo</p></Link>
+      </div>
+      <div className="control-nav">
+        { isLoggedIn ? (<button className="button primary" onClick={() => dispatch(logout()) }>Log out</button>) :
+          (<>
+            <Link to="/login" className="button secondary">Log in</Link>
+            <Link to="/signup" className="button primary">Sign up</Link>
+          </>) }
+      </div>
+    </div>
   </nav>
 };
 

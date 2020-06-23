@@ -81,11 +81,32 @@ a {
   }
 }
 
-.main-nav {
-  display: flex;
-  border-top: 0.3em solid $color-theme;
+.header {
   width: 100%;
+  border-top: 0.3em solid $color-theme;
   box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.3);
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    .main-nav {
+      display: flex;
+      & > a {
+        height: 100%;
+        display: block;
+        text-decoration: none;
+        padding: 0 1rem;
+        &:hover {
+          background: #efefef;
+        }
+      }
+    }
+    .control-nav {
+      display: flex;
+    }
+  }
 }
 
 .session {
@@ -165,6 +186,9 @@ input, textarea {
   margin: 0.25rem;
   text-decoration: none;
   font-weight: normal;
+  &:active {
+    text-decoration: none;
+  }
   @each $theme, $color in $themes {
     &.#{$theme} {
       @include button-theme($color);
