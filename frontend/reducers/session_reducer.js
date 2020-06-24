@@ -1,22 +1,22 @@
 import { DELETE_SESSION, RECEIVE_SESSION } from "../actions/session_actions";
 
 const defaultState = {
-  user: null
+  user_id: null
 }
 
 /**
  * @typedef SessionState
- * @property {User | null} user
+ * @property {number | null} user_id
  */
 
 /**
- * @param {{user: User | null}} state
+ * @param {SessionState} state
  * @param {SessionActions} action
  */
 export default function sessionReducer(state = defaultState, action) {
   switch (action.type) {
     case RECEIVE_SESSION:
-      return { user: action.user };
+      return { user_id: action.user.id };
     case DELETE_SESSION:
       return defaultState;
     default:

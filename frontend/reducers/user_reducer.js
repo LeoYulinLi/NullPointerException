@@ -1,4 +1,5 @@
 import { RECEIVE_REVISIONS } from "../actions/post_actions";
+import { RECEIVE_SESSION } from "../actions/session_actions";
 
 /**
  * @typedef {Object<number, User>} UserState
@@ -12,6 +13,8 @@ export default function userReducer(state = {}, action) {
   switch (action.type) {
     case RECEIVE_REVISIONS:
       return { ...state, ...action.revisions.users };
+    case RECEIVE_SESSION:
+      return { ...state, [action.user.id]: action.user };
     default:
       return state;
   }

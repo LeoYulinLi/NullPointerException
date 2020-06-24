@@ -9,13 +9,13 @@ import { refreshSession } from "../actions/session_actions";
 import { clearSessionError } from "../actions/error_actions";
 import Ask from "./post/ask";
 import QuestionsIndex from "./post/questions_index";
+import { isLoggedInSelector } from "../selectors/selectors";
 
 const App = () => {
 
-  const usernameSelector = state => state.session.user ? state.session.user.username : null;
-  const username = useSelector(usernameSelector);
-
   const dispatch = useDispatch();
+
+  const isLoggedIn = useSelector(isLoggedInSelector)
 
   useEffect(() => {
     dispatch(refreshSession());
@@ -27,8 +27,7 @@ const App = () => {
     <div className="main">
       <Switch>
         <Route path="/" exact>
-          <h1>Hello, { username ? username : "Guest" }</h1>
-          { username && <QuestionsIndex/> }
+          { isLoggedIn ? <QuestionsIndex/> : <h1>Hello, Guest</h1>}
         </Route>
         <Route path="/questions" exact component={ QuestionsIndex }/>
         <AuthRoute path="/signup" component={ Signup }/>

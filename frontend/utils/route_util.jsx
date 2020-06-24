@@ -2,8 +2,7 @@ import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import React from "react";
 import { withRouter } from "react-router-dom";
-
-const isLoggedInSelector = state => !!state.session.user
+import { isLoggedInSelector } from "../selectors/selectors";
 
 const Auth = ({ path, component: Component }) => {
   const isLoggedIn = useSelector(isLoggedInSelector);
