@@ -1,4 +1,4 @@
-import { getQuestion, getQuestions, postQuestion } from "../utils/api_utlis";
+import { getQuestion, getQuestions, postQuestion, postQuestionAnswers } from "../utils/api_utlis";
 import { refreshSession } from "./session_actions";
 import { Action } from "redux";
 
@@ -8,10 +8,21 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
 /**
  * @typedef Revision
  * @property {number} id
- * @property {string} title
+ * @property {string} [title]
  * @property {string} body
  * @property {string} note
  * @property {number} post_id
+ * @property {number} user_id
+ * @property {string} created_at
+ */
+
+/**
+ * @typedef PostCurrent
+ * @property {number} post_id
+ * @property {number} revision_id
+ * @property {string} [title]
+ * @property {string} body
+ * @property {string} note
  * @property {number} user_id
  * @property {string} created_at
  */
@@ -40,8 +51,7 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
 
 /**
  * @typedef ThreadResponse
- * @property {Object.<number, {post_id: number, revision_id: number}>} posts
- * @property {Object.<number, Revision>} revisions
+ * @property {Object.<number, PostCurrent>} post_currents
  * @property {Object.<number, User>} users
  */
 
@@ -102,4 +112,15 @@ export function getQuestionThread(id) {
     return getQuestion(id)
       .then((response) => dispatch(receiveThread(response)));
   };
+}
+
+/**
+ * @param {number} id
+ * @param {{body: string}} post
+ */
+export function answerQuestion(id, post) {
+  return function (dispatch) {
+    return postQuestionAnswers(id, post)
+      .then(() => dispatch(refreshSession()));
+  }
 }

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getQuestionThread } from "../../actions/post_actions";
 import { useParams } from "react-router";
 import React from "react";
+import AnswerForm from "./answer_form";
 
 const { useEffect } = require("react");
 
@@ -14,31 +15,34 @@ const Thread = () => {
   /**
    * @param {RootState} state
    */
-  const allPostsSelector = state => Object.values(state.posts.posts);
+  const allPostsSelector = state => state.posts.post_currents ? Object.values(state.posts.post_currents) : [];
 
   /**
-   * @type {{post_id: number, revision_id: number}[]}
+   * @type {PostCurrent[]}
    */
   const allPosts = useSelector(allPostsSelector);
 
   /**
    * @param {RootState} state
    */
-  const allRevisionsSelector = state => state.posts.revisions;
+  const usersSelector = state => state.users
 
   /**
-   * @type {Object<number, Revision>}
+   * @type {Object<number, {display_name: string, id: number, username: string}>}
    */
-  const allRevision = useSelector(allRevisionsSelector);
+  const users = useSelector(usersSelector);
 
   useEffect(() => {
     dispatch(getQuestionThread(id));
   }, []);
 
 
-  return <p>
-    {JSON.stringify({ posts: allPosts, revisions: allRevision })}
-  </p>
+  return <div>
+    <p>
+      {JSON.stringify({ posts: allPosts, users: users })}
+    </p>
+    <AnswerForm id={id} />
+  </div>
 
 }
 

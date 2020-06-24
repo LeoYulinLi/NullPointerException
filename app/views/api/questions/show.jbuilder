@@ -1,14 +1,10 @@
-json.set! 'posts' do
-  @posts.each do |post|
-    json.set! post.id do
-      json.extract! post, :id, :question_id
-    end
-  end
-end
-json.set! 'revisions' do
+json.set! 'post_currents' do
   @thread.each do |revision|
-    json.set! revision.id do
-      json.extract! revision, :id, :title, :body, :note, :user_id,:post_id, :created_at
+    json.set! revision.post_id do
+      json.set! 'post_id', revision.post_id
+      json.set! 'revision_id', revision.id
+      json.set! 'title', revision.title if revision.title
+      json.extract! revision, :body, :note, :user_id, :created_at
     end
   end
 end

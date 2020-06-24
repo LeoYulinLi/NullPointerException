@@ -10,6 +10,7 @@ const defaultState = {
  * @typedef PostState
  * @property {Object.<number, {question_id: number, post_id: number}>} questions
  * @property {Object.<number, {post_id: number, revision_id: number}>} posts
+ * @property {Object<number, PostCurrent>} post_currents
  * @property {Object.<number, Revision>} revisions
  */
 
@@ -24,8 +25,8 @@ export default function postReducer(state = defaultState, action) {
       return { questions, posts, revisions };
     }
     case RECEIVE_THREAD: {
-      const { posts, revisions } = action.thread;
-      return { posts, revisions };
+      const { post_currents, revisions } = action.thread;
+      return { post_currents, revisions };
     }
     default:
       return state;

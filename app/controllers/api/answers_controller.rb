@@ -1,7 +1,7 @@
 class Api::AnswersController < ApplicationController
 
   def create
-    question = Question.find_by_id(params[:id])
+    question = Question.find_by_id(params[:question_id])
     render json: ['Question not found'], status: 404 unless question
 
     post = Post.new(question: question)
