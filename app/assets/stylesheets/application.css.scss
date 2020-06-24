@@ -110,19 +110,19 @@ a {
     margin: auto;
     .main-nav {
       display: flex;
-      & > a {
-        height: 100%;
-        display: block;
-        text-decoration: none;
-        padding: 0 1rem;
-        &:hover {
-          background: #efefef;
-        }
-      }
     }
     .control-nav {
       display: flex;
       align-items: baseline;
+    }
+    a {
+      height: 100%;
+      display: block;
+      text-decoration: none;
+      padding: 0 1rem;
+      &:hover {
+        background: #efefef;
+      }
     }
   }
 }

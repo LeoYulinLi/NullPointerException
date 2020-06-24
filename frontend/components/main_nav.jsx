@@ -29,7 +29,9 @@ const ControlNavLoggedIn = ({ userId }) => {
   const user = useSelector(userSelector);
 
   return <div className="control-nav">
-    <Link to={ `/users/${ userId }` }>{ user.display_name }</Link>
+    <Link to={ `/users/${ userId }` }>
+      <p>{ user.display_name }</p>
+    </Link>
     <button className="button primary" onClick={ () => dispatch(logout()) }>Log out</button>
   </div>
 }
