@@ -5,6 +5,7 @@ import React from "react";
 import AnswerForm from "./answer_form";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 const { useEffect } = require("react");
 
@@ -16,7 +17,7 @@ const { useEffect } = require("react");
 const Post = ({ body, author, time }) => {
   return <div className="post">
     <div className="post-body">
-      <div className="post-text">{ body }</div>
+      <ReactMarkdown disallowedTypes={['image', 'imageReference']} className="post-text" source={body} />
     </div>
     <div className="post-footer">
       <div className="post-menu">
