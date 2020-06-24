@@ -30,6 +30,7 @@ class Api::QuestionsController < ApplicationController
   def show
     @posts = Post.where(question_id: params[:id]).includes(:revisions)
     @thread = @posts.map(&:current)
+    @authors = @thread.map(&:user)
     render :show
   end
 
