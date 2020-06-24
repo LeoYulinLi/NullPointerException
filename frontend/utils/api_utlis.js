@@ -45,6 +45,12 @@ export function postQuestion(question) {
   });
 }
 
+export function getQuestions() {
+  return $.ajax({
+    url: `/api/questions`
+  });
+}
+
 /**
  * @param {EditQuestionForm} question
  */

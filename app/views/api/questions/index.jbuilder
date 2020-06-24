@@ -1,10 +1,16 @@
 json.set! 'questions' do
-  json.array! @all_questions.map(&:id)
+  @question_posts.each do |post|
+    json.set! post.question_id do
+      json.set! 'question_id', post.question_id
+      json.set! 'post_id', post.id
+    end
+  end
 end
 json.set! 'posts' do
-  @question_posts.each do |post|
-    json.set! post.id do
-      json.extract! post, :id, :question_id
+  @revisions.each do |revision|
+    json.set! revision.post_id do
+      json.set! 'post_id', revision.post_id
+      json.set! 'revision_id', revision.id
     end
   end
 end

@@ -8,6 +8,7 @@ import MainNav from "./main_nav";
 import { refreshSession } from "../actions/session_actions";
 import { clearSessionError } from "../actions/error_actions";
 import Ask from "./post/ask";
+import QuestionsIndex from "./post/questions_index";
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact>
           <h1>Hello, { username ? username : "Guest" }</h1>
+          <QuestionsIndex />
         </Route>
         <AuthRoute path="/signup" component={Signup} />
         <AuthRoute path="/login" component={Login} />
