@@ -1,6 +1,7 @@
 import { getQuestion, getQuestions, patchPost, postQuestion, postQuestionAnswers } from "../utils/api_utlis";
 import { refreshSession } from "./session_actions";
 import { Action } from "redux";
+import { receiveUiLoading } from "./ui_actions";
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_REVISIONS';
 export const RECEIVE_THREAD = 'RECEIVE_THREAD';
@@ -109,8 +110,12 @@ export function askQuestion(question) {
  */
 export function getQuestionThread(id) {
   return function (dispatch) {
+    dispatch(receiveUiLoading(true));
     return getQuestion(id)
-      .then((response) => dispatch(receiveThread(response)));
+      .then((response) => {
+        dispatch(receiveThread(response));
+        dispatch(receiveUiLoading(false));
+      }, () => receiveUiLoading(false));
   };
 }
 

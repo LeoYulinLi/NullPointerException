@@ -6,6 +6,7 @@ import AnswerForm from "./answer_form";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import { uiLoadingSelector } from "../../selectors/selectors";
 
 const { useEffect } = require("react");
 
@@ -58,12 +59,14 @@ const Thread = () => {
    */
   const users = useSelector(usersSelector);
 
+  const loading = useSelector(uiLoadingSelector);
+
   useEffect(() => {
     dispatch(getQuestionThread(id));
   }, []);
 
 
-  return <div className="thread">
+  return !loading && <div className="thread">
     <h1>{ allPosts[0].title }</h1>
     { allPosts.map(post => {
       const author = users[post.user_id];
