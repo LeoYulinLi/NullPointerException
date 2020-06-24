@@ -6,8 +6,8 @@ import { userIdSelector } from "../selectors/selectors";
 
 const ControlNavGuest = () => {
   return <div className="control-nav">
-    <Link to="/login" className="button login">Log in</Link>
-    <Link to="/signup" className="button primary">Sign up</Link>
+    <Link to="/login" className="button button-login">Log in</Link>
+    <Link to="/signup" className="button button-primary">Sign up</Link>
   </div>
 }
 
@@ -32,7 +32,7 @@ const ControlNavLoggedIn = ({ userId }) => {
     <Link to={ `/users/${ userId }` }>
       <p>{ user.display_name }</p>
     </Link>
-    <button className="button primary" onClick={ () => dispatch(logout()) }>Log out</button>
+    <button className="button button-primary" onClick={ () => dispatch(logout()) }>Log out</button>
   </div>
 }
 

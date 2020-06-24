@@ -54,7 +54,7 @@ const Signup = () => {
           <label htmlFor="password">Password</label>
           <input id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
         </div>
-        <button className="button primary">Sign Up</button>
+        <button className="button button-primary">Sign Up</button>
       </form>
     </div>
     <p className="session-help">Already have an account? <Link className="primary" to="/login">Log in</Link></p>

@@ -57,8 +57,8 @@ const Login = () => {
           <label htmlFor="password">Password</label>
           <input id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
         </div>
-        <button type="button" className="button muted" onClick={ event => fillDemo(event) }>Fill Demo Login</button>
-        <button className="button primary">Login</button>
+        <button type="button" className="button button-muted" onClick={ event => fillDemo(event) }>Fill Demo Login</button>
+        <button className="button button-primary">Login</button>
       </form>
     </div>
     <p className="session-help">Don't have an account? <Link className="primary" to="/signup">Sign up</Link></p>

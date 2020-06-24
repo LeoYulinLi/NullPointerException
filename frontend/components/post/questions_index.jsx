@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { getQuestionIndex } from "../../actions/post_actions";
 import QuestionIndexItem from "./question_index_item";
+import { Link } from "react-router-dom";
 
 const QuestionsIndex = () => {
 
@@ -40,11 +41,15 @@ const QuestionsIndex = () => {
     return revisions[questionPosts[id].revision_id]
   }
   return <div className="question-list">
-    { questionIndex.map(({ question_id }) =>
+    <div className="question-list-header">
+      <h1>All Questions</h1>
+      <Link to="/ask" className="button button-primary">Ask Question</Link>
+    </div>
+    { questionIndex.map(({ post_id, question_id }) =>
       <QuestionIndexItem
         key={`question-${question_id}`}
         question_id={question_id}
-        revision={getContentById(question_id)}
+        revision={getContentById(post_id)}
       />)
     }
   </div>

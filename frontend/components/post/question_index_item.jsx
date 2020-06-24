@@ -20,7 +20,7 @@ const QuestionIndexItem = ({ question_id, revision }) => {
   const users = useSelector(usersSelector);
 
   return <div className="question-item">
-    <h3><Link to={ `/questions/${ question_id }` }>{ revision.title }</Link></h3>
+    <h2><Link to={ `/questions/${ question_id }` }>{ revision.title }</Link></h2>
     <div className="info">
       <div className="tags">
         <ul>
