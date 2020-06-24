@@ -10,6 +10,7 @@ import { clearSessionError } from "../actions/error_actions";
 import Ask from "./post/ask";
 import QuestionsIndex from "./post/questions_index";
 import { isLoggedInSelector } from "../selectors/selectors";
+import Thread from "./post/thread";
 
 const App = () => {
 
@@ -30,6 +31,7 @@ const App = () => {
           { isLoggedIn ? <QuestionsIndex/> : <h1>Hello, Guest</h1>}
         </Route>
         <Route path="/questions" exact component={ QuestionsIndex }/>
+        <Route path="/questions/:id" exact component={ Thread } />
         <AuthRoute path="/signup" component={ Signup }/>
         <AuthRoute path="/login" component={ Login }/>
         <ProtectedRoute path="/ask" component={ Ask }/>

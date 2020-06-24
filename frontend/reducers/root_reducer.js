@@ -17,7 +17,7 @@ export default rootReducer;
  * @typedef RootState
  * @property {SessionState} session
  * @property {ErrorState} errors
- * @property {QuestionIndexResponse} posts
+ * @property {PostState} posts
  * @property {UserState} users
  */
 

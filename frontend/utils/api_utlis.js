@@ -52,6 +52,16 @@ export function getQuestions() {
 }
 
 /**
+ * @param {number} id
+ */
+export function getQuestion(id) {
+  return $.ajax({
+    url: `/api/questions/${id}`
+  });
+}
+
+/**
+ * TODO: use [PATCH] /api/posts/:id instead
  * @param {EditQuestionForm} question
  */
 export function patchQuestion(question) {

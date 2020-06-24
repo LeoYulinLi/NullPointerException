@@ -1,4 +1,4 @@
-import { RECEIVE_REVISIONS } from "../actions/post_actions";
+import { RECEIVE_QUESTIONS } from "../actions/post_actions";
 import { RECEIVE_SESSION } from "../actions/session_actions";
 
 /**
@@ -11,7 +11,7 @@ import { RECEIVE_SESSION } from "../actions/session_actions";
  */
 export default function userReducer(state = {}, action) {
   switch (action.type) {
-    case RECEIVE_REVISIONS:
+    case RECEIVE_QUESTIONS:
       return { ...state, ...action.revisions.users };
     case RECEIVE_SESSION:
       return { ...state, [action.user.id]: action.user };

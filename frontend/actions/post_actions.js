@@ -1,8 +1,9 @@
-import { getQuestions, postQuestion } from "../utils/api_utlis";
+import { getQuestion, getQuestions, postQuestion } from "../utils/api_utlis";
 import { refreshSession } from "./session_actions";
 import { Action } from "redux";
 
-export const RECEIVE_REVISIONS = 'RECEIVE_REVISIONS'
+export const RECEIVE_QUESTIONS = 'RECEIVE_REVISIONS';
+export const RECEIVE_THREAD = 'RECEIVE_THREAD';
 
 /**
  * @typedef Revision
@@ -16,12 +17,17 @@ export const RECEIVE_REVISIONS = 'RECEIVE_REVISIONS'
  */
 
 /**
- * @typedef {Action<RECEIVE_REVISIONS>} ReceiveRevisionsAction
+ * @typedef {Action<RECEIVE_QUESTIONS>} ReceiveQuestionsAction
  * @property {QuestionIndexResponse} revisions
  */
 
 /**
- * @typedef {ReceiveRevisionsAction} PostActions
+ * @typedef {Action<RECEIVE_THREAD>} ReceiveThreadAction
+ * @property {ThreadResponse} thread
+ */
+
+/**
+ * @typedef {ReceiveQuestionsAction | ReceiveThreadAction} PostActions
  */
 
 /**
@@ -32,22 +38,38 @@ export const RECEIVE_REVISIONS = 'RECEIVE_REVISIONS'
  * @property {Object.<number, User>} users
  */
 
+/**
+ * @typedef ThreadResponse
+ * @property {Object.<number, {post_id: number, revision_id: number}>} posts
+ * @property {Object.<number, Revision>} revisions
+ * @property {Object.<number, User>} users
+ */
 
 /**
  * @param {QuestionIndexResponse} revisions
- * @return {ReceiveRevisionsAction}
+ * @return {ReceiveQuestionsAction}
  */
-function receiveRevision(revisions) {
+function receiveQuestions(revisions) {
   return {
-    type: RECEIVE_REVISIONS,
+    type: RECEIVE_QUESTIONS,
     revisions: revisions
+  }
+}
+
+/**
+ * @param  {ThreadResponse} thread
+ * @returns {ReceiveThreadAction}
+ */
+function receiveThread(thread) {
+  return {
+    type: RECEIVE_THREAD,
+    thread
   }
 }
 
 /**
  * @typedef QuestionSummary
  * @property {Revision} revision
- * @property
  */
 
 /**
@@ -61,13 +83,23 @@ function receiveQuestion(question) {
 export function getQuestionIndex() {
   return function (dispatch) {
     return getQuestions()
-      .then((response) => dispatch(receiveRevision(response)));
+      .then((response) => dispatch(receiveQuestions(response)));
   };
 }
 
 export function askQuestion(question) {
   return function (dispatch) {
-    postQuestion(question)
-      .then(() => dispatch(refreshSession()))
+    return postQuestion(question)
+      .then(() => dispatch(refreshSession()));
   }
+}
+
+/**
+ * @param {number} id
+ */
+export function getQuestionThread(id) {
+  return function (dispatch) {
+    return getQuestion(id)
+      .then((response) => dispatch(receiveThread(response)));
+  };
 }
