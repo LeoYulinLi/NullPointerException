@@ -12,6 +12,7 @@ class Api::PostsController < ApplicationController
     if revision.save
       render json: {}, status: 204
     else
+      p revision.errors.full_messages
       render json: revision.errors.full_messages, status: 422
     end
   end

@@ -11,6 +11,7 @@ import Ask from "./post/ask";
 import QuestionsIndex from "./post/questions_index";
 import { isLoggedInSelector } from "../selectors/selectors";
 import Thread from "./post/thread";
+import EditForm from "./post/edit_form";
 
 const App = () => {
 
@@ -35,6 +36,7 @@ const App = () => {
         <AuthRoute path="/signup" component={ Signup }/>
         <AuthRoute path="/login" component={ Login }/>
         <ProtectedRoute path="/ask" component={ Ask }/>
+        <ProtectedRoute path="/posts/:id/edit" exact component={ EditForm } />
         <Route path="/"><h1>Nothing to See Here owo</h1></Route>
       </Switch>
     </div>

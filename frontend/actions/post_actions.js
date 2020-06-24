@@ -1,4 +1,4 @@
-import { getQuestion, getQuestions, postQuestion, postQuestionAnswers } from "../utils/api_utlis";
+import { getQuestion, getQuestions, patchPost, postQuestion, postQuestionAnswers } from "../utils/api_utlis";
 import { refreshSession } from "./session_actions";
 import { Action } from "redux";
 
@@ -121,6 +121,16 @@ export function getQuestionThread(id) {
 export function answerQuestion(id, post) {
   return function (dispatch) {
     return postQuestionAnswers(id, post)
+      .then(() => dispatch(refreshSession()));
+  }
+}
+
+/**
+ * @param {EditPostForm} post
+ */
+export function editPost(post) {
+  return function (dispatch) {
+    return patchPost(post)
       .then(() => dispatch(refreshSession()));
   }
 }

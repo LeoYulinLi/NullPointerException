@@ -73,13 +73,12 @@ export function postQuestionAnswers(id, post) {
 }
 
 /**
- * TODO: use [PATCH] /api/posts/:id instead
- * @param {EditQuestionForm} question
+ * @param {EditPostForm} post
  */
-export function patchQuestion(question) {
+export function patchPost(post) {
   return $.ajax({
-    url: `/api/questions/${question.id}`,
+    url: `/api/posts/${post.id}`,
     method: 'PATCH',
-    data: { question }
-  })
+    data: { post }
+  });
 }
