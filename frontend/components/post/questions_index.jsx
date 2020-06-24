@@ -39,9 +39,13 @@ const QuestionsIndex = () => {
   function getContentById(id) {
     return revisions[questionPosts[id].revision_id]
   }
-  return <div>
+  return <div className="question-list">
     { questionIndex.map(({ question_id }) =>
-      <QuestionIndexItem question_id={question_id} revision={getContentById(question_id)} />)
+      <QuestionIndexItem
+        key={`question-${question_id}`}
+        question_id={question_id}
+        revision={getContentById(question_id)}
+      />)
     }
   </div>
 

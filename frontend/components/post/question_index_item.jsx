@@ -19,9 +19,20 @@ const QuestionIndexItem = ({ question_id, revision }) => {
    */
   const users = useSelector(usersSelector);
 
-  return <div>
-    <Link to={ `/questions/${ question_id }` }>{ revision.title }</Link>
-    <small>{ users[revision.user_id].display_name } asked { moment(revision.created_at).fromNow() }</small>
+  return <div className="question-item">
+    <h3><Link to={ `/questions/${ question_id }` }>{ revision.title }</Link></h3>
+    <div className="info">
+      <div className="tags">
+        <ul>
+          <li>PlaceHolder</li>
+          <li>PlaceHolder</li>
+        </ul>
+      </div>
+      <small>
+        <Link to={ `/questions/${ question_id }` } >asked { moment(revision.created_at).fromNow() } </Link>
+        <Link to={ `/users/${ revision.user_id }` }>{ users[revision.user_id].display_name }</Link>
+      </small>
+    </div>
   </div>
 }
 
