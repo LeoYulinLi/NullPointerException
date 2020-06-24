@@ -3,8 +3,32 @@ import { getQuestionThread } from "../../actions/post_actions";
 import { useParams } from "react-router";
 import React from "react";
 import AnswerForm from "./answer_form";
+import moment from "moment";
+import { Link } from "react-router-dom";
 
 const { useEffect } = require("react");
+
+/**
+ * @param {string} body
+ * @param {User} author
+ * @param {string} time
+ */
+const Post = ({ body, author, time }) => {
+  return <div className="post">
+    <div className="post-body">
+      <div className="post-text">{ body }</div>
+    </div>
+    <div className="post-footer">
+      <div className="post-menu">
+        <a href="#">Edit</a>
+      </div>
+      <div className="post-signature">
+        <span>{ moment(time).fromNow() }</span>
+        <Link to={`/users/${author.id}`}>{ author.display_name }</Link>
+      </div>
+    </div>
+  </div>
+}
 
 const Thread = () => {
 
@@ -37,11 +61,12 @@ const Thread = () => {
   }, []);
 
 
-  return <div>
-    <p>
-      {JSON.stringify({ posts: allPosts, users: users })}
-    </p>
-    <AnswerForm id={id} />
+  return <div className="thread">
+    { allPosts.map(post => {
+      const author = users[post.user_id];
+      return <Post author={ author } body={ post.body } time={ post.created_at }/>
+    }) }
+    <AnswerForm id={ id }/>
   </div>
 
 }

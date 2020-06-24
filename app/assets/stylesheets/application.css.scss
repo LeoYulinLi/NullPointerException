@@ -25,6 +25,7 @@ $color-danger: #ef5440;
 $color-muted: #cccccc;
 $border-color: #a3a3a3;
 $default-border-radius: 0.25rem;
+$background-highlight-color: #e3f3f6;
 
 $themes: (
         primary: $color-primary,
@@ -236,7 +237,7 @@ input, textarea {
     }
   }
   &.login {
-    @include button-theme(#e3f3f6);
+    @include button-theme($background-highlight-color);
     color: #0c465a;
     border: 1px solid #257089;
   }
@@ -275,6 +276,42 @@ input, textarea {
     border-bottom: 0.075em solid #dddddd;
   }
 }
+
+.thread {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .post {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1em 0;
+    border-bottom: 0.075em solid #dddddd;
+    .post-text {
+      font-size: 1rem;
+      line-height: 1.5;
+      padding: 1em 0;
+    }
+    .post-footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .post-menu {
+        display: flex;
+      }
+      .post-signature {
+        display: flex;
+        flex-direction: column;
+        background: $background-highlight-color;
+        border-radius: $default-border-radius;
+        padding: 0.2em 0.5em;
+      }
+    }
+  }
+
+}
+
 
 * {
   box-sizing: border-box;
