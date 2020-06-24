@@ -12,7 +12,7 @@ const QuestionsIndex = () => {
   }, []);
 
 
-  const questionIndexSelector = state => Object.values(state.posts.questions);
+  const questionIndexSelector = state => state.posts.questions ? Object.values(state.posts.questions) : [];
 
   /**
    * @type {{question_id: number, post_id: number}[]}
