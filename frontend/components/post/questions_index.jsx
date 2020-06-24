@@ -10,17 +10,30 @@ const QuestionsIndex = () => {
     dispatch(getQuestionIndex());
   }, []);
 
-  const questionIndexSelector = state => Object.values(state.posts.questions)
+
+  /**
+   * @param {RootState} state
+   */
+  const questionIndexSelector = state => state.posts.questions
   const questionIndex = useSelector(questionIndexSelector);
   const questionPostsSelector = state => state.posts.posts;
   const questionPosts = useSelector(questionPostsSelector);
   const revisionSelector = state => state.posts.revisions
   const revisions = useSelector(revisionSelector)
 
+  /**
+   * @param {number} id
+   * @returns {Revision}
+   */
+  function getContentById(id) {
+    return revisions[questionPosts[id].revision_id]
+  }
+
   return <div>
-    {questionIndex.map(i => <p>
-      {revisions[questionPosts[i.question_id].revision_id].title}
-    </p>)}
+    { questionIndex.map(({ question_id }) => <>
+      <p>{ getContentById(question_id).title }</p>
+      <p>{ getContentById(question_id).created_at }</p>
+    </>) }
   </div>
 
 }

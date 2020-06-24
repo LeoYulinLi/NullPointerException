@@ -5,6 +5,11 @@ const defaultState = {
 }
 
 /**
+ * @typedef SessionState
+ * @property {User | null} user
+ */
+
+/**
  * @param {{user: User | null}} state
  * @param {SessionActions} action
  */

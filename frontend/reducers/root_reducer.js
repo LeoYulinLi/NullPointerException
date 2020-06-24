@@ -12,7 +12,10 @@ const rootReducer = combineReducers({
 export default rootReducer;
 
 /**
- * @typedef {ReturnType<typeof rootReducer>} RootState
+ * @typedef RootState
+ * @property {SessionState} session
+ * @property {ErrorState} errors
+ * @property {QuestionIndexResponse} posts
  */
 
 /**

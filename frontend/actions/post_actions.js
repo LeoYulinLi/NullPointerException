@@ -12,7 +12,7 @@ export const RECEIVE_REVISIONS = 'RECEIVE_REVISIONS'
  * @property {string} note
  * @property {number} post_id
  * @property {number} user_id
- * @property {string} create_at
+ * @property {string} created_at
  */
 
 /**
