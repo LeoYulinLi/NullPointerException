@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editPost } from "../../actions/post_actions";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 /**
  * @typedef EditPostForm
@@ -30,7 +30,7 @@ const EditForm = () => {
 
   const [title, setTitle] = useState(post.title);
   const [body, setBody] = useState(post.body);
-  const [note, setNote] = useState();
+  const [note, setNote] = useState("");
 
   const dispatch = useDispatch();
 

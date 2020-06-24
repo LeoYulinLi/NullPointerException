@@ -18,15 +18,15 @@ const { useEffect } = require("react");
 const Post = ({ body, author, time, id }) => {
   return <div className="post">
     <div className="post-body">
-      <ReactMarkdown disallowedTypes={['image', 'imageReference']} className="post-text" source={body} />
+      <ReactMarkdown disallowedTypes={ ['image', 'imageReference'] } className="post-text" source={ body }/>
     </div>
     <div className="post-footer">
       <div className="post-menu">
-        <Link to={`/posts/${id}/edit`}>Edit</Link>
+        <Link to={ `/posts/${ id }/edit` }>Edit</Link>
       </div>
       <div className="post-signature">
         <span>{ moment(time).fromNow() }</span>
-        <Link to={`/users/${author.id}`}>{ author.display_name }</Link>
+        <Link to={ `/users/${ author.id }` }>{ author.display_name }</Link>
       </div>
     </div>
   </div>
@@ -64,9 +64,10 @@ const Thread = () => {
 
 
   return <div className="thread">
+    <h1>{ allPosts[0].title }</h1>
     { allPosts.map(post => {
       const author = users[post.user_id];
-      return <Post author={ author } body={ post.body } time={ post.created_at } id={post.post_id} />
+      return <Post author={ author } body={ post.body } time={ post.created_at } id={ post.post_id }/>
     }) }
     <AnswerForm id={ id }/>
   </div>
