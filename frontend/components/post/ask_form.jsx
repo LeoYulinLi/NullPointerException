@@ -19,7 +19,7 @@ import { askQuestion } from "../../actions/post_actions";
 /**
  * Ask Question Component
  */
-const Ask = () => {
+const AskForm = () => {
 
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
@@ -35,21 +35,21 @@ const Ask = () => {
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="title">
-          Title
+          <strong>Title</strong>
           <small>Be specific and imagine you’re asking a question to another person</small>
         </label>
         <input id="title" type="text" value={ title } onChange={ event => setTitle(event.target.value) }/>
       </div>
       <div className="form-group">
         <label htmlFor="body">
-          Body
+          <strong>Body</strong>
           <small>Include all the information someone would need to answer your question</small>
         </label>
         <textarea id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
       </div>
-      <button>Submit</button>
+      <button className="button button-primary">Submit</button>
     </form>
   </div>
 };
 
-export default Ask;
+export default AskForm;

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MainNav from "./main_nav";
 import { refreshSession } from "../actions/session_actions";
 import { clearSessionError } from "../actions/error_actions";
-import Ask from "./post/ask";
+import AskForm from "./post/ask_form";
 import QuestionsIndex from "./post/questions_index";
 import { isLoggedInSelector } from "../selectors/selectors";
 import Thread from "./post/thread";
@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/questions/:id" exact component={ Thread } />
         <AuthRoute path="/signup" component={ Signup }/>
         <AuthRoute path="/login" component={ Login }/>
-        <ProtectedRoute path="/ask" component={ Ask }/>
+        <ProtectedRoute path="/ask" component={ AskForm }/>
         <ProtectedRoute path="/posts/:id/edit" exact component={ EditForm } />
         <Route path="/"><h1>Nothing to See Here owo</h1></Route>
       </Switch>
