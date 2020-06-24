@@ -9,6 +9,7 @@ export const DELETE_SESSION = 'DELETE_SESSION';
  * @typedef User
  * @property {number} id
  * @property {string} username
+ * @property {string} display_name
  */
 
 /**

@@ -29,6 +29,7 @@ export const RECEIVE_REVISIONS = 'RECEIVE_REVISIONS'
  * @property {Object.<number, {question_id: number, post_id: number}>} questions
  * @property {Object.<number, {post_id: number, revision_id: number}>} posts
  * @property {Object.<number, Revision>} revisions
+ * @property {Object.<number, User>} users
  */
 
 

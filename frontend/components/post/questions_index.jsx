@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { getQuestionIndex } from "../../actions/post_actions";
+import QuestionIndexItem from "./question_index_item";
 
 const QuestionsIndex = () => {
 
@@ -11,10 +12,10 @@ const QuestionsIndex = () => {
   }, []);
 
 
-  const questionIndexSelector = state => state.posts.questions;
+  const questionIndexSelector = state => Object.values(state.posts.questions);
 
   /**
-   * @type {Object<number, {question_id: number, post_id: number}>}
+   * @type {{question_id: number, post_id: number}[]}
    */
   const questionIndex = useSelector(questionIndexSelector);
 
@@ -38,12 +39,10 @@ const QuestionsIndex = () => {
   function getContentById(id) {
     return revisions[questionPosts[id].revision_id]
   }
-
   return <div>
-    { questionIndex.map(({ question_id }) => <>
-      <p>{ getContentById(question_id).title }</p>
-      <p>{ getContentById(question_id).created_at }</p>
-    </>) }
+    { questionIndex.map(({ question_id }) =>
+      <QuestionIndexItem question_id={question_id} revision={getContentById(question_id)} />)
+    }
   </div>
 
 }

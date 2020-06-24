@@ -23,6 +23,7 @@ class Api::QuestionsController < ApplicationController
     @all_questions = Question.all.includes(:posts)
     @question_posts = @all_questions.map { |question| question.posts.first }
     @revisions = @question_posts.map(&:current)
+    @authors = @revisions.map(&:user)
     render :index
   end
 
