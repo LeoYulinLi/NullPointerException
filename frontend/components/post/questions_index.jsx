@@ -14,9 +14,13 @@ const QuestionsIndex = () => {
   const questionIndex = useSelector(questionIndexSelector);
   const questionPostsSelector = state => state.posts.posts;
   const questionPosts = useSelector(questionPostsSelector);
+  const revisionSelector = state => state.posts.revisions
+  const revisions = useSelector(revisionSelector)
 
   return <div>
-    {questionIndex.map(i => <p>{JSON.stringify(i)}</p>)}
+    {questionIndex.map(i => <p>
+      {revisions[questionPosts[i.question_id].revision_id].title}
+    </p>)}
   </div>
 
 }
