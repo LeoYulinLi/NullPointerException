@@ -23,16 +23,18 @@ const App = () => {
   })
 
   return <HashRouter>
-    <MainNav />
+    <MainNav/>
     <div className="main">
       <Switch>
         <Route path="/" exact>
           <h1>Hello, { username ? username : "Guest" }</h1>
-          <QuestionsIndex />
+          { username && <QuestionsIndex/> }
         </Route>
-        <AuthRoute path="/signup" component={Signup} />
-        <AuthRoute path="/login" component={Login} />
-        <ProtectedRoute path="/ask" component={Ask} />
+        <Route path="/questions" exact component={ QuestionsIndex }/>
+        <AuthRoute path="/signup" component={ Signup }/>
+        <AuthRoute path="/login" component={ Login }/>
+        <ProtectedRoute path="/ask" component={ Ask }/>
+        <Route path="/"><h1>Nothing to See Here owo</h1></Route>
       </Switch>
     </div>
   </HashRouter>

@@ -1,4 +1,3 @@
-import { Action } from "redux";
 import { RECEIVE_REVISIONS } from "../actions/post_actions";
 
 /**
