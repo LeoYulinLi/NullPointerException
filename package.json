@@ -30,6 +30,10 @@
     "build": "webpack --mode=production",
     "start": "webpack -w --mode=development"
   },
+  "engines": {
+    "node": "12.5.0",
+    "npm": "6.9.0"
+  },
   "license": "MIT",
   "author": "LeoYulinLi"
 }
