@@ -11,19 +11,29 @@ const QuestionsIndex = () => {
   }, []);
 
 
+  const questionIndexSelector = state => state.posts.questions;
+
   /**
-   * @param {RootState} state
+   * @type {Object<number, {question_id: number, post_id: number}>}
    */
-  const questionIndexSelector = state => state.posts.questions
   const questionIndex = useSelector(questionIndexSelector);
+
   const questionPostsSelector = state => state.posts.posts;
+
+  /**
+   * @type {Object<number, {post_id: number, revision_id: number}>}
+   */
   const questionPosts = useSelector(questionPostsSelector);
-  const revisionSelector = state => state.posts.revisions
-  const revisions = useSelector(revisionSelector)
+
+  const revisionSelector = state => state.posts.revisions;
+
+  /**
+   * @type {Object<number, Revision>}
+   */
+  const revisions = useSelector(revisionSelector);
 
   /**
    * @param {number} id
-   * @returns {Revision}
    */
   function getContentById(id) {
     return revisions[questionPosts[id].revision_id]
