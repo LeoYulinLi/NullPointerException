@@ -34,20 +34,4 @@ class Api::QuestionsController < ApplicationController
     render :show
   end
 
-  def update
-    post = Post.find_by_question_id(params[:id])
-    revision = Revision.new(
-      title: params[:question][:title],
-      body: params[:question][:body],
-      note: params[:question][:note],
-      user: current_user,
-      post: post
-    )
-    if revision.save
-      render json: {}, status: 204
-    else
-      render json: revision.errors.full_messages, status: 422
-    end
-  end
-
 end

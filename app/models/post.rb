@@ -4,8 +4,4 @@ class Post < ApplicationRecord
 
   has_many :revisions
 
-  def current
-    Revision.where(post_id: id).last
-  end
-
 end
