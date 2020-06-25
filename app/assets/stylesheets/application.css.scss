@@ -89,6 +89,7 @@ a {
 
   h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.35em;
+    margin-top: 0;
     font-weight: normal;
   }
 
@@ -98,6 +99,13 @@ a {
 
   code, pre {
     font-family: "Noto Sans Mono", monospace;
+    font-size: 0.9em;
+    line-height: 1;
+  }
+
+  pre {
+    background: $background-color-light;
+    padding: 0.5em;
   }
 
   :not(pre) > code {
