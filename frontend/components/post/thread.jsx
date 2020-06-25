@@ -16,18 +16,20 @@ const { useEffect } = require("react");
  * @param {User} author
  * @param {string} time
  * @param {number} id
+ * @param {number} question_id
  */
-const Post = ({ body, author, time, id }) => {
+const Post = ({ body, author, time, id, question_id }) => {
+  const actionWord = id.toString() === question_id.toString() ? 'asked' : 'answered'
   return <div className="post">
     <div className="post-body">
       <ReactMarkdown disallowedTypes={ ['image', 'imageReference'] } className="post-text" source={ body }/>
     </div>
     <div className="post-footer">
       <div className="post-menu">
-        <Link to={ `/posts/${ id }/edit` }>Edit</Link>
+        <Link to={ `/posts/${ id }/edit` }>edit</Link>
       </div>
       <div className="post-signature">
-        <span>{ moment(time).fromNow() }</span>
+        <span>{ actionWord } { moment(time).fromNow() }</span>
         <Link to={ `/users/${ author.id }` }>{ author.display_name }</Link>
       </div>
     </div>
@@ -69,7 +71,16 @@ const Thread = () => {
 
   return !loading && <div className="thread">
     <AskQuestionHeader headerText={ allPosts[0]?.title }/>
-
+    <div className="thread-statistic">
+      <div className="stat-item" title={ allPosts[0]?.created_at }>
+        <span className="stat-key">Asked</span>
+        <time dateTime={ allPosts[0]?.created_at }>{ moment(allPosts[0]?.created_at).fromNow() }</time>
+      </div>
+      <div className="stat-item" title={ allPosts[0]?.created_at }>
+        <span className="stat-key">Active</span>
+        <time dateTime={ allPosts[0]?.created_at }>{ moment(allPosts[0]?.created_at).fromNow() }</time>
+      </div>
+    </div>
     { allPosts.map(post => {
       const author = users[post.user_id];
       return <Post
@@ -78,6 +89,7 @@ const Thread = () => {
         body={ post.body }
         time={ post.created_at }
         id={ post.post_id }
+        question_id={ post.question_id }
       />
     }) }
     <AnswerForm id={ id }/>

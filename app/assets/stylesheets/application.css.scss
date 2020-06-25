@@ -16,7 +16,7 @@
 $background-color: #ffffff;
 $background-color-light: #efefef;
 $text-default: #333333;
-$text-default-secondary: #666666;
+$text-default-secondary: #848484;
 $color-theme: #ffa11a;
 $color-primary: #0e98db;
 $color-secondary: #89eaea;
@@ -26,7 +26,7 @@ $color-muted: #cccccc;
 $border-color: #a3a3a3;
 $default-border-radius: 0.25rem;
 $small-border-radius: 0.1rem;
-$background-highlight-color: #e3f3f6;
+$background-highlight-color: #e2edf1;
 $default-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 
 $themes: (
@@ -55,6 +55,16 @@ a {
   }
 }
 
+@mixin link-color($color) {
+  color: darken($color, 10%);
+  &:hover {
+    color: $color;
+  }
+  &:active {
+    color: darken($color, 5%);
+  }
+}
+
 .main {
   max-width: 768px;
   margin: auto;
@@ -62,7 +72,7 @@ a {
   justify-content: center;
   flex-flow: column;
   align-items: baseline;
-  padding: 1rem;
+  padding: 2rem;
 
   h1, h2, h3, h4, h5, h6, p, small, span {
     @each $theme, $color in $themes {
@@ -403,6 +413,9 @@ textarea {
 
       .post-menu {
         display: flex;
+        & > a {
+          @include link-color($text-default-secondary);
+        }
       }
 
       .post-signature {
@@ -415,6 +428,19 @@ textarea {
     }
   }
 
+}
+
+.thread-statistic {
+  display: flex;
+  .stat-item {
+    margin-right: 1em;
+    .stat-key {
+      color: $text-default-secondary;
+      margin-right: 0.5em;
+    }
+  }
+  padding-bottom: 1em;
+  border-bottom: 0.05rem solid #dddddd;
 }
 
 .post-text {
@@ -444,6 +470,11 @@ textarea {
 
   h6 {
     font-size: 1rem;
+  }
+
+  blockquote {
+    border-left: 0.2em solid $border-color;
+    padding-left: 0.5em;
   }
 }
 
