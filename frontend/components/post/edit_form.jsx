@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editPost } from "../../actions/post_actions";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router";
+import ReactMarkdown from "react-markdown";
 
 /**
  * @typedef EditPostForm
@@ -47,15 +48,15 @@ const EditForm = () => {
     <form onSubmit={ handleSubmit }>
       <div className="form-group">
         <label htmlFor="title">
-          Title
+          <strong>Title</strong>
         </label>
         <input required id="title" type="text" value={ title } onChange={ event => setTitle(event.target.value) }/>
       </div>
       <div className="form-group">
         <label htmlFor="body">
-          Body
+          <strong>Body</strong>
         </label>
-        <textarea required id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
+        <textarea required rows={ 15 } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
       </div>
       <div className="form-group">
         <label htmlFor="note">
@@ -70,6 +71,7 @@ const EditForm = () => {
           placeholder="briefly explain your changes (corrected spelling, fixed grammar, improved formatting)"
         />
       </div>
+      <ReactMarkdown className="post-text" source={body} />
       <button className="button button-primary">Submit</button>
     </form>
   </div>

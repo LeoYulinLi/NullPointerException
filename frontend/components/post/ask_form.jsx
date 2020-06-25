@@ -55,10 +55,10 @@ const AskForm = () => {
             <strong>Body</strong>
             <small>Include all the information someone would need to answer your question</small>
           </label>
-          <textarea required id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
+          <textarea required rows={ 15 } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
           <EditorHint />
         </div>
-        <ReactMarkdown source={body} />
+        <ReactMarkdown source={ body }/>
       </div>
       <button className="button button-primary">Submit</button>
     </form>

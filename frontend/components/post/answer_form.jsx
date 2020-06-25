@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { answerQuestion, askQuestion } from "../../actions/post_actions";
 import { useDispatch } from "react-redux";
+import ReactMarkdown from "react-markdown";
 
 /**
  * @param {number} id
@@ -13,13 +14,17 @@ const AnswerForm = ({ id }) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(answerQuestion(id,{ body }));
+    dispatch(answerQuestion(id, { body }));
   }
 
   return <div className="post-page">
+    <h2>Your Answer</h2>
     <form onSubmit={ handleSubmit }>
-      <textarea id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
-      <button>Submit</button>
+      <div className="form-group">
+        <textarea rows={ 10 } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
+        <ReactMarkdown className="post-text" source={ body }/>
+      </div>
+      <button className="button button-primary">Submit</button>
     </form>
   </div>
 
