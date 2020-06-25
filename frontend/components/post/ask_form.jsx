@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { askQuestion } from "../../actions/post_actions";
 import ReactMarkdown from "react-markdown";
 import { EditorHint, FormBodyEditor } from "./widgets";
@@ -33,7 +33,7 @@ const AskForm = () => {
     dispatch(askQuestion({ title, body }));
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const $root = $('#root');
     $root.addClass("ask-page");
     return () => $root.removeClass("ask-page");
