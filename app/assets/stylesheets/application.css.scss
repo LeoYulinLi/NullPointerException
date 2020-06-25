@@ -274,6 +274,10 @@ input, textarea {
     outline: $color-primary;
   }
 
+  &:focus:invalid {
+    @include input-theme($color-danger);
+  }
+
   @each $theme, $color in $themes {
     &.#{$theme} {
       @include input-theme($color);

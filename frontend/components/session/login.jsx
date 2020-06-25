@@ -51,11 +51,11 @@ const Login = () => {
       <form onSubmit={ handleSubmit }>
         <div className="form-group">
           <label htmlFor="username">Username</label>
-          <input id="username" type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
+          <input required id="username" type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
+          <input required id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
         </div>
         <button type="button" className="button button-muted" onClick={ event => fillDemo(event) }>Fill Demo Login</button>
         <button className="button button-primary">Login</button>
