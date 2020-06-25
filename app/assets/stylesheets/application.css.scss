@@ -25,7 +25,9 @@ $color-danger: #ef5440;
 $color-muted: #cccccc;
 $border-color: #a3a3a3;
 $default-border-radius: 0.25rem;
+$small-border-radius: 0.1rem;
 $background-highlight-color: #e3f3f6;
+$default-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 
 $themes: (
         primary: $color-primary,
@@ -86,12 +88,23 @@ a {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
     margin-bottom: 0.35em;
+    font-weight: normal;
   }
 
   small {
     color: $text-default-secondary;
+  }
+
+  code, pre {
+    font-family: "Noto Sans Mono", monospace;
+  }
+
+  :not(pre) > code {
+    padding: 0 0.2em;
+    border-radius: $default-border-radius;
+    background: $background-color-light;
+    border: 0.05em solid $text-default;
   }
 
   p {
@@ -103,6 +116,7 @@ a {
   width: 100%;
   border-top: 0.3em solid $color-theme;
   box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.3);
+  background: #fafafa;
   .nav-container {
     display: flex;
     justify-content: space-between;
@@ -143,7 +157,7 @@ a {
   padding: 1em;
   background: white;
   border-radius: $default-border-radius;
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5);
+  box-shadow: $default-box-shadow;
   .button {
     width: 100%;
   }
@@ -181,8 +195,29 @@ a {
   }
 }
 
-.form-content {
+.ask-page {
   background: $background-color-light;
+  width: 100%;
+}
+
+.post-page {
+  width: 100%;
+}
+
+.ask-form-content {
+  background: white;
+  border-radius: $small-border-radius;
+  box-shadow: $default-box-shadow;
+  padding: 1rem;
+}
+
+.editor-hint {
+  display: flex;
+  align-items: baseline;
+  color: $text-default-secondary;
+  & > * {
+    margin-right: 0.2rem;
+  }
 }
 
 @mixin input-theme($color) {
@@ -198,6 +233,7 @@ input, textarea {
   padding: 0.5em;
   border: 1px solid $border-color;
   border-radius: $default-border-radius;
+  margin-bottom: 0.5em;
 
   &:focus {
     border-color: $color-primary;
@@ -326,6 +362,9 @@ input, textarea {
 
 }
 
+html, body, #root {
+  height: 100%;
+}
 
 * {
   box-sizing: border-box;
