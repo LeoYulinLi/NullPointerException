@@ -57,6 +57,7 @@ const EditForm = () => {
           <strong>Body</strong>
         </label>
         <textarea required rows={ 15 } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
+        <ReactMarkdown className="post-text" source={body} />
       </div>
       <div className="form-group">
         <label htmlFor="note">
@@ -71,7 +72,6 @@ const EditForm = () => {
           placeholder="briefly explain your changes (corrected spelling, fixed grammar, improved formatting)"
         />
       </div>
-      <ReactMarkdown className="post-text" source={body} />
       <button className="button button-primary">Submit</button>
     </form>
   </div>
