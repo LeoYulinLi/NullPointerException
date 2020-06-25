@@ -19,6 +19,7 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
 
 /**
  * @typedef PostCurrent
+ * @property {number} question_id
  * @property {number} post_id
  * @property {number} revision_id
  * @property {string} [title]

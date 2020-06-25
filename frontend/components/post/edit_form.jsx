@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editPost } from "../../actions/post_actions";
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router";
 
 /**
  * @typedef EditPostForm
@@ -17,6 +18,8 @@ import { useParams } from "react-router-dom";
 const EditForm = () => {
 
   const { id } = useParams();
+
+  const history = useHistory();
 
   /**
    * @param {RootState} state
@@ -36,7 +39,8 @@ const EditForm = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(editPost({ id, title, body, note }));
+    dispatch(editPost({ id, title, body, note }))
+      .then(() => history.push(`/questions/${post.question_id}`));
   }
 
   return <div className="post-page">
@@ -45,19 +49,20 @@ const EditForm = () => {
         <label htmlFor="title">
           Title
         </label>
-        <input id="title" type="text" value={ title } onChange={ event => setTitle(event.target.value) }/>
+        <input required id="title" type="text" value={ title } onChange={ event => setTitle(event.target.value) }/>
       </div>
       <div className="form-group">
         <label htmlFor="body">
           Body
         </label>
-        <textarea id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
+        <textarea required id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
       </div>
       <div className="form-group">
         <label htmlFor="note">
           Edit Summary
         </label>
         <input
+          required
           id="note"
           type="text"
           value={ note }

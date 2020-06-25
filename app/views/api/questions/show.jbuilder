@@ -1,6 +1,7 @@
 json.set! 'post_currents' do
   @thread.each do |revision|
     json.set! revision.post_id do
+      json.set! 'question_id', @question_id
       json.set! 'post_id', revision.post_id
       json.set! 'revision_id', revision.id
       json.set! 'title', revision.title if revision.title
