@@ -40,7 +40,7 @@ const EditForm = () => {
   function handleSubmit(event) {
     event.preventDefault();
     dispatch(editPost({ id, title, body, note }))
-      .then(() => history.push(`/questions/${post.question_id}`));
+      .then(() => history.push(`/questions/${ post.question_id }`));
   }
 
   return <div className="post-page">
@@ -70,7 +70,7 @@ const EditForm = () => {
           placeholder="briefly explain your changes (corrected spelling, fixed grammar, improved formatting)"
         />
       </div>
-      <button>Submit</button>
+      <button className="button button-primary">Submit</button>
     </form>
   </div>
 };

@@ -181,6 +181,10 @@ a {
   }
 }
 
+.form-content {
+  background: $background-color-light;
+}
+
 @mixin input-theme($color) {
   border: 1px solid $color;
   &:focus {
