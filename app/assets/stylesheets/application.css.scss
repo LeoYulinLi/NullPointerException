@@ -187,6 +187,7 @@ a {
 }
 
 .form-group {
+  font-size: 1rem;
   margin-bottom: 1em;
   display: flex;
   flex-direction: column;
@@ -197,7 +198,9 @@ a {
     font-weight: normal;
     display: flex;
     flex-direction: column;
-
+    .hint {
+        font-size: 0.75em;
+    }
     & > * {
       margin-bottom: 0.1em;
     }
@@ -218,12 +221,14 @@ a {
   border-radius: $small-border-radius;
   box-shadow: $default-box-shadow;
   padding: 1rem;
+  margin-bottom: 2rem;
 }
 
 .editor-hint {
   display: flex;
   align-items: baseline;
   color: $text-default-secondary;
+  font-size: 0.75em;
 
   & > * {
     margin-right: 0.2rem;

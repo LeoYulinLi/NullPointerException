@@ -46,19 +46,26 @@ const AskForm = () => {
         <div className="form-group">
           <label htmlFor="title">
             <strong>Title</strong>
-            <small>Be specific and imagine you’re asking a question to another person</small>
+            <small className="hint">Be specific and imagine you’re asking a question to another person</small>
           </label>
-          <input required id="title" type="text" value={ title } onChange={ event => setTitle(event.target.value) }/>
+          <input
+            required
+            id="title"
+            type="text"
+            value={ title }
+            onChange={ event => setTitle(event.target.value) }
+            placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="body">
             <strong>Body</strong>
-            <small>Include all the information someone would need to answer your question</small>
+            <small className="hint">Include all the information someone would need to answer your question</small>
           </label>
           <textarea required rows={ 15 } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
           <EditorHint />
         </div>
-        <ReactMarkdown source={ body }/>
+        <ReactMarkdown className="post-text" source={ body }/>
       </div>
       <button className="button button-primary">Submit</button>
     </form>
