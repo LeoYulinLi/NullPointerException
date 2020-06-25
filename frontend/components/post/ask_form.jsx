@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { askQuestion } from "../../actions/post_actions";
 import ReactMarkdown from "react-markdown";
-import { EditorHint } from "./widgets";
+import { EditorHint, FormBodyEditor } from "./widgets";
 
 /**
  * @typedef AskForm
@@ -41,7 +41,7 @@ const AskForm = () => {
 
   return <div className="post-page">
     <h1>Ask a public question</h1>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={ handleSubmit }>
       <div className="ask-form-content">
         <div className="form-group">
           <label htmlFor="title">
@@ -57,15 +57,14 @@ const AskForm = () => {
             placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="body">
-            <strong>Body</strong>
-            <small className="hint">Include all the information someone would need to answer your question</small>
-          </label>
-          <textarea required rows={ 15 } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
-          <EditorHint />
-        </div>
-        <ReactMarkdown className="post-text" source={ body }/>
+        <FormBodyEditor
+          body={ body }
+          setBody={ setBody }
+          rows={ 15 }
+          labelTitle={ "Body" }
+          hint={ "Include all the information someone would need to answer your question" }>
+          <EditorHint/>
+        </FormBodyEditor>
       </div>
       <button className="button button-primary">Submit</button>
     </form>

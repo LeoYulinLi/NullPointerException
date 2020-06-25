@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { answerQuestion, askQuestion } from "../../actions/post_actions";
 import { useDispatch } from "react-redux";
 import ReactMarkdown from "react-markdown";
+import { FormBodyEditor } from "./widgets";
 
 /**
  * @param {number} id
@@ -20,10 +21,7 @@ const AnswerForm = ({ id }) => {
   return <div className="post-page">
     <h2>Your Answer</h2>
     <form onSubmit={ handleSubmit }>
-      <div className="form-group">
-        <textarea rows={ 10 } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
-        <ReactMarkdown className="post-text" source={ body }/>
-      </div>
+      <FormBodyEditor body={ body } setBody={ setBody } rows={ 10 }/>
       <button className="button button-primary">Submit</button>
     </form>
   </div>

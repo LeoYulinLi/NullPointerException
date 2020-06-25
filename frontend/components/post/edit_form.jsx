@@ -4,6 +4,7 @@ import { editPost } from "../../actions/post_actions";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router";
 import ReactMarkdown from "react-markdown";
+import { FormBodyEditor } from "./widgets";
 
 /**
  * @typedef EditPostForm
@@ -52,13 +53,7 @@ const EditForm = () => {
         </label>
         <input required id="title" type="text" value={ title } onChange={ event => setTitle(event.target.value) }/>
       </div>
-      <div className="form-group">
-        <label htmlFor="body">
-          <strong>Body</strong>
-        </label>
-        <textarea required rows={ 15 } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
-        <ReactMarkdown className="post-text" source={body} />
-      </div>
+      <FormBodyEditor body={body} setBody={setBody} rows={15} labelTitle={"Body"} />
       <div className="form-group">
         <label htmlFor="note">
           Edit Summary
