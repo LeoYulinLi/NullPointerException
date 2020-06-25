@@ -7,6 +7,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { uiLoadingSelector } from "../../selectors/selectors";
+import { AskQuestionHeader } from "./widgets";
 
 const { useEffect } = require("react");
 
@@ -67,11 +68,12 @@ const Thread = () => {
 
 
   return !loading && <div className="thread">
-    <h1>{ allPosts[0]?.title }</h1>
+    <AskQuestionHeader headerText={ allPosts[0]?.title }/>
+
     { allPosts.map(post => {
       const author = users[post.user_id];
       return <Post
-        key={`post-${post.post_id}`}
+        key={ `post-${ post.post_id }` }
         author={ author }
         body={ post.body }
         time={ post.created_at }

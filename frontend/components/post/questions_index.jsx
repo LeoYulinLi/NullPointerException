@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { getQuestionIndex } from "../../actions/post_actions";
 import QuestionIndexItem from "./question_index_item";
 import { Link } from "react-router-dom";
+import { AskQuestionHeader } from "./widgets";
 
 const QuestionsIndex = () => {
 
@@ -41,10 +42,7 @@ const QuestionsIndex = () => {
     return revisions[questionPosts[id].revision_id]
   }
   return <div className="question-list">
-    <div className="question-list-header">
-      <h1>All Questions</h1>
-      <Link to="/ask" className="button button-primary">Ask Question</Link>
-    </div>
+    <AskQuestionHeader headerText={"All Questions"} />
     { questionIndex.map(({ post_id, question_id }) =>
       <QuestionIndexItem
         key={`question-${question_id}`}
