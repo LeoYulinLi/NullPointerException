@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { FormEvent, useLayoutEffect } from "react";
+import React, { FormEvent, useEffect, useLayoutEffect } from "react";
 import { login } from "../../actions/session_actions";
 import ErrorAlert from "../error/error_alert";
 import { Link } from "react-router-dom";
+import { clearSessionError } from "../../actions/error_actions";
 
 const { useState } = require("react");
 
@@ -29,7 +30,7 @@ const Login = () => {
   const errors = useSelector(errorsSelector);
 
   /**
-   * @param {FormEvent} event
+   * @param {React.FormEvent<HTMLFormElement>} event
    */
   function handleSubmit(event) {
     event.preventDefault();
@@ -48,6 +49,10 @@ const Login = () => {
     const $main = $('.main');
     $main.addClass('full-height');
     return () => $main.removeClass('full-height');
+  }, []);
+
+  useEffect(() => {
+    return () => dispatch(clearSessionError());
   }, []);
 
   return <div className="session-page">
