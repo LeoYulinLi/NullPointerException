@@ -72,7 +72,7 @@ a {
   justify-content: center;
   flex-flow: column;
   align-items: baseline;
-  padding: 2rem;
+  padding: 5rem 2rem 2rem 2rem;
 
   h1, h2, h3, h4, h5, h6, p, small, span {
     @each $theme, $color in $themes {
@@ -131,10 +131,12 @@ a {
 }
 
 .header {
+  position: fixed;
   width: 100%;
-  border-top: 0.3em solid $color-theme;
+  border-top: 0.25rem solid $color-theme;
   box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.3);
   background: #fafafa;
+  height: 3rem;
 
   .nav-container {
     display: flex;
@@ -142,18 +144,60 @@ a {
     align-items: center;
     max-width: 1200px;
     margin: auto;
+    height: 100%;
 
-    .main-nav {
+    .main-nav, .user-nav {
       display: flex;
-
-      a {
+      height: 100%;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      & > li {
         height: 100%;
-        display: block;
-        text-decoration: none;
-        padding: 0 1rem;
+        display: flex;
+        a {
+          padding: 0 1em;
+          display: block;
+          text-decoration: none;
+          &:hover {
+            background: #efefef;
+          }
+          &.active {
+            background: #efefef;
+          }
+        }
+      }
 
-        &:hover {
-          background: #efefef;
+      .dropdown-button {
+        position: relative;
+      }
+
+      .dropdown {
+        cursor: default;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: 2.75rem;
+        display: none;
+        background: white;
+        box-shadow: $default-box-shadow;
+        &.show {
+          display: flex;
+          flex-direction: column;
+        }
+        & > ul {
+          width: 10em;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          li {
+            & > * {
+              padding: 1em;
+            }
+            a {
+              display: block;
+            }
+          }
         }
       }
     }

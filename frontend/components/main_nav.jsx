@@ -3,6 +3,7 @@ import { HashRouter, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/session_actions";
 import { userIdSelector } from "../selectors/selectors";
+import '@fortawesome/fontawesome-free/js/all';
 
 const ControlNavGuest = () => {
   return <div className="control-nav">
@@ -28,12 +29,36 @@ const ControlNavLoggedIn = ({ userId }) => {
    */
   const user = useSelector(userSelector);
 
-  return <div className="control-nav">
-    <Link to={ `/users/${ userId }` }>
-      <p>{ user.display_name }</p>
-    </Link>
-    <button className="button button-primary" onClick={ () => dispatch(logout()) }>Log out</button>
-  </div>
+  const showUserControl = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const $control = $('#user-control');
+    $control.toggleClass("show");
+    $(event.target).toggleClass("active");
+  }
+
+  const dispatchLogout = (event) => {
+    event.preventDefault();
+    dispatch(logout());
+  }
+
+  return <ul className="user-nav">
+    <li>
+      <Link to={ `/users/${ userId }` }>
+        <p>{ user.display_name }</p>
+      </Link>
+    </li>
+    <li className="dropdown-button">
+      <a href="#" onClick={showUserControl}>
+        <p><i className="fas fa-cog" /></p>
+      </a>
+      <div className="dropdown" id="user-control">
+        <ul>
+          <li><a href="#" onClick={dispatchLogout}>Logout</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
 }
 
 const MainNav = () => {
@@ -46,9 +71,9 @@ const MainNav = () => {
 
   return <nav className="header">
     <div className="nav-container">
-      <div className="main-nav">
-        <Link to="/"><p>Logo</p></Link>
-      </div>
+      <ul className="main-nav">
+        <li><Link to="/"><p>Logo</p></Link></li>
+      </ul>
       { !!userId ? <ControlNavLoggedIn userId={ userId }/> : <ControlNavGuest/> }
     </div>
   </nav>
