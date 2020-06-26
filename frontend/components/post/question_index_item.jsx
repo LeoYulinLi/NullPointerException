@@ -8,7 +8,7 @@ import { useHistory } from "react-router";
  * @param {QuestionSummary} question
  * @param {Revision} revision
  */
-const QuestionIndexItem = ({ question, revision}) => {
+const QuestionIndexItem = ({ question, revision }) => {
 
   /**
    * @param {RootState} state
@@ -23,7 +23,7 @@ const QuestionIndexItem = ({ question, revision}) => {
   const history = useHistory();
 
   return <div className="question-item">
-    <div className="question-item-stats" onClick={ () => history.push(`/questions/${ question_id }`) }>
+    <div className="question-item-stats" onClick={ () => history.push(`/questions/${ question.question_id }`) }>
       <div className="stat-item">
         <span className="count">{ question.vote_count }</span>
         <span className="counter">vote</span>
@@ -43,8 +43,12 @@ const QuestionIndexItem = ({ question, revision}) => {
           </ul>
         </div>
         <small>
-          <Link to={ `/questions/${ question.question_id }` }>asked { moment(revision.created_at).fromNow() } </Link>
-          <Link to={ `/users/${ revision.user_id }` }>{ users[revision.user_id].display_name }</Link>
+          <Link to={ `/questions/${ question.question_id }` } className="action" >
+            { question.edited ? 'modified' : 'asked' } { moment(revision.created_at).fromNow() }
+          </Link>
+          <Link to={ `/users/${ revision.user_id }` }>
+            { users[revision.user_id].display_name }
+          </Link>
         </small>
       </div>
     </div>

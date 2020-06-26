@@ -56,6 +56,10 @@ a {
   }
 }
 
+small {
+  font-size: 0.85em;
+}
+
 @mixin link-color($color) {
   color: darken($color, 10%);
   &:hover {
@@ -281,6 +285,9 @@ a {
 
 .post-page {
   width: 100%;
+  h2 {
+    margin: 1em 0;
+  }
 }
 
 .ask-form-content {
@@ -447,25 +454,39 @@ textarea {
       @extend .primary
     }
 
-    .info {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: baseline;
-
-      .tags > ul {
+    .question-item-summary {
+      h2 {
+        font-size: 1.35em;
+      }
+      width: 100%;
+      .info {
         display: flex;
-        margin: 0;
-        padding: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
 
-        li {
-          list-style: none;
-          padding: 0.4em 0.5em;
-          background: #def0f8;
-          border-radius: $default-border-radius;
-          color: darken($color-primary, 25%);
-          font-size: 0.75rem;
+        .action {
+          color: $text-default-secondary;
           margin-right: 0.5em;
+          &:hover {
+            color: $color-primary;
+          }
+        }
+
+        .tags > ul {
+          display: flex;
+          margin: 0;
+          padding: 0;
+
+          li {
+            list-style: none;
+            padding: 0.4em 0.5em;
+            background: #def0f8;
+            border-radius: $default-border-radius;
+            color: darken($color-primary, 25%);
+            font-size: 0.75rem;
+            margin-right: 0.5em;
+          }
         }
       }
     }
