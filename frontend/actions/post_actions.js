@@ -27,7 +27,8 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
  * @property {string} body
  * @property {string} note
  * @property {number[]} author_ids
- * @property {string} created_at
+ * @property {{user_id: number, at: string}} created_at
+ * @property {{[user_id]: number, at: string}} [updated_at]
  */
 
 /**

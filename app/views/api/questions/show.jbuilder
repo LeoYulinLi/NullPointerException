@@ -6,10 +6,17 @@ json.set! 'post_currents' do
       json.set! 'revision_id', post.current.id
       json.set! 'title', post.current.title if post.question?
       json.set! 'is_question', post.question?
-      json.set! 'created_at', post.first.created_at
-      json.set! 'updated_at', post.current.created_at
-      json.set! 'author_ids' do
-        json.array! post.users.map(&:id)
+      json.set! 'created_by' do
+        json.set! 'user_id', post.first.user_id
+        json.set! 'at', post.first.created_at
+      end
+      if post.first.id != post.current.id
+        json.set! 'updated_by' do
+          if post.current.user_id != post.first.user_id
+            json.set! 'user_id', post.current.user_id
+          end
+          json.set! 'at', post.current.created_at
+        end
       end
       json.extract! post.current, :body, :note
     end
