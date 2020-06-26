@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useLayoutEffect } from "react";
 import { signup } from "../../actions/session_actions";
 import ErrorAlert from "../error/error_alert";
 import { Link } from "react-router-dom";
@@ -29,6 +29,12 @@ const Signup = () => {
   const errorsSelector = state => state.errors.session
 
   const errors = useSelector(errorsSelector);
+
+  useLayoutEffect(() => {
+    const $main = $('.main');
+    $main.addClass('full-height');
+    return () => $main.removeClass('full-height');
+  }, []);
 
   /**
    * @param {FormEvent} event

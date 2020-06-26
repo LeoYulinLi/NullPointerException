@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useLayoutEffect } from "react";
 import { login } from "../../actions/session_actions";
 import ErrorAlert from "../error/error_alert";
 import { Link } from "react-router-dom";
@@ -43,6 +43,12 @@ const Login = () => {
     event.preventDefault();
     dispatch(login({ username: "demo", password: "demodemodemo" }));
   }
+
+  useLayoutEffect(() => {
+    const $main = $('.main');
+    $main.addClass('full-height');
+    return () => $main.removeClass('full-height');
+  }, []);
 
   return <div className="session-page">
     <ErrorAlert errors={ errors }/>
