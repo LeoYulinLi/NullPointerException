@@ -7,8 +7,17 @@ const defaultState = {
 }
 
 /**
+ * @typedef QuestionSummary
+ * @property {number} question_id
+ * @property {number} post_id
+ * @property {boolean} edited
+ * @property {number} answer_count
+ * @property {number} vote_count
+ */
+
+/**
  * @typedef PostState
- * @property {Object.<number, {question_id: number, post_id: number}>} questions
+ * @property {Object.<number, QuestionSummary>} questions
  * @property {Object.<number, {post_id: number, revision_id: number}>} posts
  * @property {Object<number, PostCurrent>} post_currents
  * @property {Object.<number, Revision>} revisions

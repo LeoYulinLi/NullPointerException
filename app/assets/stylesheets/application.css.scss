@@ -20,6 +20,7 @@ $text-default-secondary: #848484;
 $color-theme: #ffa11a;
 $color-primary: #0e98db;
 $color-secondary: #89eaea;
+$color-success: #4faa35;
 $color-warning: #f6ba13;
 $color-danger: #ef5440;
 $color-muted: #cccccc;
@@ -412,7 +413,35 @@ textarea {
   align-items: stretch;
 
   .question-item {
-    padding: 1em;
+    padding: 0.75em 0.5em;
+    display: flex;
+    .question-item-stats {
+      cursor: pointer;
+      margin-right: 1em;
+      display: flex;
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5em;
+        margin-right: 0.25em;
+        min-width: 4.5em;
+        color: $text-default-secondary;
+        border: 0.075em solid transparent;
+        border-radius: $default-border-radius;
+        .count {
+          font-size: 1.3em;
+          margin-bottom: 0.3em;
+        }
+        .counter {
+          font-size: 0.85em;
+        }
+        &.answered {
+          border-color: $color-success;
+          color: $color-success;
+        }
+      }
+    }
 
     a {
       @extend .primary

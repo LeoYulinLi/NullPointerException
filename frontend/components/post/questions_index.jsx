@@ -17,7 +17,7 @@ const QuestionsIndex = () => {
   const questionIndexSelector = state => state.posts.questions ? Object.values(state.posts.questions) : [];
 
   /**
-   * @type {{question_id: number, post_id: number}[]}
+   * @type {QuestionSummary[]}
    */
   const questionIndex = useSelector(questionIndexSelector);
 
@@ -41,13 +41,16 @@ const QuestionsIndex = () => {
   function getContentById(id) {
     return revisions[questionPosts[id].revision_id]
   }
+
   return <div className="question-list">
-    <AskQuestionHeader headerText={"All Questions"} />
-    { questionIndex.map(({ post_id, question_id }) =>
+    <AskQuestionHeader headerText={ "All Questions" }/>
+    { questionIndex.map(({ post_id, question_id, answer_count, vote_count }) =>
       <QuestionIndexItem
-        key={`question-${question_id}`}
-        question_id={question_id}
-        revision={getContentById(post_id)}
+        key={ `question-${ question_id }` }
+        question_id={ question_id }
+        revision={ getContentById(post_id) }
+        answer_count={ answer_count }
+        vote_count={ vote_count }
       />)
     }
   </div>

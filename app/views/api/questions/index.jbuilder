@@ -1,8 +1,12 @@
 json.set! 'questions' do
   @question_posts.each do |post|
+    question = post.question
     json.set! post.question_id do
-      json.set! 'question_id', post.question_id
+      json.set! 'question_id', question.id
       json.set! 'post_id', post.id
+      json.set! 'edited', question.edited?
+      json.set! 'answer_count', question.answer_count
+      json.set! 'vote_count', question.vote_count
     end
   end
 end
