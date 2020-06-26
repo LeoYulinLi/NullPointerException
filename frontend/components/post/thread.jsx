@@ -80,7 +80,7 @@ const Thread = () => {
 
   const ownerId = allPosts[0]?.create?.user_id
 
-  return !loading && allPosts[0] && <div className="thread">
+  return (!loading && allPosts[0]) ? <div className="thread">
     <AskQuestionHeader headerText={ allPosts[0].title }/>
     <div className="thread-statistic">
       <div className="stat-item" title={ allPosts[0].create.at }>
@@ -100,7 +100,7 @@ const Thread = () => {
       />
     }) }
     <AnswerForm id={ id }/>
-  </div>
+  </div> : null
 
 }
 
