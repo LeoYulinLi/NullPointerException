@@ -44,13 +44,11 @@ const QuestionsIndex = () => {
 
   return <div className="question-list">
     <AskQuestionHeader headerText={ "All Questions" }/>
-    { questionIndex.map(({ post_id, question_id, answer_count, vote_count }) =>
+    { questionIndex.map((question) =>
       <QuestionIndexItem
-        key={ `question-${ question_id }` }
-        question_id={ question_id }
-        revision={ getContentById(post_id) }
-        answer_count={ answer_count }
-        vote_count={ vote_count }
+        key={ `question-${ question.question_id }` }
+        revision={ getContentById(question.post_id) }
+        question={ question }
       />)
     }
   </div>
