@@ -42,6 +42,8 @@ const Login = () => {
    */
   function loginAsDemo(event) {
     event.preventDefault();
+    setUsername('demo');
+    setPassword('demodemodemo');
     dispatch(login({ username: "demo", password: "demodemodemo" }));
   }
 
