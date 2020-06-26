@@ -33,16 +33,15 @@ const Login = () => {
    */
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(login({ username, password }))
+    dispatch(login({ username, password }));
   }
 
   /**
    * @param {React.MouseEvent<HTMLButtonElement>} event
    */
-  function fillDemo(event) {
+  function loginAsDemo(event) {
     event.preventDefault();
-    setUsername("demo");
-    setPassword("demodemodemo");
+    dispatch(login({ username: "demo", password: "demodemodemo" }));
   }
 
   return <div className="session-page">
@@ -57,7 +56,7 @@ const Login = () => {
           <label htmlFor="password">Password</label>
           <input required id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
         </div>
-        <button type="button" className="button button-muted" onClick={ event => fillDemo(event) }>Fill Demo Login</button>
+        <button type="button" className="button button-muted" onClick={ loginAsDemo }>Login as Demo</button>
         <button className="button button-primary">Login</button>
       </form>
     </div>
