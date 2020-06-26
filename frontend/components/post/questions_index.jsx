@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { getQuestionIndex } from "../../actions/post_actions";
 import QuestionIndexItem from "./question_index_item";
-import { Link } from "react-router-dom";
 import { AskQuestionHeader } from "./widgets";
+import orderBy from  'lodash.orderby';
 
 const QuestionsIndex = () => {
 
@@ -44,7 +44,7 @@ const QuestionsIndex = () => {
 
   return <div className="question-list">
     <AskQuestionHeader headerText={ "All Questions" }/>
-    { questionIndex.map((question) =>
+    { orderBy(questionIndex, ['question_id'], ['desc']).map((question) =>
       <QuestionIndexItem
         key={ `question-${ question.question_id }` }
         revision={ getContentById(question.post_id) }

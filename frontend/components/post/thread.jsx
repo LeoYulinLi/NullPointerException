@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { uiLoadingSelector } from "../../selectors/selectors";
 import { AskQuestionHeader } from "./widgets";
-import uniq from 'lodash.uniq';
 
 const { useEffect } = require("react");
 
@@ -78,18 +77,25 @@ const Thread = () => {
     dispatch(getQuestionThread(id));
   }, []);
 
-  const ownerId = allPosts[0]?.create?.user_id
+  const question = allPosts[0]
 
-  return (!loading && allPosts[0]) ? <div className="thread">
+  if (!question || loading) return null;
+
+  const ownerId = question.create?.user_id
+
+  const createTime = question.create.at
+  const updateTime = (question.update ? question.update : question.create).at
+
+  return <div className="thread">
     <AskQuestionHeader headerText={ allPosts[0].title }/>
     <div className="thread-statistic">
-      <div className="stat-item" title={ allPosts[0].create.at }>
+      <div className="stat-item" title={ createTime }>
         <span className="stat-key">Asked</span>
-        <time dateTime={ allPosts[0].create.at }>{ moment(allPosts[0].create.at).fromNow() }</time>
+        <time dateTime={ createTime }>{ moment(createTime).fromNow() }</time>
       </div>
-      <div className="stat-item" title={ allPosts[0].create.at }>
+      <div className="stat-item" title={ updateTime }>
         <span className="stat-key">Active</span>
-        <time dateTime={ allPosts[0].update.at }>{ moment(allPosts[0].update.at).fromNow() }</time>
+        <time dateTime={ updateTime }>{ moment(updateTime).fromNow() }</time>
       </div>
     </div>
     { allPosts.map(post => {
@@ -100,7 +106,7 @@ const Thread = () => {
       />
     }) }
     <AnswerForm id={ id }/>
-  </div> : null
+  </div>
 
 }
 
