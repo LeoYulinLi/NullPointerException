@@ -18,4 +18,8 @@ class Question < ApplicationRecord
     0
   end
 
+  def post
+    posts.first
+  end
+
 end

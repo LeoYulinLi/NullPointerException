@@ -8,29 +8,29 @@ import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { uiLoadingSelector } from "../../selectors/selectors";
 import { AskQuestionHeader } from "./widgets";
+import uniq from 'lodash.uniq';
 
 const { useEffect } = require("react");
 
 /**
- * @param {string} body
- * @param {User} author
- * @param {string} time
- * @param {number} id
- * @param {number} question_id
+ * @param {User[]} authors
+ * @param {User} owner
+ * @param {PostCurrent} post
  */
-const Post = ({ body, author, time, id, question_id }) => {
-  const actionWord = id.toString() === question_id.toString() ? 'asked' : 'answered'
+const Post = ({authors, owner, post }) => {
+  const actionWord = post.is_question ? 'asked' : 'answered'
+  const { post_id, body, created_at: time } = post
   return <div className="post">
     <div className="post-body">
       <ReactMarkdown className="post-text" source={ body }/>
     </div>
     <div className="post-footer">
       <div className="post-menu">
-        <Link to={ `/posts/${ id }/edit` }>edit</Link>
+        <Link to={ `/posts/${ post_id }/edit` }>edit</Link>
       </div>
       <div className="post-signature">
         <span>{ actionWord } { moment(time).fromNow() }</span>
-        <Link to={ `/users/${ author.id }` }>{ author.display_name }</Link>
+        <Link to={ `/users/${ owner.id }` }>{ owner.display_name }</Link>
       </div>
     </div>
   </div>
@@ -68,7 +68,6 @@ const Thread = () => {
     dispatch(getQuestionThread(id));
   }, []);
 
-
   return !loading && <div className="thread">
     <AskQuestionHeader headerText={ allPosts[0]?.title }/>
     <div className="thread-statistic">
@@ -82,14 +81,13 @@ const Thread = () => {
       </div>
     </div>
     { allPosts.map(post => {
-      const author = users[post.user_id];
+      const authors = uniq(post.author_ids).map(id => users[id]);
+      const owner = authors.shift();
       return <Post
         key={ `post-${ post.post_id }` }
-        author={ author }
-        body={ post.body }
-        time={ post.created_at }
-        id={ post.post_id }
-        question_id={ post.question_id }
+        owner = { owner }
+        authors={ authors }
+        post={ post }
       />
     }) }
     <AnswerForm id={ id }/>

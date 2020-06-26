@@ -9,6 +9,7 @@
     "@fortawesome/fontawesome-free": "^5.13.1",
     "babel-loader": "^8.1.0",
     "lodash.debounce": "^4.0.8",
+    "lodash.uniq": "^4.5.0",
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

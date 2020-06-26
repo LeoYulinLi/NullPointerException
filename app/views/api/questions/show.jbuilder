@@ -1,11 +1,17 @@
 json.set! 'post_currents' do
-  @thread.each do |revision|
-    json.set! revision.post_id do
-      json.set! 'question_id', @question_id
-      json.set! 'post_id', revision.post_id
-      json.set! 'revision_id', revision.id
-      json.set! 'title', revision.title if revision.title
-      json.extract! revision, :body, :note, :user_id, :created_at
+  @posts.each do |post|
+    json.set! post.id do
+      json.set! 'question_id', post.question_id
+      json.set! 'post_id', post.id
+      json.set! 'revision_id', post.current.id
+      json.set! 'title', post.current.title if post.question?
+      json.set! 'is_question', post.question?
+      json.set! 'created_at', post.first.created_at
+      json.set! 'updated_at', post.current.created_at
+      json.set! 'author_ids' do
+        json.array! post.users.map(&:id)
+      end
+      json.extract! post.current, :body, :note
     end
   end
 end

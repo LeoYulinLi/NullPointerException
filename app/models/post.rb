@@ -4,8 +4,20 @@ class Post < ApplicationRecord
 
   has_many :revisions
 
+  has_many :users,
+           through: :revisions,
+           class_name: 'User'
+
   def current
-    Revision.where(post_id: id).last
+    revisions.last
+  end
+
+  def question?
+    question.post.id == id
+  end
+
+  def first
+    revisions.first
   end
 
 end

@@ -33,8 +33,8 @@ const EditForm = () => {
    */
   const post = useSelector(postSelector);
 
-  const [title, setTitle] = useState(post.title);
-  const [body, setBody] = useState(post.body);
+  const [title, setTitle] = useState(post.title ? post.title : "");
+  const [body, setBody] = useState(post.body ? post.body : "");
   const [note, setNote] = useState("");
 
   const dispatch = useDispatch();
@@ -47,12 +47,12 @@ const EditForm = () => {
 
   return <div className="post-page">
     <form onSubmit={ handleSubmit }>
-      <div className="form-group">
+      { post.is_question && <div className="form-group">
         <label htmlFor="title">
           <strong>Title</strong>
         </label>
         <input required id="title" type="text" value={ title } onChange={ event => setTitle(event.target.value) }/>
-      </div>
+      </div> }
       <FormBodyEditor body={body} setBody={setBody} rows={15} labelTitle={"Body"} />
       <div className="form-group">
         <label htmlFor="note">

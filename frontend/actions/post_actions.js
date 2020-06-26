@@ -22,10 +22,11 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
  * @property {number} question_id
  * @property {number} post_id
  * @property {number} revision_id
+ * @property {boolean} is_question
  * @property {string} [title]
  * @property {string} body
  * @property {string} note
- * @property {number} user_id
+ * @property {number[]} author_ids
  * @property {string} created_at
  */
 
