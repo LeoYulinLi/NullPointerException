@@ -13,13 +13,27 @@ import uniq from 'lodash.uniq';
 const { useEffect } = require("react");
 
 /**
- * @param {User[]} authors
- * @param {User} owner
  * @param {PostCurrent} post
+ * @param {number} ownerId
  */
-const Post = ({authors, owner, post }) => {
+const Post = ({post, ownerId }) => {
   const actionWord = post.is_question ? 'asked' : 'answered'
-  const { post_id, body, created_at: time } = post
+
+  /**
+   * @param {RootState} state
+   */
+  const usersSelector = state => state.users
+
+  /**
+   * @type {Object<number, {display_name: string, id: number, username: string}>}
+   */
+  const users = useSelector(usersSelector);
+
+  const author = users[post.create.user_id]
+
+  const editor = users[post.update?.user_id]
+
+  const { post_id, body } = post
   return <div className="post">
     <div className="post-body">
       <ReactMarkdown className="post-text" source={ body }/>
@@ -28,9 +42,15 @@ const Post = ({authors, owner, post }) => {
       <div className="post-menu">
         <Link to={ `/posts/${ post_id }/edit` }>edit</Link>
       </div>
-      <div className="post-signature">
-        <span>{ actionWord } { moment(time).fromNow() }</span>
-        <Link to={ `/users/${ owner.id }` }>{ owner.display_name }</Link>
+      <div className="signatures">
+        { post.update && <div className={`signature${ editor && editor.id === ownerId ? " owner" : ""}`}>
+          <span>edited { moment(post.update.at).fromNow() }</span>
+          { editor && <Link to={ `/users/${ editor.id }` }>{ editor.display_name }</Link> }
+        </div> }
+        <div className={`signature${ author.id === ownerId ? " owner" : ""}`}>
+          <span>{ actionWord } { moment(post.create.at).fromNow() }</span>
+          <Link to={ `/users/${ author.id }` }>{ author.display_name }</Link>
+        </div>
       </div>
     </div>
   </div>
@@ -52,42 +72,31 @@ const Thread = () => {
    */
   const allPosts = useSelector(allPostsSelector);
 
-  /**
-   * @param {RootState} state
-   */
-  const usersSelector = state => state.users
-
-  /**
-   * @type {Object<number, {display_name: string, id: number, username: string}>}
-   */
-  const users = useSelector(usersSelector);
-
   const loading = useSelector(uiLoadingSelector);
 
   useEffect(() => {
     dispatch(getQuestionThread(id));
   }, []);
 
-  return !loading && <div className="thread">
-    <AskQuestionHeader headerText={ allPosts[0]?.title }/>
+  const ownerId = allPosts[0]?.create?.user_id
+
+  return !loading && allPosts[0] && <div className="thread">
+    <AskQuestionHeader headerText={ allPosts[0].title }/>
     <div className="thread-statistic">
-      <div className="stat-item" title={ allPosts[0]?.created_at }>
+      <div className="stat-item" title={ allPosts[0].create.at }>
         <span className="stat-key">Asked</span>
-        <time dateTime={ allPosts[0]?.created_at }>{ moment(allPosts[0]?.created_at).fromNow() }</time>
+        <time dateTime={ allPosts[0].create.at }>{ moment(allPosts[0].create.at).fromNow() }</time>
       </div>
-      <div className="stat-item" title={ allPosts[0]?.created_at }>
+      <div className="stat-item" title={ allPosts[0].create.at }>
         <span className="stat-key">Active</span>
-        <time dateTime={ allPosts[0]?.created_at }>{ moment(allPosts[0]?.created_at).fromNow() }</time>
+        <time dateTime={ allPosts[0].update.at }>{ moment(allPosts[0].update.at).fromNow() }</time>
       </div>
     </div>
     { allPosts.map(post => {
-      const authors = uniq(post.author_ids).map(id => users[id]);
-      const owner = authors.shift();
       return <Post
         key={ `post-${ post.post_id }` }
-        owner = { owner }
-        authors={ authors }
         post={ post }
+        ownerId={ ownerId }
       />
     }) }
     <AnswerForm id={ id }/>

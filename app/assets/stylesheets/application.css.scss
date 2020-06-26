@@ -520,12 +520,22 @@ textarea {
         }
       }
 
-      .post-signature {
+      .signatures {
         display: flex;
-        flex-direction: column;
-        background: $background-highlight-color;
-        border-radius: $default-border-radius;
-        padding: 0.2em 0.5em;
+        flex-flow: row;
+        flex-wrap: wrap;
+        .signature {
+          display: flex;
+          flex-direction: column;
+          padding: 0.2em 0.5em;
+          width: 12em;
+          margin-left: 0.5em;
+          &.owner {
+            background: $background-highlight-color;
+            border-radius: $default-border-radius;
+          }
+        }
+
       }
     }
   }
