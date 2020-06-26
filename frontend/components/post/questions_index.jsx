@@ -13,41 +13,21 @@ const QuestionsIndex = () => {
     dispatch(getQuestionIndex());
   }, []);
 
-
-  const questionIndexSelector = state => state.posts.questions ? Object.values(state.posts.questions) : [];
+  /**
+   * @param {RootState} state
+   */
+  const questionsSelector = state => state.posts.questions;
 
   /**
-   * @type {QuestionSummary[]}
+   * @type {Object<number, QuestionSummary>}
    */
-  const questionIndex = useSelector(questionIndexSelector);
-
-  const questionPostsSelector = state => state.posts.posts;
-
-  /**
-   * @type {Object<number, {post_id: number, revision_id: number}>}
-   */
-  const questionPosts = useSelector(questionPostsSelector);
-
-  const revisionSelector = state => state.posts.revisions;
-
-  /**
-   * @type {Object<number, Revision>}
-   */
-  const revisions = useSelector(revisionSelector);
-
-  /**
-   * @param {number} id
-   */
-  function getContentById(id) {
-    return revisions[questionPosts[id].revision_id]
-  }
+  const questions = useSelector(questionsSelector);
 
   return <div className="question-list">
     <AskQuestionHeader headerText={ "All Questions" }/>
-    { orderBy(questionIndex, ['question_id'], ['desc']).map((question) =>
+    { orderBy(questions, ['question_id'], ['desc']).map((question) =>
       <QuestionIndexItem
         key={ `question-${ question.question_id }` }
-        revision={ getContentById(question.post_id) }
         question={ question }
       />)
     }

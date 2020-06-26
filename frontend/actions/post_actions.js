@@ -7,17 +7,6 @@ export const RECEIVE_QUESTIONS = 'RECEIVE_REVISIONS';
 export const RECEIVE_THREAD = 'RECEIVE_THREAD';
 
 /**
- * @typedef Revision
- * @property {number} id
- * @property {string} [title]
- * @property {string} body
- * @property {string} note
- * @property {number} post_id
- * @property {number} user_id
- * @property {string} created_at
- */
-
-/**
  * @typedef PostCurrent
  * @property {number} question_id
  * @property {number} post_id
@@ -32,7 +21,7 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
 
 /**
  * @typedef {Action<RECEIVE_QUESTIONS>} ReceiveQuestionsAction
- * @property {QuestionIndexResponse} revisions
+ * @property {QuestionIndexResponse} questions
  */
 
 /**
@@ -45,10 +34,17 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
  */
 
 /**
+ * @typedef QuestionSummary
+ * @property {number} question_id
+ * @property {number} answer_count
+ * @property {number} vote_count
+ * @property {string} title
+ * @property {{action: string, user_id: number, at: string}} last_action
+ */
+
+/**
  * @typedef QuestionIndexResponse
- * @property {Object.<number, {question_id: number, post_id: number}>} questions
- * @property {Object.<number, {post_id: number, revision_id: number}>} posts
- * @property {Object.<number, Revision>} revisions
+ * @property {Object.<number, QuestionSummary>} questions
  * @property {Object.<number, User>} users
  */
 
@@ -59,13 +55,13 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
  */
 
 /**
- * @param {QuestionIndexResponse} revisions
+ * @param {QuestionIndexResponse} questions
  * @return {ReceiveQuestionsAction}
  */
-function receiveQuestions(revisions) {
+function receiveQuestions(questions) {
   return {
     type: RECEIVE_QUESTIONS,
-    revisions: revisions
+    questions
   }
 }
 
@@ -80,10 +76,6 @@ function receiveThread(thread) {
   }
 }
 
-/**
- * @typedef QuestionSummary
- * @property {Revision} revision
- */
 
 /**
  *

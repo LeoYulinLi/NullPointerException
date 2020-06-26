@@ -12,7 +12,7 @@ import { RECEIVE_SESSION } from "../actions/session_actions";
 export default function userReducer(state = {}, action) {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
-      return { ...state, ...action.revisions.users };
+      return { ...state, ...action.questions.users };
     case RECEIVE_SESSION:
       return { ...state, [action.user.id]: action.user };
     case RECEIVE_THREAD:

@@ -1,32 +1,29 @@
+users = []
 json.set! 'questions' do
-  @question_posts.each do |post|
-    question = post.question
-    json.set! post.question_id do
+  @all_questions.each do |question|
+    json.set! question.id do
       json.set! 'question_id', question.id
-      json.set! 'post_id', post.id
-      json.set! 'edited', question.edited?
       json.set! 'answer_count', question.answer_count
       json.set! 'vote_count', question.vote_count
-    end
-  end
-end
-json.set! 'posts' do
-  @revisions.each do |revision|
-    json.set! revision.post_id do
-      json.set! 'post_id', revision.post_id
-      json.set! 'revision_id', revision.id
-    end
-  end
-end
-json.set! 'revisions' do
-  @revisions.each do |revision|
-    json.set! revision.id do
-      json.extract! revision, :id, :title, :body, :note, :user_id,:post_id, :created_at
+      json.set! 'title', question.post.current.title
+      json.set! 'last_action' do
+        if question.post.revisions.last.id == question.revisions.last.id
+          json.set! 'action', 'asked'
+        elsif question.posts.last.revisions.first.id == question.posts.last.revisions.last.id
+          json.set! 'action', 'answer'
+        else
+          json.set! 'action', 'modified'
+        end
+        user = question.revisions.last.user
+        users << user
+        json.set! 'user_id', user.id
+        json.set! 'at', question.revisions.last.created_at
+      end
     end
   end
 end
 json.set! 'users' do
-  @authors.each do |user|
+  users.each do |user|
     json.set! user.id do
       json.partial! '/api/users/user', user: user
     end

@@ -6,9 +6,8 @@ import { useHistory } from "react-router";
 
 /**
  * @param {QuestionSummary} question
- * @param {Revision} revision
  */
-const QuestionIndexItem = ({ question, revision }) => {
+const QuestionIndexItem = ({ question }) => {
 
   /**
    * @param {RootState} state
@@ -21,7 +20,6 @@ const QuestionIndexItem = ({ question, revision }) => {
   const users = useSelector(usersSelector);
 
   const history = useHistory();
-
   return <div className="question-item">
     <div className="question-item-stats" onClick={ () => history.push(`/questions/${ question.question_id }`) }>
       <div className="stat-item">
@@ -34,7 +32,7 @@ const QuestionIndexItem = ({ question, revision }) => {
       </div>
     </div>
     <div className="question-item-summary">
-      <h2><Link to={ `/questions/${ question.question_id }` }>{ revision.title }</Link></h2>
+      <h2><Link to={ `/questions/${ question.question_id }` }>{ question.title }</Link></h2>
       <div className="info">
         <div className="tags">
           <ul>
@@ -44,10 +42,10 @@ const QuestionIndexItem = ({ question, revision }) => {
         </div>
         <small>
           <Link to={ `/questions/${ question.question_id }` } className="action" >
-            { question.edited ? 'modified' : 'asked' } { moment(revision.created_at).fromNow() }
+            { question.last_action.action } { moment(question.last_action.at).fromNow() }
           </Link>
-          <Link to={ `/users/${ revision.user_id }` }>
-            { users[revision.user_id].display_name }
+          <Link to={ `/users/${ question.last_action.user_id }` }>
+            { users[question.last_action.user_id].display_name }
           </Link>
         </small>
       </div>

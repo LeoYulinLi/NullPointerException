@@ -20,10 +20,7 @@ class Api::QuestionsController < ApplicationController
   end
 
   def index
-    @all_questions = Question.all.includes(:posts).reverse
-    @question_posts = @all_questions.map { |question| question.posts.first }
-    @revisions = @question_posts.map(&:current)
-    @authors = @revisions.map(&:user)
+    @all_questions = Question.all.includes(:posts).includes(:revisions).includes(:users)
     render :index
   end
 
