@@ -22,7 +22,7 @@ const Post = ({ body, author, time, id, question_id }) => {
   const actionWord = id.toString() === question_id.toString() ? 'asked' : 'answered'
   return <div className="post">
     <div className="post-body">
-      <ReactMarkdown disallowedTypes={ ['image', 'imageReference'] } className="post-text" source={ body }/>
+      <ReactMarkdown className="post-text" source={ body }/>
     </div>
     <div className="post-footer">
       <div className="post-menu">
