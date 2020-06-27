@@ -7,7 +7,7 @@ json.set! 'questions' do
       json.set! 'vote_count', question.vote_count
       json.set! 'title', question.post.current.title
       json.set! 'last_action' do
-        if question.post.revisions.last.id == question.revisions.last.id
+        if question.post.revisions.first.id == question.revisions.last.id
           json.set! 'action', 'asked'
         elsif question.posts.last.revisions.first.id == question.posts.last.revisions.last.id
           json.set! 'action', 'answer'
