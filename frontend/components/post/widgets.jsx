@@ -1,6 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const EditorHint = () => <div className="editor-hint">
   <span>```<code>code</code>```</span>
@@ -35,4 +36,17 @@ export const AskQuestionHeader = ({headerText}) => {
     <h1>{headerText}</h1>
     <Link to="/ask" className="button button-primary">Ask Question</Link>
   </div>
+}
+
+export const Loading = ({children, loadingCondition}) => {
+
+  /**
+   * @param {RootState} state
+   */
+  const loadingSelector = state => state.ui.loading;
+
+  const isLoading = useSelector(loadingSelector);
+
+  return (isLoading || loadingCondition) ? <div className="loading-ring" /> : children
+
 }

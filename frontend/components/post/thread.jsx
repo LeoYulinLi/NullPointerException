@@ -7,7 +7,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { uiLoadingSelector, userIdSelector } from "../../selectors/selectors";
-import { AskQuestionHeader } from "./widgets";
+import { AskQuestionHeader, Loading } from "./widgets";
 import { deletePost } from "../../utils/api_utlis";
 
 const { useEffect } = require("react");
@@ -110,34 +110,35 @@ const Thread = () => {
 
   const question = allPosts[0]
 
-  if (!question || loading) return null;
 
-  const ownerId = question.create?.user_id
+  const ownerId = question?.create?.user_id
 
-  const createTime = question.create.at
-  const updateTime = (question.update ? question.update : question.create).at
+  const createTime = question?.create.at
+  const updateTime = (question?.update ? question?.update : question?.create)?.at
 
-  return <div className="thread">
-    <AskQuestionHeader headerText={ allPosts[0].title }/>
-    <div className="thread-statistic">
-      <div className="stat-item" title={ createTime }>
-        <span className="stat-key">Asked</span>
-        <time dateTime={ createTime }>{ moment(createTime).fromNow() }</time>
+  return <Loading loadingCondition={!question}>
+    <div className="thread">
+      <AskQuestionHeader headerText={ allPosts[0]?.title }/>
+      <div className="thread-statistic">
+        <div className="stat-item" title={ createTime }>
+          <span className="stat-key">Asked</span>
+          <time dateTime={ createTime }>{ moment(createTime).fromNow() }</time>
+        </div>
+        <div className="stat-item" title={ updateTime }>
+          <span className="stat-key">Active</span>
+          <time dateTime={ updateTime }>{ moment(updateTime).fromNow() }</time>
+        </div>
       </div>
-      <div className="stat-item" title={ updateTime }>
-        <span className="stat-key">Active</span>
-        <time dateTime={ updateTime }>{ moment(updateTime).fromNow() }</time>
-      </div>
+      { allPosts.map(post => {
+        return <Post
+          key={ `post-${ post.post_id }` }
+          post={ post }
+          ownerId={ ownerId }
+        />
+      }) }
+      <AnswerForm id={ id }/>
     </div>
-    { allPosts.map(post => {
-      return <Post
-        key={ `post-${ post.post_id }` }
-        post={ post }
-        ownerId={ ownerId }
-      />
-    }) }
-    <AnswerForm id={ id }/>
-  </div>
+  </Loading>
 
 }
 

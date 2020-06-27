@@ -604,6 +604,31 @@ html, body, #root {
   height: 100%;
 }
 
+// Adapted from https://loading.io/css/
+.loading-ring {
+  margin: auto;
+  &:after {
+    content: " ";
+    display: block;
+    width: 5em;
+    height: 5em;
+    margin: 1em;
+    border-radius: 50%;
+    border: 0.5em solid;
+    border-color: transparent $color-theme transparent $color-theme;
+    animation: loading-ring 1.2s ease-in-out infinite;
+  }
+  @keyframes loading-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+
 * {
   box-sizing: border-box;
 }

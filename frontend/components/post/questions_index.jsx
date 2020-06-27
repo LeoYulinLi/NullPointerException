@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { getQuestionIndex } from "../../actions/post_actions";
 import QuestionIndexItem from "./question_index_item";
-import { AskQuestionHeader } from "./widgets";
+import { AskQuestionHeader, Loading } from "./widgets";
 import orderBy from  'lodash.orderby';
+import { receiveUiLoading } from "../../actions/ui_actions";
 
 const QuestionsIndex = () => {
 
@@ -25,12 +26,14 @@ const QuestionsIndex = () => {
 
   return <div className="question-list">
     <AskQuestionHeader headerText={ "All Questions" }/>
-    { orderBy(questions, ['question_id'], ['desc']).map((question) =>
-      <QuestionIndexItem
-        key={ `question-${ question.question_id }` }
-        question={ question }
-      />)
-    }
+    <Loading>
+      { orderBy(questions, ['question_id'], ['desc']).map((question) =>
+        <QuestionIndexItem
+          key={ `question-${ question.question_id }` }
+          question={ question }
+        />)
+      }
+    </Loading>
   </div>
 
 }

@@ -94,8 +94,12 @@ function receiveQuestion(question) {
 
 export function getQuestionIndex() {
   return function (dispatch) {
+    dispatch(receiveUiLoading(true));
     return getQuestions()
-      .then((response) => dispatch(receiveQuestions(response)));
+      .then((response) => {
+        dispatch(receiveQuestions(response));
+        dispatch(receiveUiLoading(false));
+      });
   };
 }
 
