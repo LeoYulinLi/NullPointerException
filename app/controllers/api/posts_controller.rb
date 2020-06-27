@@ -29,6 +29,13 @@ class Api::PostsController < ApplicationController
   def destroy
     post = Post.find_by_id(params[:id])
 
+    if post.revisions.first.user_id != current_user.id
+      render json: [
+        'You must be the author to delete this post'
+      ], status: 403
+      return
+    end
+
     if post.question? && post.question.answer_count != 0
       render json: [
         'You cannot delete this post because it has already been answered'
