@@ -8,6 +8,7 @@ export default function configureStore() {
   const storeVersion = localStorage.getItem("storeVersion");
   const currentStoreVersion = "1";
   const preloadedState = (storeVersion === currentStoreVersion && storeData) ? storeData : {}
+  localStorage.setItem("storeVersion", currentStoreVersion);
   const store = createStore(rootReducer, preloadedState, applyMiddleware(thunk));
   store.subscribe(() => {
     localStorage.setItem("storeData", JSON.stringify(store.getState()));
