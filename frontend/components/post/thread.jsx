@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getQuestionThread, removePost } from "../../actions/post_actions";
+import { getQuestionThread } from "../../actions/post_actions";
 import { useHistory, useParams } from "react-router";
-import React from "react";
+import React, { useState } from "react";
 import AnswerForm from "./answer_form";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { uiLoadingSelector, userIdSelector } from "../../selectors/selectors";
 import { AskQuestionHeader } from "./widgets";
+import { deletePost } from "../../utils/api_utlis";
 
 const { useEffect } = require("react");
 
@@ -23,16 +24,21 @@ const Post = ({post, ownerId }) => {
 
   const dispatch = useDispatch();
 
+  const [errors, setErrors] = useState([])
+
   const handleDeletePost = (event) => {
     event.preventDefault();
-    dispatch(removePost(post.post_id))
+    deletePost(post.post_id)
       .then(() => {
         if (post.is_question) {
           history.push('/');
         } else {
           dispatch(getQuestionThread(post.question_id));
         }
-      })
+      }, errors => {
+        console.log(errors);
+        setErrors(errors.responseJSON);
+      });
   }
 
   /**
@@ -56,6 +62,11 @@ const Post = ({post, ownerId }) => {
     <div className="post-body">
       <ReactMarkdown className="post-text" source={ body }/>
     </div>
+    { errors.length > 0 && <div className="alert danger">
+      <ul>
+        { errors.map((message, idx) => <li key={`error-${idx}`}>{ message }</li> ) }
+      </ul>
+    </div> }
     <div className="post-footer">
       <div className="post-menu">
         <Link to={ `/posts/${ post_id }/edit` }>edit</Link>

@@ -140,10 +140,3 @@ export function editPost(post) {
       .then(() => dispatch(refreshSession()));
   }
 }
-
-export function removePost(postId) {
-  return function (dispatch) {
-    return deletePost(postId)
-      .then(() => dispatch(refreshSession()));
-  }
-}
