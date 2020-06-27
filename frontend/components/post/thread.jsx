@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getQuestionThread } from "../../actions/post_actions";
-import { useParams } from "react-router";
+import { getQuestionThread, removePost } from "../../actions/post_actions";
+import { useHistory, useParams } from "react-router";
 import React from "react";
 import AnswerForm from "./answer_form";
 import moment from "moment";
@@ -16,7 +16,24 @@ const { useEffect } = require("react");
  * @param {number} ownerId
  */
 const Post = ({post, ownerId }) => {
-  const actionWord = post.is_question ? 'asked' : 'answered'
+
+  const actionWord = post.is_question ? 'asked' : 'answered';
+
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const handleDeletePost = (event) => {
+    event.preventDefault();
+    dispatch(removePost(post.post_id))
+      .then(() => {
+        if (post.is_question) {
+          history.push('/');
+        } else {
+          dispatch(getQuestionThread(post.question_id));
+        }
+      })
+  }
 
   /**
    * @param {RootState} state
@@ -42,7 +59,7 @@ const Post = ({post, ownerId }) => {
     <div className="post-footer">
       <div className="post-menu">
         <Link to={ `/posts/${ post_id }/edit` }>edit</Link>
-        { currentUserId === post.create.user_id && <a href="#">delete</a> }
+        { currentUserId === post.create.user_id && <a href="#" onClick={handleDeletePost}>delete</a> }
       </div>
       <div className="signatures">
         { post.update && <div className={`signature${ editor && editor.id === ownerId ? " owner" : ""}`}>

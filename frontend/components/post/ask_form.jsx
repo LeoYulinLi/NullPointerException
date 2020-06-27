@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { askQuestion } from "../../actions/post_actions";
 import ReactMarkdown from "react-markdown";
 import { EditorHint, FormBodyEditor } from "./widgets";
+import { useHistory } from "react-router";
 
 /**
  * @typedef AskForm
@@ -26,11 +27,14 @@ const AskForm = () => {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
 
+  const history = useHistory();
+
   const dispatch = useDispatch();
 
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(askQuestion({ title, body }));
+    dispatch(askQuestion({ title, body }))
+      .then(() => history.push('/'));
   }
 
   useLayoutEffect(() => {

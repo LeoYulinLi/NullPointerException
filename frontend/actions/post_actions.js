@@ -1,4 +1,11 @@
-import { getQuestion, getQuestions, patchPost, postQuestion, postQuestionAnswers } from "../utils/api_utlis";
+import {
+  deletePost,
+  getQuestion,
+  getQuestions,
+  patchPost,
+  postQuestion,
+  postQuestionAnswers
+} from "../utils/api_utlis";
 import { refreshSession } from "./session_actions";
 import { Action } from "redux";
 import { receiveUiLoading } from "./ui_actions";
@@ -130,6 +137,13 @@ export function answerQuestion(id, post) {
 export function editPost(post) {
   return function (dispatch) {
     return patchPost(post)
+      .then(() => dispatch(refreshSession()));
+  }
+}
+
+export function removePost(postId) {
+  return function (dispatch) {
+    return deletePost(postId)
       .then(() => dispatch(refreshSession()));
   }
 }

@@ -82,3 +82,13 @@ export function patchPost(post) {
     data: { post }
   });
 }
+
+/**
+ * @param {number} postId
+ */
+export function deletePost(postId) {
+  return $.ajax({
+    url: `/api/posts/${postId}`,
+    method: 'DELETE'
+  });
+}

@@ -26,4 +26,25 @@ class Api::PostsController < ApplicationController
     end
   end
 
+  def destroy
+    post = Post.find_by_id(params[:id])
+
+    if post.question? && post.question.answer_count != 0
+      render json: [
+        'You cannot delete this post because it has already been answered'
+      ], status: 403
+      return
+    end
+
+    if post.users.where.not(id: current_user.id).count != 0
+      render json: [
+        'You cannot delete this post because it has already been edited by other users'
+      ], status: 403
+      return
+    end
+
+    post.destroy!
+
+  end
+
 end
