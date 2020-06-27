@@ -6,7 +6,7 @@ import AnswerForm from "./answer_form";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { uiLoadingSelector } from "../../selectors/selectors";
+import { uiLoadingSelector, userIdSelector } from "../../selectors/selectors";
 import { AskQuestionHeader } from "./widgets";
 
 const { useEffect } = require("react");
@@ -28,6 +28,8 @@ const Post = ({post, ownerId }) => {
    */
   const users = useSelector(usersSelector);
 
+  const currentUserId = useSelector(userIdSelector);
+
   const author = users[post.create.user_id]
 
   const editor = users[post.update?.user_id]
@@ -40,6 +42,7 @@ const Post = ({post, ownerId }) => {
     <div className="post-footer">
       <div className="post-menu">
         <Link to={ `/posts/${ post_id }/edit` }>edit</Link>
+        { currentUserId === post.create.user_id && <a href="#">delete</a> }
       </div>
       <div className="signatures">
         { post.update && <div className={`signature${ editor && editor.id === ownerId ? " owner" : ""}`}>

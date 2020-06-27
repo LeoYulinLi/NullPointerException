@@ -518,6 +518,9 @@ textarea {
         & > a {
           @include link-color($text-default-secondary);
         }
+        & > * {
+          margin-right: 0.5em;
+        }
       }
 
       .signatures {
