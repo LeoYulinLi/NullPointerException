@@ -63,11 +63,11 @@ const Post = ({post, ownerId }) => {
       </div>
       <div className="signatures">
         { post.update && <div className={`signature${ editor && editor.id === ownerId ? " owner" : ""}`}>
-          <span>edited { moment(post.update.at).fromNow() }</span>
+          <span className="time">edited { moment(post.update.at).fromNow() }</span>
           { editor && <Link to={ `/users/${ editor.id }` }>{ editor.display_name }</Link> }
         </div> }
         <div className={`signature${ author.id === ownerId ? " owner" : ""}`}>
-          <span>{ actionWord } { moment(post.create.at).fromNow() }</span>
+          <span className="time">{ actionWord } { moment(post.create.at).fromNow() }</span>
           <Link to={ `/users/${ author.id }` }>{ author.display_name }</Link>
         </div>
       </div>
