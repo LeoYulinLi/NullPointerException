@@ -14,9 +14,9 @@ class Api::SessionsController < ApplicationController
   end
 
   def show
-    result = Session.find_by_session_token(session[:session_token])
-    if result
-      render json: {}, status: 200
+    @user = User.find_by_session_token(session[:session_token])
+    if @user
+      render 'api/users/show'
     else
       render json: ["Unauthorized access"], status: 401
     end

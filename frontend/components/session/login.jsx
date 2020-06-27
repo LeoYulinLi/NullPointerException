@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { FormEvent, useEffect, useLayoutEffect } from "react";
-import { login } from "../../actions/session_actions";
+import { login, refreshSession } from "../../actions/session_actions";
 import ErrorAlert from "../error/error_alert";
 import { Link } from "react-router-dom";
 import { clearSessionError } from "../../actions/error_actions";
@@ -54,6 +54,7 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(refreshSession());
     return () => dispatch(clearSessionError());
   }, []);
 

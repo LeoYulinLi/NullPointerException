@@ -89,7 +89,7 @@ export function logout() {
 export function refreshSession() {
   return (dispatch) => {
     return getSession()
-      .then(() => {}, () => {
+      .then(user => dispatch(receiveSession(user)), () => {
         dispatch(deleteSession());
       })
   }
