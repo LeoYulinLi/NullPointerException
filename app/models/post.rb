@@ -23,6 +23,15 @@ class Post < ApplicationRecord
     revisions.first
   end
 
+  def score
+    votes.sum(:amount)
+  end
+
+  # @param [User] user
+  def find_vote_by_user(user)
+    votes.where(user: user)
+  end
+
   before_destroy do
     @question_ref = question if question.post.id == id
   end

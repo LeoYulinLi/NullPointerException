@@ -16,7 +16,7 @@ class Question < ApplicationRecord
   end
 
   def vote_count
-    0
+    post.score
   end
 
   def post

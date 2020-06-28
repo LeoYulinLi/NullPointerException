@@ -18,6 +18,13 @@ json.set! 'post_currents' do
           json.set! 'at', post.current.created_at
         end
       end
+      json.set! 'votes' do
+        json.set! 'score', post.score
+        vote = post.find_vote_by_user(@user).first
+        if vote
+          json.set! 'voted', vote.amount == 1 ? 'up' : 'down'
+        end
+      end
       json.extract! post.current, :body, :note
     end
   end

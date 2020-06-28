@@ -24,6 +24,7 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
  * @property {string} note
  * @property {{user_id: number, at: string}} create
  * @property {{[user_id]: number, at: string}} [update]
+ * @property {{score: number, voted: "up"|"down"}} votes
  */
 
 /**

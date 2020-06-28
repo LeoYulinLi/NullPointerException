@@ -2,12 +2,6 @@ class Api::VotesController < ApplicationController
 
   before_action :require_logged_in, only: %i[create destroy]
 
-  def index
-    target = find_target
-    @votes = Vote.where(target: target)
-    @user_vote = Vote.find_by_user_id(current_user.id)
-  end
-
   def create
     amount = if params[:vote] && params[:vote][:action] == 'up'
                1
@@ -36,8 +30,8 @@ class Api::VotesController < ApplicationController
 
   def destroy
     target = find_target
-    old_vote = Vote.find(user: current_user, target: target)
-    old_vote.delete
+    old_vote = Vote.find_by(user: current_user, target: target)
+    old_vote&.delete
   end
 
   private

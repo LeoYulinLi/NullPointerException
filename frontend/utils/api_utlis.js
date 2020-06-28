@@ -92,3 +92,34 @@ export function deletePost(postId) {
     method: 'DELETE'
   });
 }
+
+export function postVoteUp(postId) {
+  return $.ajax({
+    url: `/api/posts/${postId}/votes`,
+    method: 'POST',
+    data: {
+      vote: {
+        action: 'up'
+      }
+    }
+  });
+}
+
+export function postVoteDown(postId) {
+  return $.ajax({
+    url: `/api/posts/${postId}/votes`,
+    method: 'POST',
+    data: {
+      vote: {
+        action: 'down'
+      }
+    }
+  });
+}
+
+export function deleteVote(postId) {
+  return $.ajax({
+    url: `/api/posts/${postId}/vote`,
+    method: 'DELETE'
+  });
+}

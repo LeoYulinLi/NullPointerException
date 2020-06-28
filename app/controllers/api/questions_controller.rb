@@ -26,6 +26,7 @@ class Api::QuestionsController < ApplicationController
 
   def show
     question = Question.includes(:posts).find_by_id(params[:id])
+    @user = current_user
     @posts = question.posts.includes(:revisions).includes(:users)
     @authors = @posts.flat_map(&:users)
     render :show

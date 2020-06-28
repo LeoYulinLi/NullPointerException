@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { uiLoadingSelector, userIdSelector } from "../../selectors/selectors";
 import { AskQuestionHeader, Loading } from "./widgets";
-import { deletePost } from "../../utils/api_utlis";
+import { deletePost, deleteVote, postVoteDown, postVoteUp } from "../../utils/api_utlis";
 
 const { useEffect } = require("react");
 
@@ -42,6 +42,25 @@ const Post = ({post, ownerId }) => {
   }
 
   /**
+   *
+   * @param {postVoteUp | postVoteDown}action
+   */
+  const voteHandler = (action) => {
+    return (event) => {
+      event.preventDefault();
+      let finalAction = action;
+      if (action === postVoteUp && post.votes.voted === 'up') finalAction = deleteVote
+      if (action === postVoteDown && post.votes.voted === 'down') finalAction = deleteVote
+      finalAction(post.post_id)
+        .then(() => {
+          dispatch(getQuestionThread(post.question_id));
+        }, errors => {
+          console.log(errors);
+        });
+    }
+  };
+
+  /**
    * @param {RootState} state
    */
   const usersSelector = state => state.users
@@ -59,29 +78,42 @@ const Post = ({post, ownerId }) => {
 
   const { post_id, body } = post
   return <div className="post">
-    <div className="post-body">
-      <ReactMarkdown className="post-text" source={ body }/>
-    </div>
-    { errors.length > 0 && <div className="alert danger">
-      <ul>
-        { errors.map((message, idx) => <li key={`error-${idx}`}>{ message }</li> ) }
-      </ul>
-    </div> }
-    <div className="post-footer">
-      <div className="post-menu">
-        <Link to={ `/posts/${ post_id }/edit` }>
-          { currentUserId ? "edit" : "improve this question"}
-        </Link>
-        { currentUserId === post.create.user_id && <a href="#" onClick={handleDeletePost}>delete</a> }
+    <div className="post-left">
+      <div className="vote-box">
+        <a href="#" onClick={voteHandler(postVoteUp)} className={ post.votes.voted === 'up' ? 'active' : ""}>
+          <i className="fas fa-chevron-up" />
+        </a>
+        <span className="score">{post.votes.score}</span>
+        <a href="#" onClick={voteHandler(postVoteDown)} className={ post.votes.voted === 'down' ? 'active' : ""}>
+          <i className="fas fa-chevron-down" />
+        </a>
       </div>
-      <div className="signatures">
-        { post.update && <div className={`signature${ editor && editor.id === ownerId ? " owner" : ""}`}>
-          <span className="time">edited { moment(post.update.at).fromNow() }</span>
-          { editor && <Link to={ `/users/${ editor.id }` }>{ editor.display_name }</Link> }
-        </div> }
-        <div className={`signature${ author.id === ownerId ? " owner" : ""}`}>
-          <span className="time">{ actionWord } { moment(post.create.at).fromNow() }</span>
-          <Link to={ `/users/${ author.id }` }>{ author.display_name }</Link>
+    </div>
+    <div className="post-right">
+      <div className="post-body">
+        <ReactMarkdown className="post-text" source={ body }/>
+      </div>
+      { errors.length > 0 && <div className="alert danger">
+        <ul>
+          { errors.map((message, idx) => <li key={`error-${idx}`}>{ message }</li> ) }
+        </ul>
+      </div> }
+      <div className="post-footer">
+        <div className="post-menu">
+          <Link to={ `/posts/${ post_id }/edit` }>
+            { currentUserId ? "edit" : "improve this question"}
+          </Link>
+          { currentUserId === post.create.user_id && <a href="#" onClick={handleDeletePost}>delete</a> }
+        </div>
+        <div className="signatures">
+          { post.update && <div className={`signature${ editor && editor.id === ownerId ? " owner" : ""}`}>
+            <span className="time">edited { moment(post.update.at).fromNow() }</span>
+            { editor && <Link to={ `/users/${ editor.id }` }>{ editor.display_name }</Link> }
+          </div> }
+          <div className={`signature${ author.id === ownerId ? " owner" : ""}`}>
+            <span className="time">{ actionWord } { moment(post.create.at).fromNow() }</span>
+            <Link to={ `/users/${ author.id }` }>{ author.display_name }</Link>
+          </div>
         </div>
       </div>
     </div>

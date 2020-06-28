@@ -10,7 +10,8 @@ Rails.application.routes.draw do
       resources :answers, only: %i[create]
     end
     resources :posts, only: %i[update destroy] do
-      resources :votes, only: %i[index create destroy]
+      resources :votes, only: %i[create]
+      delete '/vote', to: 'votes#destroy'
     end
   end
 
