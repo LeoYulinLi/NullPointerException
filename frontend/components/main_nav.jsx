@@ -73,6 +73,7 @@ const MainNav = () => {
     <div className="nav-container">
       <ul className="main-nav">
         <li><Link to="/"><p>Logo</p></Link></li>
+        <li><Link to="/questions"><p>Questions</p></Link></li>
       </ul>
       { !!userId ? <ControlNavLoggedIn userId={ userId }/> : <ControlNavGuest/> }
     </div>
