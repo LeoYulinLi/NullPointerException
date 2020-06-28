@@ -85,7 +85,7 @@ small {
 
   h1, h2, h3, h4, h5, h6, p, small, span {
     @each $theme, $color in $themes {
-      &.#{$theme} {
+      &.text-#{$theme} {
         color: darken($color, 10%);
       }
     }
@@ -94,13 +94,13 @@ small {
   a {
     text-decoration: none;
     @each $theme, $color in $themes {
-      &.#{$theme} {
+      &.text-#{$theme} {
         color: darken($color, 10%);
       }
-      &:hover.#{$theme} {
+      &:hover.text-#{$theme} {
         color: $color;
       }
-      &:active.#{$theme} {
+      &:active.text-#{$theme} {
         color: darken($color, 5%);
       }
     }
@@ -457,7 +457,7 @@ textarea {
     }
 
     a {
-      @extend .primary
+      @extend .text-primary
     }
 
     .question-item-summary {
@@ -548,7 +548,7 @@ textarea {
             color: $text-default-secondary;
           }
           a {
-            @extend .primary
+            @extend .text-primary
           }
         }
 
