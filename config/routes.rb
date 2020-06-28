@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     resources :questions, only: %i[create index show] do
       resources :answers, only: %i[create]
     end
-    resources :posts, only: %i[update destroy]
+    resources :posts, only: %i[update destroy] do
+      resources :votes, only: %i[index create destroy]
+    end
   end
 
 end

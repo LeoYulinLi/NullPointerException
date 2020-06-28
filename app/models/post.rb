@@ -9,6 +9,8 @@ class Post < ApplicationRecord
            through: :revisions,
            class_name: 'User'
 
+  has_many :votes, as: :target
+
   def current
     revisions.last
   end
