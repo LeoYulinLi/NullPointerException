@@ -56,7 +56,7 @@ const EditForm = () => {
       <FormBodyEditor body={body} setBody={setBody} rows={15} labelTitle={"Body"} />
       <div className="form-group">
         <label htmlFor="note">
-          Edit Summary
+          <strong>Edit Summary</strong>
         </label>
         <input
           required

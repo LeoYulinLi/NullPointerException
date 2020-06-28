@@ -39,8 +39,8 @@ const AskForm = () => {
 
   useLayoutEffect(() => {
     const $root = $('#root');
-    $root.addClass("ask-page");
-    return () => $root.removeClass("ask-page");
+    $root.addClass("dim-background");
+    return () => $root.removeClass("dim-background");
   }, [])
 
   return <div className="post-page">

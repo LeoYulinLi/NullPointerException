@@ -41,6 +41,12 @@ const Signup = () => {
     return () => dispatch(clearSessionError());
   }, []);
 
+  useLayoutEffect(() => {
+    const $root = $('#root');
+    $root.addClass("dim-background");
+    return () => $root.removeClass("dim-background");
+  }, [])
+
   /**
    * @param {FormEvent} event
    */
@@ -55,7 +61,8 @@ const Signup = () => {
       <form onSubmit={ handleSubmit }>
         <div className="form-group">
           <label htmlFor="username">Username</label>
-          <input required id="username" type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
+          <input required id="username" pattern=".{3,}" type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
+          <small>Username must contain at least 3 characters</small>
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -63,7 +70,8 @@ const Signup = () => {
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
-          <input required id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
+          <input required id="password"  pattern=".{8,}" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
+          <small>Passwords must contain at least 8 characters</small>
         </div>
         <button className="button button-primary">Sign Up</button>
       </form>

@@ -220,7 +220,7 @@ small {
 
 .session-page {
   margin: auto;
-  width: 240px;
+  width: 320px;
 
   .session-help {
     text-align: center;
@@ -278,7 +278,7 @@ small {
   }
 }
 
-.ask-page {
+.dim-background {
   background: $background-color-light;
   width: 100%;
 }
@@ -330,14 +330,16 @@ input, textarea {
     outline: $color-primary;
   }
 
-  &:focus:invalid {
-    @include input-theme($color-danger);
-  }
-
   @each $theme, $color in $themes {
     &.#{$theme} {
       @include input-theme($color);
     }
+  }
+}
+
+input {
+  &:not([value=""]):invalid {
+    @include input-theme($color-danger);
   }
 }
 

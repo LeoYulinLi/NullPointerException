@@ -37,7 +37,7 @@ class User < ApplicationRecord
   # @return [User, nil]
   def self.find_by_session_token(session_token)
     session = Session.includes(:user).find_by_session_token(session_token)
-    session.user
+    session&.user
   end
 
 end

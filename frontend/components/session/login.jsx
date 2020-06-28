@@ -58,6 +58,12 @@ const Login = () => {
     return () => dispatch(clearSessionError());
   }, []);
 
+  useLayoutEffect(() => {
+    const $root = $('#root');
+    $root.addClass("dim-background");
+    return () => $root.removeClass("dim-background");
+  }, [])
+
   return <div className="session-page">
     <ErrorAlert errors={ errors }/>
     <div className="session">
