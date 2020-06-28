@@ -83,6 +83,10 @@ small {
   align-items: baseline;
   padding: 5rem 2rem 2rem 2rem;
 
+  @media (max-width: 480px) {
+    padding: 5rem 0 0 0;
+  }
+
   h1, h2, h3, h4, h5, h6, p, small, span {
     @each $theme, $color in $themes {
       &.text-#{$theme} {
@@ -285,6 +289,9 @@ small {
 
 .post-page {
   width: 100%;
+  @media (max-width: 480px) {
+    padding: 0.5rem 0.75rem;
+  }
   h2 {
     margin: 1em 0;
   }
@@ -413,9 +420,13 @@ textarea {
 .ask-question-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  @media (max-width: 480px) {
+    padding: 0 1rem 0 0.75rem;
+  }
   h1 {
-    margin-right: 0.5em;
+    margin: 0 0.5em 0 0;
   }
 }
 
@@ -427,11 +438,20 @@ textarea {
 
   .question-item {
     padding: 0.75em 0.5em;
+    @media (max-width: 480px) {
+      padding: 0.5em 0.5em;
+    }
     display: flex;
     .question-item-stats {
       cursor: pointer;
       margin-right: 1em;
       display: flex;
+      @media (max-width: 480px) {
+        flex-direction: column;
+        :not(:last-child) {
+          margin-bottom: 0.25em;
+        }
+      }
       .stat-item {
         display: flex;
         flex-direction: column;
@@ -439,6 +459,11 @@ textarea {
         padding: 0.5em;
         margin-right: 0.25em;
         min-width: 4.5em;
+        height: 4.5em;
+        @media (max-width: 480px) {
+          min-width: 4em;
+          height: 4em;
+        }
         color: $text-default-secondary;
         border: 0.075em solid transparent;
         border-radius: $default-border-radius;
@@ -461,10 +486,16 @@ textarea {
     }
 
     .question-item-summary {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      @media (max-width: 480px) {
+        padding: 0.5em 0;
+      }
       h2 {
         font-size: 1.35em;
       }
-      width: 100%;
       .info {
         display: flex;
         flex-direction: row;
@@ -512,6 +543,9 @@ textarea {
     flex-direction: column;
     justify-content: space-between;
     padding: 1em 0;
+    @media (max-width: 480px) {
+      padding: 1em;
+    }
     border-bottom: 0.075em solid #dddddd;
 
     .post-footer {
@@ -560,6 +594,11 @@ textarea {
 
 .thread-statistic {
   display: flex;
+  padding-bottom: 1em;
+  border-bottom: 0.05rem solid #dddddd;
+  @media (max-width: 480px) {
+    padding: 0 0 1em 0.75rem;
+  }
   .stat-item {
     margin-right: 1em;
     .stat-key {
@@ -567,8 +606,6 @@ textarea {
       margin-right: 0.5em;
     }
   }
-  padding-bottom: 1em;
-  border-bottom: 0.05rem solid #dddddd;
 }
 
 .post-text {
