@@ -566,7 +566,9 @@ textarea {
       .signatures {
         display: flex;
         flex-flow: row;
-        flex-wrap: wrap;
+        @media (max-width: 480px) {
+          flex-direction: column;
+        }
         .signature {
           display: flex;
           flex-direction: column;
