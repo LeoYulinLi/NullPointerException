@@ -414,6 +414,9 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  h1 {
+    margin-right: 0.5em;
+  }
 }
 
 .question-list {
