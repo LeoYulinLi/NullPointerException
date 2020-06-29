@@ -23,6 +23,10 @@ class Post < ApplicationRecord
     revisions.first
   end
 
+  def user
+    first.user
+  end
+
   def score
     votes.sum(:amount)
   end

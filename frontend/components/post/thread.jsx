@@ -39,7 +39,6 @@ const Post = ({ post, ownerId }) => {
           dispatch(getQuestionThread(post.question_id));
         }
       }, errors => {
-        console.log(errors);
         setErrors(errors.responseJSON);
       });
   }
@@ -57,7 +56,11 @@ const Post = ({ post, ownerId }) => {
         .then(() => {
           dispatch(getQuestionThread(post.question_id));
         }, errors => {
-          setShowModal(true);
+          if (errors.status === 401) {
+            setShowModal(true);
+          } else {
+            setErrors(errors.responseJSON)
+          }
         });
     }
   };

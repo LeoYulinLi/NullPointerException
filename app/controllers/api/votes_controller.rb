@@ -3,13 +3,19 @@ class Api::VotesController < ApplicationController
   before_action :require_logged_in, only: %i[create destroy]
 
   def create
+
+    target = find_target
+
+    if target.user == current_user
+      render json: ['You cannot vote your own post'], status: 403
+      return
+    end
+
     amount = if params[:vote] && params[:vote][:action] == 'up'
                1
              elsif params[:vote] && params[:vote][:action] == 'down'
                -1
              end
-
-    target = find_target
 
     vote = Vote.new(
       user: current_user,
