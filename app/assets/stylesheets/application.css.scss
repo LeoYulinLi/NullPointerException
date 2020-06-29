@@ -233,6 +233,30 @@ small {
       display: flex;
       align-items: baseline;
     }
+    .nav-search {
+      flex-grow: 1;
+      position: relative;
+      input {
+        width: 100%;
+        margin: 0;
+        padding: 0.5em 0.5em 0.5em 2em;
+      }
+      .icon-box {
+        height: 2.3em;
+        width: 2.3em;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .search-icon {
+          color: #cccccc;
+          height: 1.3em;
+          width: 1.3em;
+        }
+      }
+    }
   }
 }
 

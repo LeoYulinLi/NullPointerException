@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { HashRouter, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/session_actions";
@@ -49,16 +49,39 @@ const ControlNavLoggedIn = ({ userId }) => {
       </Link>
     </li>
     <li className="dropdown-button">
-      <a href="#" onClick={showUserControl}>
-        <p><i className="fas fa-cog" /></p>
+      <a href="#" onClick={ showUserControl }>
+        <p><i className="fas fa-cog"/></p>
       </a>
       <div className="dropdown" id="user-control">
         <ul>
-          <li><a href="#" onClick={dispatchLogout}>Logout</a></li>
+          <li><a href="#" onClick={ dispatchLogout }>Logout</a></li>
         </ul>
       </div>
     </li>
   </ul>
+}
+
+const SearchBar = () => {
+  const [query, setQuery] = useState("");
+
+  /**
+   * @param {React.FormEvent<HTMLFormElement>} event
+   */
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log(`Searching ${query}...`);
+  }
+
+  return <form className="nav-search" onSubmit={handleSubmit}>
+    <input
+      type="text"
+      className="muted"
+      autoComplete={ false }
+      value={ query }
+      onChange={ event => setQuery(event.target.value) }
+      placeholder={ "Search..." }/>
+    <span className="icon-box"><i className="fas fa-search search-icon"/></span>
+  </form>
 }
 
 const MainNav = () => {
@@ -75,6 +98,7 @@ const MainNav = () => {
         <li><Link to="/"><p>Logo</p></Link></li>
         <li><Link to="/questions"><p>Questions</p></Link></li>
       </ul>
+      <SearchBar/>
       { !!userId ? <ControlNavLoggedIn userId={ userId }/> : <ControlNavGuest/> }
     </div>
   </nav>
