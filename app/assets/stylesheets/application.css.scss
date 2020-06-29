@@ -563,7 +563,7 @@ textarea {
         a {
           padding: 0.25rem;
           @include link-color($color-muted);
-          &.active {
+          &.voted {
             @include link-color($color-theme);
           }
         }

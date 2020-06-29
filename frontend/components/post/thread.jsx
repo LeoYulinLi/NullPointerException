@@ -80,11 +80,11 @@ const Post = ({post, ownerId }) => {
   return <div className="post">
     <div className="post-left">
       <div className="vote-box">
-        <a href="#" onClick={voteHandler(postVoteUp)} className={ post.votes.voted === 'up' ? 'active' : ""}>
+        <a href="#" onClick={voteHandler(postVoteUp)} className={ post.votes.voted === 'up' ? 'voted' : ""}>
           <i className="fas fa-chevron-up" />
         </a>
         <span className="score">{post.votes.score}</span>
-        <a href="#" onClick={voteHandler(postVoteDown)} className={ post.votes.voted === 'down' ? 'active' : ""}>
+        <a href="#" onClick={voteHandler(postVoteDown)} className={ post.votes.voted === 'down' ? 'voted' : ""}>
           <i className="fas fa-chevron-down" />
         </a>
       </div>
