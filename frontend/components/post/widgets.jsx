@@ -31,14 +31,14 @@ export const FormBodyEditor = ({ body, setBody, rows, labelTitle, hint, children
   </div>
 }
 
-export const AskQuestionHeader = ({headerText}) => {
+export const AskQuestionHeader = ({ headerText }) => {
   return <div className="ask-question-header">
-    <h1>{headerText}</h1>
+    <h1>{ headerText }</h1>
     <Link to="/ask" className="button button-primary">Ask Question</Link>
   </div>
 }
 
-export const Loading = ({children, loadingCondition}) => {
+export const Loading = ({ children, loadingCondition = null }) => {
 
   /**
    * @param {RootState} state
@@ -47,6 +47,11 @@ export const Loading = ({children, loadingCondition}) => {
 
   const isLoading = useSelector(loadingSelector);
 
-  return (isLoading || loadingCondition) ? <div className="loading-ring" /> : children
+  /**
+   * use loadingCondition if there is one, if none, use the ui state
+   */
+  const condition = loadingCondition === null ? isLoading : loadingCondition
+
+  return condition ? <div className="loading-ring"/> : children
 
 }

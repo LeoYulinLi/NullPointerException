@@ -395,6 +395,10 @@ textarea {
   &:active {
     background-color: lighten($button-color, 3%);
   }
+  &:disabled {
+    background-color: lighten(desaturate($button-color, 50%), 10%);
+    cursor: not-allowed;
+  }
 }
 
 .button {
