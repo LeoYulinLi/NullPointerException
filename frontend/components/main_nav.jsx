@@ -62,6 +62,7 @@ const ControlNavLoggedIn = ({ userId }) => {
 }
 
 const SearchBar = () => {
+
   const [query, setQuery] = useState("");
 
   /**
@@ -69,10 +70,10 @@ const SearchBar = () => {
    */
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(`Searching ${query}...`);
+    console.log(`Searching ${ query }...`);
   }
 
-  return <form className="nav-search" onSubmit={handleSubmit}>
+  return <form className="nav-search" onSubmit={ handleSubmit }>
     <input
       type="text"
       className="muted"
