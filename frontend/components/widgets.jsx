@@ -17,15 +17,16 @@ export const EditorHint = () => <div className="editor-hint">
  * @param {number} rows
  * @param {string} [labelTitle]
  * @param {string} [hint]
+ * @param {boolean} disabled
  * @param {*} children
  */
-export const FormBodyEditor = ({ body, setBody, rows, labelTitle, hint, children }) => {
+export const FormBodyEditor = ({ body, setBody, rows, labelTitle, hint, children, disabled }) => {
   return <div className="form-group">
     { (labelTitle || hint) && <label htmlFor="body">
       { labelTitle && <strong>{ labelTitle }</strong> }
       { hint && <small className="hint">{ hint }</small> }
     </label> }
-    <textarea required rows={ rows } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
+    <textarea disabled={disabled} required rows={ rows } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
     { children }
     <ReactMarkdown className="post-text" source={ body }/>
   </div>

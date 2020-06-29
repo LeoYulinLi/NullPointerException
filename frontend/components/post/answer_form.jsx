@@ -14,21 +14,29 @@ const AnswerForm = ({ id }) => {
 
   const [body, setBody] = useState();
 
+  const [submitting, setSubmitting] = useState(false);
+
   const dispatch = useDispatch();
 
   const loggedIn = useSelector(isLoggedInSelector);
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
     dispatch(answerQuestion(id, { body }))
-      .then(() => dispatch(getQuestionThread(id)));
+      .then(() => {
+        setBody("");
+        dispatch(getQuestionThread(id));
+        setSubmitting(false);
+      }, () => setSubmitting(false));
   }
 
   const form = <div className="post-page">
     <h2>Your Answer</h2>
     <form onSubmit={ handleSubmit }>
-      <FormBodyEditor body={ body } setBody={ setBody } rows={ 10 }/>
-      <button className="button button-primary">Submit</button>
+      <FormBodyEditor body={ body } setBody={ setBody } rows={ 10 } disabled={ submitting }/>
+      <button className="button button-primary" disabled={ submitting }>Submit</button>
     </form>
   </div>
 
