@@ -4,7 +4,7 @@ import { editPost } from "../../actions/post_actions";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router";
 import ReactMarkdown from "react-markdown";
-import { FormBodyEditor } from "./widgets";
+import { FormBodyEditor } from "../widgets";
 
 /**
  * @typedef EditPostForm

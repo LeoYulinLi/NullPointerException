@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { askQuestion } from "../../actions/post_actions";
 import ReactMarkdown from "react-markdown";
-import { EditorHint, FormBodyEditor } from "./widgets";
+import { EditorHint, FormBodyEditor } from "../widgets";
 import { useHistory } from "react-router";
 
 /**

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { answerQuestion, askQuestion, getQuestionThread } from "../../actions/post_actions";
 import { useDispatch, useSelector } from "react-redux";
 import ReactMarkdown from "react-markdown";
-import { FormBodyEditor } from "./widgets";
+import { FormBodyEditor } from "../widgets";
 import { useHistory } from "react-router";
 import { isLoggedInSelector } from "../../selectors/selectors";
 import { Link } from "react-router-dom";

@@ -7,7 +7,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { uiLoadingSelector, userIdSelector } from "../../selectors/selectors";
-import { AskQuestionHeader, Loading } from "./widgets";
+import { AskQuestionHeader, Loading } from "../widgets";
 import { deletePost, deleteVote, postVoteDown, postVoteUp } from "../../utils/api_utlis";
 
 const { useEffect } = require("react");

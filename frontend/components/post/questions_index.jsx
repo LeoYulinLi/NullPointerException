@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { getQuestionIndex } from "../../actions/post_actions";
 import QuestionIndexItem from "./question_index_item";
-import { AskQuestionHeader, Loading } from "./widgets";
+import { AskQuestionHeader, Loading } from "../widgets";
 import orderBy from  'lodash.orderby';
 import { receiveUiLoading } from "../../actions/ui_actions";
 
