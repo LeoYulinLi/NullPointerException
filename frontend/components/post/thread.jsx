@@ -78,10 +78,17 @@ const Post = ({ post, ownerId }) => {
 
   const editor = users[post.update?.user_id]
 
+  // TODO: this is just to fixed the voted state. see if there is a more efficient way
+  useEffect(() => {
+    dispatch(getQuestionThread(post.question_id));
+  }, [currentUserId]);
+
   const { post_id, body } = post
+
   return <div className="post">
-    <Modal header="Join the Null Pointer Exception Community" show={showModal} setShow={setShowModal}>
-        <Link to="/signup" className="button button-primary text-center">Sign up using email</Link>
+    <Modal header="Join the Null Pointer Exception Community" show={ showModal } setShow={ setShowModal }>
+      <p>You need to <Link className="text-primary" to='/login'>log in</Link> before you vote</p>
+      <Link to="/signup" className="button button-primary text-center">Sign up using email</Link>
     </Modal>
     <div className="post-left">
       <div className="vote-box">
