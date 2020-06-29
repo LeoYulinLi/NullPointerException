@@ -60,6 +60,12 @@ export function getQuestion(id) {
   });
 }
 
+export function queryQuestion(query) {
+  return $.ajax({
+    url: `/api/questions?query=${query}`
+  });
+}
+
 /**
  * @param {number} id
  * @param {{body: string}} post

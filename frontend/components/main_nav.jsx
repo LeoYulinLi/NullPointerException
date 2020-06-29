@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/session_actions";
 import { userIdSelector } from "../selectors/selectors";
 import '@fortawesome/fontawesome-free/js/all';
+import { queryQuestions } from "../actions/post_actions";
+import { useHistory } from "react-router";
 
 const ControlNavGuest = () => {
   return <div className="control-nav">
@@ -65,19 +67,24 @@ const SearchBar = () => {
 
   const [query, setQuery] = useState("");
 
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
   /**
    * @param {React.FormEvent<HTMLFormElement>} event
    */
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(`Searching ${ query }...`);
+    history.push("/questions");
+    dispatch(queryQuestions(query));
   }
 
   return <form className="nav-search" onSubmit={ handleSubmit }>
     <input
       type="text"
       className="muted"
-      autoComplete={ false }
+      autoComplete="off"
       value={ query }
       onChange={ event => setQuery(event.target.value) }
       placeholder={ "Search..." }/>

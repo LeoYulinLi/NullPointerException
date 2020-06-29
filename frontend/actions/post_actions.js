@@ -4,7 +4,7 @@ import {
   getQuestions,
   patchPost,
   postQuestion,
-  postQuestionAnswers
+  postQuestionAnswers, queryQuestion
 } from "../utils/api_utlis";
 import { refreshSession } from "./session_actions";
 import { Action } from "redux";
@@ -97,6 +97,17 @@ export function getQuestionIndex() {
   return function (dispatch) {
     dispatch(receiveUiLoading(true));
     return getQuestions()
+      .then((response) => {
+        dispatch(receiveQuestions(response));
+        dispatch(receiveUiLoading(false));
+      });
+  };
+}
+
+export function queryQuestions(query) {
+  return function (dispatch) {
+    dispatch(receiveUiLoading(true));
+    return queryQuestion(query)
       .then((response) => {
         dispatch(receiveQuestions(response));
         dispatch(receiveUiLoading(false));
