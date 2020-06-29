@@ -130,6 +130,10 @@ small {
     color: $text-default-secondary;
   }
 
+  .text-center {
+    text-align: center;
+  }
+
   code, pre {
     font-family: "Noto Sans Mono", monospace;
     font-size: 0.9em;
@@ -711,6 +715,48 @@ html, body, #root {
   }
 }
 
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .modal {
+    background: white;
+    width: 25rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0.5rem;
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      h1 {
+        font-weight: bold;
+      }
+      .modal-close {
+        padding: 0.6rem 0.7rem;
+        border-radius: $default-border-radius;
+        line-height: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+          background: $background-color-light;
+        }
+      }
+    }
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
 
 * {
   box-sizing: border-box;

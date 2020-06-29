@@ -7,8 +7,9 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { uiLoadingSelector, userIdSelector } from "../../selectors/selectors";
-import { AskQuestionHeader, Loading } from "../widgets";
+import { AskQuestionHeader, Loading, Modal } from "../widgets";
 import { deletePost, deleteVote, postVoteDown, postVoteUp } from "../../utils/api_utlis";
+import Login from "../session/login";
 
 const { useEffect } = require("react");
 
@@ -24,7 +25,9 @@ const Post = ({ post, ownerId }) => {
 
   const dispatch = useDispatch();
 
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
 
   const handleDeletePost = (event) => {
     event.preventDefault();
@@ -54,7 +57,7 @@ const Post = ({ post, ownerId }) => {
         .then(() => {
           dispatch(getQuestionThread(post.question_id));
         }, errors => {
-          console.log(errors);
+          setShowModal(true);
         });
     }
   };
@@ -77,6 +80,9 @@ const Post = ({ post, ownerId }) => {
 
   const { post_id, body } = post
   return <div className="post">
+    <Modal header="Join the Null Pointer Exception Community" show={showModal} setShow={setShowModal}>
+        <Link to="/signup" className="button button-primary text-center">Sign up using email</Link>
+    </Modal>
     <div className="post-left">
       <div className="vote-box">
         <a href="#" onClick={ voteHandler(postVoteUp) } className={ post.votes.voted === 'up' ? 'voted' : "" }>

@@ -26,7 +26,8 @@ export const FormBodyEditor = ({ body, setBody, rows, labelTitle, hint, children
       { labelTitle && <strong>{ labelTitle }</strong> }
       { hint && <small className="hint">{ hint }</small> }
     </label> }
-    <textarea disabled={disabled} required rows={ rows } id="body" value={ body } onChange={ event => setBody(event.target.value) }/>
+    <textarea disabled={ disabled } required rows={ rows } id="body" value={ body }
+              onChange={ event => setBody(event.target.value) }/>
     { children }
     <ReactMarkdown className="post-text" source={ body }/>
   </div>
@@ -49,10 +50,36 @@ export const Loading = ({ children, loadingCondition = null }) => {
   const isLoading = useSelector(loadingSelector);
 
   /**
-   * use loadingCondition if there is one, if none, use the ui state
+   * use loadingCondition if there is one, otherwise, use the ui state
    */
   const condition = loadingCondition === null ? isLoading : loadingCondition
 
   return condition ? <div className="loading-ring"/> : children
 
+}
+
+export const Modal = ({ children, header, show, setShow }) => {
+
+  const handleClose = (event) => {
+    event.preventDefault();
+    setShow(false);
+  }
+
+  const handleClickAnyWhere = (event) => {
+    event.preventDefault();
+    if (event.target !== event.currentTarget) return;
+    setShow(false);
+  }
+
+  return show ? <div className="modal-background" onClick={handleClickAnyWhere}>
+    <div className="modal">
+      <div className="modal-header">
+        <h1>{ header }</h1>
+        <a className="modal-close" href="#" onClick={handleClose}><i className="fas fa-times" /></a>
+      </div>
+      <div className="modal-body">
+        { children }
+      </div>
+    </div>
+  </div> : null
 }
