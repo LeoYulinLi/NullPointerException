@@ -16,7 +16,7 @@ const { useEffect } = require("react");
  * @param {PostCurrent} post
  * @param {number} ownerId
  */
-const Post = ({post, ownerId }) => {
+const Post = ({ post, ownerId }) => {
 
   const actionWord = post.is_question ? 'asked' : 'answered';
 
@@ -42,7 +42,6 @@ const Post = ({post, ownerId }) => {
   }
 
   /**
-   *
    * @param {postVoteUp | postVoteDown}action
    */
   const voteHandler = (action) => {
@@ -80,12 +79,12 @@ const Post = ({post, ownerId }) => {
   return <div className="post">
     <div className="post-left">
       <div className="vote-box">
-        <a href="#" onClick={voteHandler(postVoteUp)} className={ post.votes.voted === 'up' ? 'voted' : ""}>
-          <i className="fas fa-chevron-up" />
+        <a href="#" onClick={ voteHandler(postVoteUp) } className={ post.votes.voted === 'up' ? 'voted' : "" }>
+          <i className="fas fa-chevron-up"/>
         </a>
-        <span className="score">{post.votes.score}</span>
-        <a href="#" onClick={voteHandler(postVoteDown)} className={ post.votes.voted === 'down' ? 'voted' : ""}>
-          <i className="fas fa-chevron-down" />
+        <span className="score">{ post.votes.score }</span>
+        <a href="#" onClick={ voteHandler(postVoteDown) } className={ post.votes.voted === 'down' ? 'voted' : "" }>
+          <i className="fas fa-chevron-down"/>
         </a>
       </div>
     </div>
@@ -95,22 +94,22 @@ const Post = ({post, ownerId }) => {
       </div>
       { errors.length > 0 && <div className="alert danger">
         <ul>
-          { errors.map((message, idx) => <li key={`error-${idx}`}>{ message }</li> ) }
+          { errors.map((message, idx) => <li key={ `error-${ idx }` }>{ message }</li>) }
         </ul>
       </div> }
       <div className="post-footer">
         <div className="post-menu">
           <Link to={ `/posts/${ post_id }/edit` }>
-            { currentUserId ? "edit" : "improve this question"}
+            { currentUserId ? "edit" : "improve this question" }
           </Link>
-          { currentUserId === post.create.user_id && <a href="#" onClick={handleDeletePost}>delete</a> }
+          { currentUserId === post.create.user_id && <a href="#" onClick={ handleDeletePost }>delete</a> }
         </div>
         <div className="signatures">
-          { post.update && <div className={`signature${ editor && editor.id === ownerId ? " owner" : ""}`}>
+          { post.update && <div className={ `signature${ editor && editor.id === ownerId ? " owner" : "" }` }>
             <span className="time">edited { moment(post.update.at).fromNow() }</span>
             { editor && <Link to={ `/users/${ editor.id }` }>{ editor.display_name }</Link> }
           </div> }
-          <div className={`signature${ author.id === ownerId ? " owner" : ""}`}>
+          <div className={ `signature${ author.id === ownerId ? " owner" : "" }` }>
             <span className="time">{ actionWord } { moment(post.create.at).fromNow() }</span>
             <Link to={ `/users/${ author.id }` }>{ author.display_name }</Link>
           </div>
@@ -150,7 +149,7 @@ const Thread = () => {
   const createTime = question?.create.at
   const updateTime = (question?.update ? question?.update : question?.create)?.at
 
-  return <Loading loadingCondition={!question}>
+  return <Loading loadingCondition={ !question }>
     <div className="thread">
       <AskQuestionHeader headerText={ allPosts[0]?.title }/>
       <div className="thread-statistic">
