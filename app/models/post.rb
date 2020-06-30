@@ -37,7 +37,7 @@ class Post < ApplicationRecord
   end
 
   before_destroy do
-    @question_ref = question if question.post.id == id
+    @question_ref = question if question.post.id == id && question.answer_count.zero?
   end
 
   after_destroy do
