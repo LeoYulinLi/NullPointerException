@@ -23,6 +23,7 @@ json.set! 'questions' do
     end
   end
 end
+debugger
 json.set! 'users' do
   users.each do |id, user|
     json.set! id do

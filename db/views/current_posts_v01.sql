@@ -1,5 +1,6 @@
 select distinct on (posts.id) posts.id,
                               question_id,
+                              question_posts.post_id          as question_post_id,
                               current.title,
                               current.body,
                               first.user_id                   as author,
@@ -13,6 +14,7 @@ from posts
          left outer join (select target_id, sum(amount) as score
                           from votes
                           where target_type = 'Post'
-                          group by target_id) vote_summary on
-    vote_summary.target_id = posts.id
+                          group by target_id) vote_summary
+             on vote_summary.target_id = posts.id
+         full outer join question_posts on posts.id = question_posts.post_id
 order by posts.id, first.id, current.id desc;

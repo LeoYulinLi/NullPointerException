@@ -3,7 +3,7 @@ json.set! 'post_currents' do
     json.set! post.id do
       json.set! 'question_id', post.question_id
       json.set! 'post_id', post.id
-      json.set! 'title', post.current.title if post.question?
+      json.set! 'title', post.title if post.question?
       json.set! 'is_question', post.question?
       json.set! 'create' do
         json.set! 'user_id', post.author.id

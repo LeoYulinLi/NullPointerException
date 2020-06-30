@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_004154) do
   create_view "current_posts", sql_definition: <<-SQL
       SELECT DISTINCT ON (posts.id) posts.id,
       posts.question_id,
+      question_posts.post_id AS question_post_id,
       current.title,
       current.body,
       first.user_id AS author,
@@ -94,7 +95,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_004154) do
       COALESCE(vote_summary.score, (0)::bigint) AS score,
       first.created_at,
       current.created_at AS updated_at
-     FROM (((posts
+     FROM ((((posts
        JOIN revisions current ON ((posts.id = current.post_id)))
        JOIN revisions first ON ((posts.id = first.post_id)))
        LEFT JOIN ( SELECT votes.target_id,
@@ -102,6 +103,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_004154) do
              FROM votes
             WHERE ((votes.target_type)::text = 'Post'::text)
             GROUP BY votes.target_id) vote_summary ON ((vote_summary.target_id = posts.id)))
+       FULL JOIN question_posts ON ((posts.id = question_posts.post_id)))
     ORDER BY posts.id, first.id, current.id DESC;
   SQL
   create_view "current_questions", sql_definition: <<-SQL

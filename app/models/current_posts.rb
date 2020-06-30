@@ -15,7 +15,7 @@ class CurrentPosts < ActiveRecord::Base
   end
 
   def question?
-
+    !!question_post_id
   end
 
   def readonly?
