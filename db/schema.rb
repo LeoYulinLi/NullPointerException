@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_28_211628) do
+ActiveRecord::Schema.define(version: 2020_06_29_230638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,4 +77,48 @@ ActiveRecord::Schema.define(version: 2020_06_28_211628) do
   add_foreign_key "revisions", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "votes", "users"
+
+  create_view "current_posts", sql_definition: <<-SQL
+      SELECT DISTINCT ON (posts.id) posts.id,
+      posts.question_id,
+      current.title,
+      current.body,
+      first.user_id AS author,
+      current.user_id AS editor,
+      COALESCE(vote_count.count, (0)::bigint) AS score,
+      first.created_at,
+      current.created_at AS updated_at
+     FROM (((posts
+       JOIN revisions current ON ((posts.id = current.post_id)))
+       JOIN revisions first ON ((posts.id = first.post_id)))
+       LEFT JOIN ( SELECT votes.target_id,
+              count(*) AS count
+             FROM votes
+            WHERE ((votes.target_type)::text = 'Post'::text)
+            GROUP BY votes.target_id) vote_count ON ((vote_count.target_id = posts.id)))
+    ORDER BY posts.id, first.id, current.id DESC;
+  SQL
+  create_view "current_questions", sql_definition: <<-SQL
+      SELECT DISTINCT ON (questions.id) questions.id,
+      question_post.id AS post_id,
+      question_post.title,
+      question_post.body,
+      COALESCE(question_post.score, (0)::bigint) AS score,
+      COALESCE((post_count.count - 1), (0)::bigint) AS answer_count,
+      question_post.author AS owner,
+      all_posts.id AS active_id,
+      all_posts.author AS active_by,
+      question_post.created_at,
+      question_post.updated_at,
+      all_posts.created_at AS active_created_at,
+      all_posts.updated_at AS active_updated_at
+     FROM (((questions
+       JOIN current_posts question_post ON ((questions.id = question_post.question_id)))
+       JOIN current_posts all_posts ON ((questions.id = all_posts.question_id)))
+       LEFT JOIN ( SELECT posts.question_id AS qid,
+              count(*) AS count
+             FROM posts
+            GROUP BY posts.question_id) post_count ON ((post_count.qid = question_post.question_id)))
+    ORDER BY questions.id, question_post.id, all_posts.updated_at DESC;
+  SQL
 end
