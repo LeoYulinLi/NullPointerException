@@ -26,9 +26,6 @@ export default function postReducer(state = defaultState, action) {
       const { post_currents, revisions } = action.thread;
       return { post_currents, revisions };
     }
-    case RECEIVE_QUERY: {
-      return { ...state, query: action.query };
-    }
     default:
       return state;
   }
