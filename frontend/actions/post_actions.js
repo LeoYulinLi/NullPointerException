@@ -4,7 +4,7 @@ import {
   getQuestions,
   patchPost,
   postQuestion,
-  postQuestionAnswers
+  postQuestionAnswers, queryQuestion
 } from "../utils/api_utlis";
 import { refreshSession } from "./session_actions";
 import { Action } from "redux";
@@ -12,6 +12,7 @@ import { receiveUiLoading } from "./ui_actions";
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_REVISIONS';
 export const RECEIVE_THREAD = 'RECEIVE_THREAD';
+export const RECEIVE_QUERY = 'RECEIVE_QUERY';
 
 /**
  * @typedef PostCurrent
@@ -38,7 +39,12 @@ export const RECEIVE_THREAD = 'RECEIVE_THREAD';
  */
 
 /**
- * @typedef {ReceiveQuestionsAction | ReceiveThreadAction} PostActions
+ * @typedef {Action<RECEIVE_QUERY>} ReceiveQuery
+ * @property {string} query
+ */
+
+/**
+ * @typedef {ReceiveQuestionsAction | ReceiveThreadAction | ReceiveQuery} PostActions
  */
 
 /**
@@ -84,19 +90,33 @@ function receiveThread(thread) {
   }
 }
 
-
 /**
- *
- * @param question
+ * @param  {string} query
+ * @returns {ReceiveThreadAction}
  */
-function receiveQuestion(question) {
-
+export function receiveQuery(query) {
+  return {
+    type: RECEIVE_QUERY,
+    query
+  };
 }
+
 
 export function getQuestionIndex() {
   return function (dispatch) {
     dispatch(receiveUiLoading(true));
     return getQuestions()
+      .then((response) => {
+        dispatch(receiveQuestions(response));
+        dispatch(receiveUiLoading(false));
+      });
+  };
+}
+
+export function queryQuestions(query) {
+  return function (dispatch) {
+    dispatch(receiveUiLoading(true));
+    return queryQuestion(query)
       .then((response) => {
         dispatch(receiveQuestions(response));
         dispatch(receiveUiLoading(false));

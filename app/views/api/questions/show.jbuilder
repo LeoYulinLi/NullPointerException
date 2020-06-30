@@ -3,29 +3,28 @@ json.set! 'post_currents' do
     json.set! post.id do
       json.set! 'question_id', post.question_id
       json.set! 'post_id', post.id
-      json.set! 'revision_id', post.current.id
-      json.set! 'title', post.current.title if post.question?
+      json.set! 'title', post.title if post.question?
       json.set! 'is_question', post.question?
       json.set! 'create' do
-        json.set! 'user_id', post.first.user_id
-        json.set! 'at', post.first.created_at
+        json.set! 'user_id', post.author.id
+        json.set! 'at', post.created_at
       end
-      if post.first.id != post.current.id
+      if post.created_at != post.updated_at
         json.set! 'update' do
-          if post.current.user_id != post.first.user_id
-            json.set! 'user_id', post.current.user_id
+          if post.editor.id != post.author.id
+            json.set! 'user_id', post.editor.id
           end
-          json.set! 'at', post.current.created_at
+          json.set! 'at', post.updated_at
         end
       end
       json.set! 'votes' do
         json.set! 'score', post.score
-        vote = post.find_vote_by_user(@user).first
+        vote = post.voted_by?(@user)
         if vote
           json.set! 'voted', vote.amount == 1 ? 'up' : 'down'
         end
       end
-      json.extract! post.current, :body, :note
+      json.extract! post, :body
     end
   end
 end

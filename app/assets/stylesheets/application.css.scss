@@ -233,6 +233,31 @@ small {
       display: flex;
       align-items: baseline;
     }
+    .nav-search {
+      flex-grow: 1;
+      position: relative;
+      margin-left: 0.5em;
+      input {
+        width: 100%;
+        margin: 0;
+        padding: 0.5em 0.5em 0.5em 2em;
+      }
+      .icon-box {
+        height: 2.3em;
+        width: 2.3em;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .search-icon {
+          color: #cccccc;
+          height: 1.3em;
+          width: 1.3em;
+        }
+      }
+    }
   }
 }
 
@@ -588,6 +613,7 @@ textarea {
 
     .post-right {
       flex-grow: 1;
+      overflow: hidden;
       .post-footer {
         display: flex;
         flex-direction: row;
@@ -655,7 +681,26 @@ textarea {
 .post-text {
   font-size: 1rem;
   line-height: 1.5;
-  padding: 1em 0;
+  margin: 1em 0;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    cursor: default;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-muted;
+    border-radius: $default-border-radius;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: darken($color-muted, 5%);
+  }
 
   h1 {
     font-size: 1.5rem;

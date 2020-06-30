@@ -20,15 +20,16 @@ class Api::QuestionsController < ApplicationController
   end
 
   def index
-    @all_questions = Question.all.includes(:posts).includes(:revisions).includes(:users)
+    @query = params[:query]
+    @all_questions = CurrentQuestion.includes(:user).all
+    @all_questions = @all_questions.where('title like ? or body like ? ', "%#{@query}%", "%#{@query}%") if @query
     render :index
   end
 
   def show
-    question = Question.includes(:posts).find_by_id(params[:id])
+    @posts = CurrentPosts.where(question_id: params[:id])
     @user = current_user
-    @posts = question.posts.includes(:revisions).includes(:users)
-    @authors = @posts.flat_map(&:users)
+    @authors = @posts.flat_map(&:author) + @posts.flat_map(&:editor)
     render :show
   end
 
