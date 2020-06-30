@@ -91,17 +91,17 @@ ActiveRecord::Schema.define(version: 2020_06_30_004154) do
       current.body,
       first.user_id AS author,
       current.user_id AS editor,
-      COALESCE(vote_count.count, (0)::bigint) AS score,
+      COALESCE(vote_summary.score, (0)::bigint) AS score,
       first.created_at,
       current.created_at AS updated_at
      FROM (((posts
        JOIN revisions current ON ((posts.id = current.post_id)))
        JOIN revisions first ON ((posts.id = first.post_id)))
        LEFT JOIN ( SELECT votes.target_id,
-              count(*) AS count
+              sum(votes.amount) AS score
              FROM votes
             WHERE ((votes.target_type)::text = 'Post'::text)
-            GROUP BY votes.target_id) vote_count ON ((vote_count.target_id = posts.id)))
+            GROUP BY votes.target_id) vote_summary ON ((vote_summary.target_id = posts.id)))
     ORDER BY posts.id, first.id, current.id DESC;
   SQL
   create_view "current_questions", sql_definition: <<-SQL
