@@ -143,6 +143,30 @@ small {
   pre {
     background: $background-color-light;
     padding: 0.5em;
+    overflow-y: auto;
+
+    @media (max-width: 480px) {
+      max-height: 20em;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0.2em;
+      height: 0.2em;
+      cursor: default;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $color-muted;
+      border-radius: $default-border-radius;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: darken($color-muted, 5%);
+    }
   }
 
   :not(pre) > code {
