@@ -10,6 +10,10 @@ class CurrentPosts < ActiveRecord::Base
              foreign_key: :editor,
              class_name: 'User'
 
+  def voted_by?(user)
+    Vote.find_by(user: user, target_id: id, target_type: 'Post')
+  end
+
   def question?
 
   end

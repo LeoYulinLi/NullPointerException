@@ -19,7 +19,7 @@ json.set! 'post_currents' do
       end
       json.set! 'votes' do
         json.set! 'score', post.score
-        vote = Vote.find_by(user: @user, target_id: post.id, target_type: 'Post')
+        vote = post.voted_by?(@user)
         if vote
           json.set! 'voted', vote.amount == 1 ? 'up' : 'down'
         end
