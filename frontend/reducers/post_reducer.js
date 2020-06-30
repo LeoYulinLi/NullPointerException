@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTIONS, RECEIVE_THREAD } from "../actions/post_actions";
+import { RECEIVE_QUERY, RECEIVE_QUESTIONS, RECEIVE_THREAD } from "../actions/post_actions";
 
 const defaultState = {
   questions: {},
@@ -9,6 +9,7 @@ const defaultState = {
  * @typedef PostState
  * @property {Object<number, QuestionSummary>} questions
  * @property {Object<number, PostCurrent>} post_currents
+ * @property {string} query
  */
 
 /**
@@ -19,11 +20,14 @@ export default function postReducer(state = defaultState, action) {
   switch (action.type) {
     case RECEIVE_QUESTIONS: {
       const { questions } = action.questions;
-      return { questions };
+      return { questions, query: state.query };
     }
     case RECEIVE_THREAD: {
       const { post_currents, revisions } = action.thread;
       return { post_currents, revisions };
+    }
+    case RECEIVE_QUERY: {
+      return { ...state, query: action.query };
     }
     default:
       return state;

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/session_actions";
 import { userIdSelector } from "../selectors/selectors";
 import '@fortawesome/fontawesome-free/js/all';
-import { queryQuestions } from "../actions/post_actions";
+import { queryQuestions, receiveQuery } from "../actions/post_actions";
 import { useHistory } from "react-router";
 
 const ControlNavGuest = () => {
@@ -76,8 +76,8 @@ const SearchBar = () => {
    */
   function handleSubmit(event) {
     event.preventDefault();
+    dispatch(receiveQuery(query));
     history.push("/questions");
-    dispatch(queryQuestions(query));
   }
 
   return <form className="nav-search" onSubmit={ handleSubmit }>
