@@ -12,7 +12,6 @@ import { receiveUiLoading } from "./ui_actions";
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_REVISIONS';
 export const RECEIVE_THREAD = 'RECEIVE_THREAD';
-export const RECEIVE_QUERY = 'RECEIVE_QUERY';
 
 /**
  * @typedef PostCurrent
@@ -39,12 +38,7 @@ export const RECEIVE_QUERY = 'RECEIVE_QUERY';
  */
 
 /**
- * @typedef {Action<RECEIVE_QUERY>} ReceiveQuery
- * @property {string} query
- */
-
-/**
- * @typedef {ReceiveQuestionsAction | ReceiveThreadAction | ReceiveQuery} PostActions
+ * @typedef {ReceiveQuestionsAction | ReceiveThreadAction} PostActions
  */
 
 /**
@@ -88,17 +82,6 @@ function receiveThread(thread) {
     type: RECEIVE_THREAD,
     thread
   }
-}
-
-/**
- * @param  {string} query
- * @returns {ReceiveThreadAction}
- */
-export function receiveQuery(query) {
-  return {
-    type: RECEIVE_QUERY,
-    query
-  };
 }
 
 

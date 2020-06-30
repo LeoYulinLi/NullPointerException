@@ -12,6 +12,7 @@ import QuestionsIndex from "./post/questions_index";
 import { isLoggedInSelector } from "../selectors/selectors";
 import Thread from "./post/thread";
 import EditForm from "./post/edit_form";
+import SearchResult from "./search";
 
 const App = () => {
 
@@ -33,6 +34,8 @@ const App = () => {
         </Route>
         <Route path="/questions" exact component={ QuestionsIndex }/>
         <Route path="/questions/:id" exact component={ Thread } />
+        <Route path="/search" exact component={ SearchResult }/>
+        <Route path="/search/:query" exact component={ SearchResult }/>
         <AuthRoute path="/signup" component={ Signup }/>
         <AuthRoute path="/login" component={ Login }/>
         <ProtectedRoute path="/ask" component={ AskForm }/>

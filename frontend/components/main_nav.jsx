@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HashRouter, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/session_actions";
@@ -76,12 +76,13 @@ const SearchBar = () => {
    */
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(receiveQuery(query));
-    history.push("/questions");
+    setQuery("");
+    history.push(`/search/${query}`);
   }
 
   return <form className="nav-search" onSubmit={ handleSubmit }>
     <input
+      required
       type="text"
       className="muted"
       autoComplete="off"
