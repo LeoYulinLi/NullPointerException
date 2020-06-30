@@ -22,7 +22,7 @@ class Api::QuestionsController < ApplicationController
   def index
     @query = params[:query]
     @all_questions = CurrentQuestion.includes(:user).all
-    @all_questions = @all_questions.where('title like ? or body like ? ', "%#{@query}%", "%#{@query}%") if @query
+    @all_questions = @all_questions.where('title ilike ? or body ilike ? ', "%#{@query}%", "%#{@query}%") if @query
     render :index
   end
 
