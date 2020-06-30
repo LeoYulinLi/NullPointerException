@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_29_230638) do
+ActiveRecord::Schema.define(version: 2020_06_30_004154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,12 @@ ActiveRecord::Schema.define(version: 2020_06_29_230638) do
   add_foreign_key "sessions", "users"
   add_foreign_key "votes", "users"
 
+  create_view "question_posts", sql_definition: <<-SQL
+      SELECT DISTINCT ON (posts.question_id) posts.question_id AS id,
+      posts.id AS post_id
+     FROM posts
+    ORDER BY posts.question_id, posts.id;
+  SQL
   create_view "current_posts", sql_definition: <<-SQL
       SELECT DISTINCT ON (posts.id) posts.id,
       posts.question_id,
