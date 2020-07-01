@@ -36,7 +36,9 @@ const AnswerForm = ({ id }) => {
     <h2>Your Answer</h2>
     <form onSubmit={ handleSubmit }>
       <FormBodyEditor body={ body } setBody={ setBody } rows={ 10 } disabled={ submitting }/>
-      <button className="button button-primary" disabled={ submitting }>Submit</button>
+      <button className="button button-primary" disabled={ submitting }>
+        { submitting ? <div className="loading-ring-small" /> : "Submitting" }
+      </button>
     </form>
   </div>
 

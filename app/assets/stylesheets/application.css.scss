@@ -468,11 +468,12 @@ textarea {
   outline: none;
   border: none;
   border-radius: $default-border-radius;
-  padding: 0.5rem 1rem;
+  padding: 0.75em 1.25em;
+  line-height: 1;
   cursor: pointer;
   color: $text-default-secondary;
   background-color: $background-color;
-  margin: 0.25rem;
+  margin: 0.25em;
   text-decoration: none;
   font-weight: normal;
   white-space: nowrap;
@@ -785,6 +786,29 @@ html, body, #root {
     animation: loading-ring 1.2s ease-in-out infinite;
   }
   @keyframes loading-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.loading-ring-small {
+  margin: auto;
+  height: 1em;
+  &:after {
+    content: " ";
+    display: block;
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+    border: 0.1em solid;
+    border-color: transparent white transparent white;
+    animation: loading-ring-small 1.2s ease-in-out infinite;
+  }
+  @keyframes loading-ring-small {
     0% {
       transform: rotate(0deg);
     }

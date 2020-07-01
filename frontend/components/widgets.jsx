@@ -11,7 +11,6 @@ export const EditorHint = () => <div className="editor-hint">
 </div>
 
 /**
- *
  * @param {string} body
  * @param {Dispatch<SetStateAction<string>>} setBody
  * @param {number} rows
