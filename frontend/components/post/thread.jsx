@@ -11,6 +11,7 @@ import { AskQuestionHeader, Loading, Modal, Popup } from "../widgets";
 import { deletePost, deleteVote, postVoteDown, postVoteUp } from "../../utils/api_utlis";
 import Login from "../session/login";
 import ErrorAlert from "../error/error_alert";
+import VoteBox from "./vote_box";
 
 const { useEffect } = require("react");
 
@@ -28,8 +29,6 @@ const Post = ({ post, ownerId }) => {
 
   const [errors, setErrors] = useState([]);
 
-  const [showModal, setShowModal] = useState(false);
-
   const handleDeletePost = (event) => {
     event.preventDefault();
     deletePost(post.post_id)
@@ -43,28 +42,6 @@ const Post = ({ post, ownerId }) => {
         setErrors(errors.responseJSON);
       });
   }
-
-  /**
-   * @param {postVoteUp | postVoteDown}action
-   */
-  const voteHandler = (action) => {
-    return (event) => {
-      event.preventDefault();
-      let finalAction = action;
-      if (action === postVoteUp && post.votes.voted === 'up') finalAction = deleteVote
-      if (action === postVoteDown && post.votes.voted === 'down') finalAction = deleteVote
-      finalAction(post.post_id)
-        .then(() => {
-          dispatch(getQuestionThread(post.question_id));
-        }, errors => {
-          if (errors.status === 401) {
-            setShowModal(true);
-          } else {
-            setErrors(errors.responseJSON)
-          }
-        });
-    }
-  };
 
   /**
    * @param {RootState} state
@@ -90,26 +67,14 @@ const Post = ({ post, ownerId }) => {
   const { post_id, body } = post
 
   return <div className="post">
-    <Modal header="Join the Null Pointer Exception Community" show={ showModal } setShow={ setShowModal }>
-      <p>You need to <Link className="text-primary" to='/login'>log in</Link> before you vote</p>
-      <Link to="/signup" className="button button-primary text-center">Sign up using email</Link>
-    </Modal>
     <div className="post-left">
-      <div className="vote-box">
-        <a href="#" onClick={ voteHandler(postVoteUp) } className={ post.votes.voted === 'up' ? 'voted' : "" }>
-          <i className="fas fa-chevron-up"/>
-        </a>
-        <span className="score">{ post.votes.score }</span>
-        <a href="#" onClick={ voteHandler(postVoteDown) } className={ post.votes.voted === 'down' ? 'voted' : "" }>
-          <i className="fas fa-chevron-down"/>
-        </a>
-      </div>
+      <VoteBox post={ post } setErrors={ setErrors }/>
     </div>
     <div className="post-right">
       <div className="post-body">
         <ReactMarkdown className="post-text" source={ body }/>
       </div>
-      <ErrorAlert errors={errors} />
+      <ErrorAlert errors={ errors }/>
       <div className="post-footer">
         <div className="post-menu">
           <Link to={ `/posts/${ post_id }/edit` }>
