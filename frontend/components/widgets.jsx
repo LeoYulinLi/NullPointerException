@@ -71,11 +71,11 @@ export const Modal = ({ children, header, show, setShow }) => {
     setShow(false);
   }
 
-  return show ? <div className="modal-background" onClick={handleClickAnyWhere}>
+  return show ? <div className="modal-background" onClick={ handleClickAnyWhere }>
     <div className="modal">
       <div className="modal-header">
         <h1>{ header }</h1>
-        <a className="modal-close" href="#" onClick={handleClose}><i className="fas fa-times" /></a>
+        <a className="modal-close" href="#" onClick={ handleClose }><i className="fas fa-times"/></a>
       </div>
       <div className="modal-body">
         { children }
@@ -98,7 +98,7 @@ export const Popup = ({ children, showUntil = () => true, timeOut = 3000, style 
     }
   }, [children]);
 
-  return show ? <div className={`alert ${style} popup`}>
+  return show ? <div className={ `alert ${ style } popup` }>
     { children }
   </div> : null;
 }
