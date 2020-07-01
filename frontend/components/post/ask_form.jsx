@@ -2,8 +2,10 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { askQuestion } from "../../actions/post_actions";
 import ReactMarkdown from "react-markdown";
-import { EditorHint, FormBodyEditor } from "../widgets";
+import { EditorHint, FormBodyEditor, LoadingButton } from "../widgets";
 import { useHistory } from "react-router";
+
+const { useRef } = require("react");
 
 /**
  * @typedef AskForm
@@ -27,21 +29,36 @@ const AskForm = () => {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
 
+  const [submitting, setSubmitting] = useState(false);
+
+  const unmounted = useRef(false);
+
   const history = useHistory();
 
   const dispatch = useDispatch();
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
     dispatch(askQuestion({ title, body }))
-      .then(() => history.push('/'));
+      .then(() => {
+        !unmounted.current && setSubmitting(false);
+        history.push('/')
+      });
   }
 
   useLayoutEffect(() => {
     const $root = $('#root');
     $root.addClass("dim-background");
     return () => $root.removeClass("dim-background");
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    }
+  }, []);
 
   return <div className="post-page">
     <h1>Ask a public question</h1>
@@ -59,6 +76,7 @@ const AskForm = () => {
             value={ title }
             onChange={ event => setTitle(event.target.value) }
             placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+            disabled={ submitting }
           />
         </div>
         <FormBodyEditor
@@ -66,11 +84,12 @@ const AskForm = () => {
           setBody={ setBody }
           rows={ 15 }
           labelTitle={ "Body" }
-          hint={ "Include all the information someone would need to answer your question" }>
+          hint={ "Include all the information someone would need to answer your question" }
+          disabled={ submitting }>
           <EditorHint/>
         </FormBodyEditor>
       </div>
-      <button className="button button-primary">Submit</button>
+      <LoadingButton style="button-primary" loading={ submitting }>Submit</LoadingButton>
     </form>
   </div>
 };
