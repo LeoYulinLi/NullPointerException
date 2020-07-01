@@ -30,7 +30,7 @@ const App = () => {
   return <HashRouter>
     <MainNav/>
     <Switch>
-      <AuthRoute path="/" exact component={ HomePage }/>
+      { !isLoggedIn && <AuthRoute path="/" exact component={ HomePage }/> }
       <Route path="/">
         <div className="main">
           <Switch>
