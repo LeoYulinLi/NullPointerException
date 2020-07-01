@@ -184,6 +184,8 @@ small {
 
 .header {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   border-top: 0.25rem solid $color-theme;
   box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.3);
@@ -866,6 +868,28 @@ html, body, #root {
     .modal-body {
       display: flex;
       flex-direction: column;
+    }
+  }
+}
+
+.home {
+  padding-top: 2rem;
+  .hero {
+    background: #ffcf10;
+    height: 50vh;
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .hero-content {
+      padding: 0.5em;
+      max-width: 768px;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      flex-flow: column;
+      align-items: center;
+      text-align: center;
     }
   }
 }
