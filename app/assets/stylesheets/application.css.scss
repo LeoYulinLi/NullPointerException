@@ -810,6 +810,12 @@ html, body, #root {
     border-color: transparent white transparent white;
     animation: loading-ring-small 1.2s ease-in-out infinite;
   }
+  &.voting:after {
+    width: 0.7em;
+    height: 0.7em;
+    border: 0.15em solid;
+    border-color: transparent #cccccc transparent #cccccc;
+  }
   @keyframes loading-ring-small {
     0% {
       transform: rotate(0deg);

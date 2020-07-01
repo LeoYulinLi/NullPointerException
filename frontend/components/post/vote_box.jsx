@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
  */
 const VoteBox = ({ post, setErrors }) => {
 
+  const [submitting, setSubmitting] = useState(false);
+
   const dispatch = useDispatch();
 
   /**
@@ -19,13 +21,17 @@ const VoteBox = ({ post, setErrors }) => {
   const voteHandler = (action) => {
     return (event) => {
       event.preventDefault();
+      if (submitting) return;
+      setSubmitting(true);
       let finalAction = action;
       if (action === postVoteUp && post.votes.voted === 'up') finalAction = deleteVote
       if (action === postVoteDown && post.votes.voted === 'down') finalAction = deleteVote
       finalAction(post.post_id)
         .then(() => {
+          setSubmitting(false);
           dispatch(getQuestionThread(post.question_id));
         }, errors => {
+          setSubmitting(false);
           if (errors.status === 401) {
             setShowModal(true);
           } else {
@@ -46,7 +52,7 @@ const VoteBox = ({ post, setErrors }) => {
       <a href="#" onClick={ voteHandler(postVoteUp) } className={ post.votes.voted === 'up' ? 'voted' : "" }>
         <i className="fas fa-chevron-up"/>
       </a>
-      <span className="score">{ post.votes.score }</span>
+      <span className="score">{ submitting ? <div className="loading-ring-small voting" /> : post.votes.score }</span>
       <a href="#" onClick={ voteHandler(postVoteDown) } className={ post.votes.voted === 'down' ? 'voted' : "" }>
         <i className="fas fa-chevron-down"/>
       </a>
