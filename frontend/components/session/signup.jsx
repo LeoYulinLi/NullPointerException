@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { FormEvent, useEffect, useLayoutEffect } from "react";
+import React, { FormEvent, useEffect, useLayoutEffect, useRef } from "react";
 import { signup } from "../../actions/session_actions";
 import ErrorAlert from "../error/error_alert";
 import { Link } from "react-router-dom";
 import { clearSessionError } from "../../actions/error_actions";
+import { LoadingButton } from "../widgets";
 
 const { useState } = require("react");
 
@@ -19,6 +20,12 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const unmounted = useRef(false);
+
+  const clearLoading = () => !unmounted.current && setLoading(false);
 
   const dispatch = useDispatch();
 
@@ -45,14 +52,19 @@ const Signup = () => {
     const $root = $('#root');
     $root.addClass("dim-background");
     return () => $root.removeClass("dim-background");
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    clearLoading();
+  }, [errors]);
 
   /**
-   * @param {FormEvent} event
+   * @param {React.FormEvent<HTMLFormElement>} event
    */
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(signup({ username, password, email }))
+    setLoading(true);
+    dispatch(signup({ username, password, email }));
   }
 
   return <div className="session-page">
@@ -73,7 +85,7 @@ const Signup = () => {
           <input required id="password"  pattern=".{8,}" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
           <small>Passwords must contain at least 8 characters</small>
         </div>
-        <button className="button button-primary">Sign Up</button>
+        <LoadingButton style="button-primary" loading={ loading }>Sign Up</LoadingButton>
       </form>
     </div>
     <p className="session-help">Already have an account? <Link className="primary" to="/login">Log in</Link></p>

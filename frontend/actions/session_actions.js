@@ -68,10 +68,10 @@ export function login(user) {
     return postSession(user)
       .then(/** @param {User} user*/(user) => {
         dispatch(clearSessionError());
-        dispatch(receiveSession(user));
+        return dispatch(receiveSession(user));
       }, (err) => {
-        dispatch(receiveSessionError(err));
-      });
+        return dispatch(receiveSessionError(err));
+      })
   };
 }
 

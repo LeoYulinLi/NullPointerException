@@ -59,10 +59,10 @@ export const Loading = ({ children, loadingCondition = null }) => {
 
 export const LoadingButton = ({ children, loading, onClick, type = "submit", style = "button-primary" }) => {
 
-  const [internalLoading, setInternalLoading] = useState(loading);
+  const [internalLoading, setInternalLoading] = useState(false);
 
   function handleClick(event) {
-    onClick && onClick();
+    onClick && onClick(event);
     setInternalLoading(true);
   }
 

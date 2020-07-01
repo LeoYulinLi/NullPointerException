@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { FormEvent, useEffect, useLayoutEffect } from "react";
+import React, { FormEvent, useEffect, useLayoutEffect, useRef } from "react";
 import { login, refreshSession } from "../../actions/session_actions";
 import ErrorAlert from "../error/error_alert";
 import { Link } from "react-router-dom";
@@ -21,7 +21,13 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const unmounted = useRef(false);
+
   const dispatch = useDispatch();
+
+  const clearLoading = () => {
+    !unmounted.current && setLoading(false)
+  };
 
   /**
    *
@@ -39,7 +45,6 @@ const Login = () => {
     event.preventDefault();
     setLoading(true);
     dispatch(login({ username, password }))
-      .then(() => setLoading(false), () => setLoading(false));
   }
 
   /**
@@ -47,16 +52,19 @@ const Login = () => {
    */
   function loginAsDemo(event) {
     event.preventDefault();
+    setLoading(true);
     setUsername('demo');
     setPassword('demodemodemo');
     dispatch(login({ username: "demo", password: "demodemodemo" }))
-      .then(() => setLoading(false), () => setLoading(false));
   }
 
   useLayoutEffect(() => {
     const $main = $('.main');
     $main.addClass('full-height');
-    return () => $main.removeClass('full-height');
+    return () => {
+      $main.removeClass('full-height');
+      unmounted.current = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -68,7 +76,11 @@ const Login = () => {
     const $root = $('#root');
     $root.addClass("dim-background");
     return () => $root.removeClass("dim-background");
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [errors]);
 
   return <div className="session-page">
     <ErrorAlert errors={ errors }/>
