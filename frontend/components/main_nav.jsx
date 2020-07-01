@@ -31,6 +31,8 @@ const ControlNavLoggedIn = ({ userId }) => {
    */
   const user = useSelector(userSelector);
 
+  const history = useHistory();
+
   const showUserControl = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -41,7 +43,8 @@ const ControlNavLoggedIn = ({ userId }) => {
 
   const dispatchLogout = (event) => {
     event.preventDefault();
-    dispatch(logout());
+    dispatch(logout())
+      .then(() => history.push("/"));
   }
 
   return <ul className="user-nav">
