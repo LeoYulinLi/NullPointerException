@@ -21,6 +21,15 @@ export function postUser(user) {
   });
 }
 
+/**
+ * @param {number} userId
+ */
+export function getUser(userId) {
+  return $.ajax({
+    url: `/api/users/${userId}`
+  });
+}
+
 export function deleteSessionCurrent() {
   return $.ajax({
     url: `/api/session`, // TODO: just for now

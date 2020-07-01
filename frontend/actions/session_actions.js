@@ -2,7 +2,7 @@ import { Action, Dispatch } from 'redux';
 import { deleteSessionCurrent, getSession, postSession, postUser } from "../utils/api_utlis";
 import { clearSessionError, receiveSessionError } from "./error_actions";
 
-export const RECEIVE_SESSION = 'RECEIVE_SESSION';
+export const RECEIVE_USER = 'RECEIVE_USER';
 export const DELETE_SESSION = 'DELETE_SESSION';
 
 /**
@@ -13,7 +13,7 @@ export const DELETE_SESSION = 'DELETE_SESSION';
  */
 
 /**
- * @typedef {Action<RECEIVE_SESSION>} ReceiveSessionAction
+ * @typedef {Action<RECEIVE_USER>} ReceiveSessionAction
  * @property {User} user
  */
 
@@ -29,9 +29,9 @@ export const DELETE_SESSION = 'DELETE_SESSION';
  * @param {User} user
  * @returns {ReceiveSessionAction}
  */
-function receiveSession(user) {
+export function receiveUser(user) {
   return {
-    type: RECEIVE_SESSION,
+    type: RECEIVE_USER,
     user
   }
 }
@@ -53,7 +53,7 @@ export function signup(user) {
     return postUser(user)
       .then(/** @param {User} user*/(user) => {
         dispatch(clearSessionError());
-        dispatch(receiveSession(user));
+        dispatch(receiveUser(user));
       }, (err) => {
         dispatch(receiveSessionError(err));
       });
@@ -68,7 +68,7 @@ export function login(user) {
     return postSession(user)
       .then(/** @param {User} user*/(user) => {
         dispatch(clearSessionError());
-        return dispatch(receiveSession(user));
+        return dispatch(receiveUser(user));
       }, (err) => {
         return dispatch(receiveSessionError(err));
       })
@@ -89,7 +89,7 @@ export function logout() {
 export function refreshSession() {
   return (dispatch) => {
     return getSession()
-      .then(user => dispatch(receiveSession(user)), () => {
+      .then(user => dispatch(receiveUser(user)), () => {
         dispatch(deleteSession());
       })
   }
