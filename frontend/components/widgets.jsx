@@ -57,6 +57,12 @@ export const Loading = ({ children, loadingCondition = null }) => {
 
 }
 
+export const LoadingButton = ({children, loading, style = "button-primary"}) => {
+  return <button className={ `button ${style}` } disabled={ loading }>
+    { loading ? <div className="loading-ring-small" /> : children }
+  </button>
+}
+
 export const Modal = ({ children, header, show, setShow }) => {
 
   const handleClose = (event) => {

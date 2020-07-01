@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { answerQuestion, askQuestion, getQuestionThread } from "../../actions/post_actions";
 import { useDispatch, useSelector } from "react-redux";
 import ReactMarkdown from "react-markdown";
-import { FormBodyEditor } from "../widgets";
+import { FormBodyEditor, LoadingButton } from "../widgets";
 import { useHistory } from "react-router";
 import { isLoggedInSelector } from "../../selectors/selectors";
 import { Link } from "react-router-dom";
@@ -36,9 +36,7 @@ const AnswerForm = ({ id }) => {
     <h2>Your Answer</h2>
     <form onSubmit={ handleSubmit }>
       <FormBodyEditor body={ body } setBody={ setBody } rows={ 10 } disabled={ submitting }/>
-      <button className="button button-primary" disabled={ submitting }>
-        { submitting ? <div className="loading-ring-small" /> : "Submitting" }
-      </button>
+      <LoadingButton loading={ submitting }>Submitting</LoadingButton>
     </form>
   </div>
 
