@@ -7,9 +7,10 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { uiLoadingSelector, userIdSelector } from "../../selectors/selectors";
-import { AskQuestionHeader, Loading, Modal } from "../widgets";
+import { AskQuestionHeader, Loading, Modal, Popup } from "../widgets";
 import { deletePost, deleteVote, postVoteDown, postVoteUp } from "../../utils/api_utlis";
 import Login from "../session/login";
+import ErrorAlert from "../error/error_alert";
 
 const { useEffect } = require("react");
 
@@ -108,11 +109,7 @@ const Post = ({ post, ownerId }) => {
       <div className="post-body">
         <ReactMarkdown className="post-text" source={ body }/>
       </div>
-      { errors.length > 0 && <div className="alert danger">
-        <ul>
-          { errors.map((message, idx) => <li key={ `error-${ idx }` }>{ message }</li>) }
-        </ul>
-      </div> }
+      <ErrorAlert errors={errors} />
       <div className="post-footer">
         <div className="post-menu">
           <Link to={ `/posts/${ post_id }/edit` }>

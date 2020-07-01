@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -82,4 +82,23 @@ export const Modal = ({ children, header, show, setShow }) => {
       </div>
     </div>
   </div> : null
+}
+
+export const Popup = ({ children, showUntil = () => true, timeOut = 20000, style = "danger" }) => {
+
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    setShow(true);
+    const timer = setTimeout(() => {
+      setShow(false);
+    }, timeOut);
+    return () => {
+      clearTimeout(timer);
+    }
+  }, [children]);
+
+  return show ? <div className={`alert ${style} popup`}>
+    { children }
+  </div> : null;
 }

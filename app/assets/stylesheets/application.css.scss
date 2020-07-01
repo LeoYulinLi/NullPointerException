@@ -33,6 +33,7 @@ $default-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 $themes: (
         primary: $color-primary,
         secondary: $color-secondary,
+        success: $color-success,
         warning: $color-warning,
         danger: $color-danger,
         muted: $color-muted
@@ -313,7 +314,7 @@ small {
   @each $theme, $color in $themes {
     &.#{$theme} {
       background: lighten($color, 20%);
-      color: darken($color, 40%);
+      color: darken($color, 30%);
     }
   }
 
@@ -322,6 +323,15 @@ small {
   }
 
   margin-bottom: 1.5rem;
+
+  &.popup {
+    position: fixed;
+    top: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: $default-box-shadow;
+    z-index: 2;
+  }
 }
 
 .form-group {
