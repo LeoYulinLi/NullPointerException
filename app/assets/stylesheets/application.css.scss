@@ -797,6 +797,8 @@ html, body, #root {
 
 .loading-ring-small {
   margin: auto;
+  display: flex;
+  justify-content: center;
   height: 1em;
   &:after {
     content: " ";

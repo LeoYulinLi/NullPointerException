@@ -4,6 +4,7 @@ import { login, refreshSession } from "../../actions/session_actions";
 import ErrorAlert from "../error/error_alert";
 import { Link } from "react-router-dom";
 import { clearSessionError } from "../../actions/error_actions";
+import { LoadingButton } from "../widgets";
 
 const { useState } = require("react");
 
@@ -17,6 +18,8 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -34,7 +37,9 @@ const Login = () => {
    */
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(login({ username, password }));
+    setLoading(true);
+    dispatch(login({ username, password }))
+      .then(() => setLoading(false), () => setLoading(false));
   }
 
   /**
@@ -44,7 +49,8 @@ const Login = () => {
     event.preventDefault();
     setUsername('demo');
     setPassword('demodemodemo');
-    dispatch(login({ username: "demo", password: "demodemodemo" }));
+    dispatch(login({ username: "demo", password: "demodemodemo" }))
+      .then(() => setLoading(false), () => setLoading(false));
   }
 
   useLayoutEffect(() => {
@@ -70,14 +76,18 @@ const Login = () => {
       <form onSubmit={ handleSubmit }>
         <div className="form-group">
           <label htmlFor="username">Username</label>
-          <input required id="username" type="text" value={ username } onChange={ event => setUsername(event.target.value) }/>
+          <input required id="username" type="text" value={ username }
+                 onChange={ event => setUsername(event.target.value) }/>
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
-          <input required id="password" type="password" value={ password } onChange={ event => setPassword(event.target.value) }/>
+          <input required id="password" type="password" value={ password }
+                 onChange={ event => setPassword(event.target.value) }/>
         </div>
-        <button type="button" className="button button-muted" onClick={ loginAsDemo }>Login as Demo</button>
-        <button className="button button-primary">Login</button>
+        <LoadingButton type="button" style="button-muted" onClick={ loginAsDemo } loading={ loading }>
+          Log In as Demo
+        </LoadingButton>
+        <LoadingButton loading={ loading }>Login</LoadingButton>
       </form>
     </div>
     <p className="session-help">Don't have an account? <Link className="primary" to="/signup">Sign up</Link></p>

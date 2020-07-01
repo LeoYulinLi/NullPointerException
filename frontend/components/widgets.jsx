@@ -57,9 +57,23 @@ export const Loading = ({ children, loadingCondition = null }) => {
 
 }
 
-export const LoadingButton = ({children, loading, style = "button-primary"}) => {
-  return <button className={ `button ${style}` } disabled={ loading }>
-    { loading ? <div className="loading-ring-small" /> : children }
+export const LoadingButton = ({ children, loading, onClick, type = "submit", style = "button-primary" }) => {
+
+  const [internalLoading, setInternalLoading] = useState(loading);
+
+  function handleClick(event) {
+    onClick && onClick();
+    setInternalLoading(true);
+  }
+
+  useEffect(() => {
+    if (internalLoading && !loading) {
+      setInternalLoading(false);
+    }
+  }, [loading]);
+
+  return <button className={ `button ${ style }` } disabled={ internalLoading && loading } onClick={ handleClick } type={ type }>
+    { internalLoading && loading ? <div className="loading-ring-small"/> : children }
   </button>
 }
 
