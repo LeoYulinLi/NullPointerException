@@ -456,6 +456,7 @@ textarea {
     background-color: darken($button-color, 5%);
   }
   &:active {
+    color: white;
     background-color: lighten($button-color, 3%);
   }
   &:disabled {
