@@ -84,7 +84,7 @@ export const Modal = ({ children, header, show, setShow }) => {
   </div> : null
 }
 
-export const Popup = ({ children, showUntil = () => true, timeOut = 20000, style = "danger" }) => {
+export const Popup = ({ children, showUntil = () => true, timeOut = 3000, style = "danger" }) => {
 
   const [show, setShow] = useState(true);
 
