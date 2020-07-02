@@ -15,6 +15,7 @@ https://npe-app.herokuapp.com/
 ## Features
 ### User Auth
 - Signup
+![Signup](github/signup.webp)
 - Login
 - Login as demo
 
