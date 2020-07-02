@@ -6,7 +6,7 @@ import thunk from "redux-thunk";
 export default function configureStore() {
   const storeData = JSON.parse(localStorage.getItem("storeData"));
   const storeVersion = localStorage.getItem("storeVersion");
-  const currentStoreVersion = "1";
+  const currentStoreVersion = "2";
   const preloadedState = (storeVersion === currentStoreVersion && storeData) ? storeData : {}
   localStorage.setItem("storeVersion", currentStoreVersion);
   const store = createStore(rootReducer, preloadedState, applyMiddleware(thunk));
