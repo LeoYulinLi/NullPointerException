@@ -6,12 +6,13 @@ import AnswerForm from "./answer_form";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { uiLoadingSelector, userIdSelector } from "../../selectors/selectors";
+import { postErrorSelector, uiLoadingSelector, userIdSelector } from "../../selectors/selectors";
 import { AskQuestionHeader, Loading, Modal, Popup } from "../widgets";
 import { deletePost, deleteVote, postVoteDown, postVoteUp } from "../../utils/api_utlis";
 import Login from "../session/login";
 import ErrorAlert from "../error/error_alert";
 import VoteBox from "./vote_box";
+import { receivePostError } from "../../actions/error_actions";
 
 const { useEffect } = require("react");
 
@@ -27,8 +28,6 @@ const Post = ({ post, ownerId }) => {
 
   const dispatch = useDispatch();
 
-  const [errors, setErrors] = useState([]);
-
   const handleDeletePost = (event) => {
     event.preventDefault();
     deletePost(post.post_id)
@@ -39,7 +38,7 @@ const Post = ({ post, ownerId }) => {
           dispatch(getQuestionThread(post.question_id));
         }
       }, errors => {
-        setErrors(errors.responseJSON);
+        dispatch(receivePostError(errors));
       });
   }
 
@@ -65,16 +64,14 @@ const Post = ({ post, ownerId }) => {
   }, [currentUserId]);
 
   const { post_id, body } = post
-
   return <div className="post">
     <div className="post-left">
-      <VoteBox post={ post } setErrors={ setErrors }/>
+      <VoteBox post={ post }/>
     </div>
     <div className="post-right">
       <div className="post-body">
         <ReactMarkdown className="post-text" source={ body }/>
       </div>
-      <ErrorAlert errors={ errors }/>
       <div className="post-footer">
         <div className="post-menu">
           <Link to={ `/posts/${ post_id }/edit` }>
@@ -113,14 +110,13 @@ const Thread = () => {
    */
   const allPosts = useSelector(allPostsSelector);
 
-  const loading = useSelector(uiLoadingSelector);
-
   useEffect(() => {
     dispatch(getQuestionThread(id));
   }, []);
 
   const question = allPosts[0]
 
+  const errors = useSelector(postErrorSelector);
 
   const ownerId = question?.create?.user_id
 
@@ -128,6 +124,7 @@ const Thread = () => {
   const updateTime = (question?.update ? question?.update : question?.create)?.at
 
   return <Loading loadingCondition={ !question }>
+    <ErrorAlert errors={ errors }/>
     <div className="thread">
       <AskQuestionHeader headerText={ allPosts[0]?.title }/>
       <div className="thread-statistic">

@@ -658,7 +658,6 @@ textarea {
         justify-content: space-between;
 
         .post-menu {
-          display: flex;
           & > a {
             @include link-color($text-default-secondary);
           }
@@ -671,7 +670,7 @@ textarea {
           display: flex;
           flex-flow: row;
           @media (max-width: 480px) {
-            flex-direction: column;
+            flex-direction: column-reverse;
           }
           .signature {
             display: flex;

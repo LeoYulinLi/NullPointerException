@@ -4,6 +4,7 @@ import { getQuestionThread } from "../../actions/post_actions";
 import { useDispatch } from "react-redux";
 import { Modal } from "../widgets";
 import { Link } from "react-router-dom";
+import { receivePostError } from "../../actions/error_actions";
 
 /**
  * @param {PostCurrent} post
@@ -35,7 +36,7 @@ const VoteBox = ({ post, setErrors }) => {
           if (errors.status === 401) {
             setShowModal(true);
           } else {
-            setErrors(errors.responseJSON)
+            dispatch(receivePostError(errors));
           }
         });
     }

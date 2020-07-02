@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearPostError, clearSessionError } from "../actions/error_actions";
 
 export const EditorHint = () => <div className="editor-hint">
   <span>```<code>code</code>```</span>
@@ -107,13 +108,17 @@ export const Popup = ({ children, showUntil = () => true, timeOut = 3000, style 
 
   const [show, setShow] = useState(true);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setShow(true);
     const timer = setTimeout(() => {
       setShow(false);
+      dispatch(clearPostError());
     }, timeOut);
     return () => {
       clearTimeout(timer);
+      dispatch(clearPostError());
     }
   }, [children]);
 
