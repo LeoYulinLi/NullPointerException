@@ -20,21 +20,23 @@ https://npe-app.herokuapp.com/
 - Login as demo
 
 ### Ask Question
-
+![Signup](gibhub/ask.webp)
 
 ### Answer Question
-
+![Signup](gibhub/answer.webp)
 
 ### Edit Posts
+![Signup](gibhub/edit.webp)
 - Can edit own post
 - Can edit other people's post
 - Editing is actually creating a new revision rather then overwriting the original one
 
 
 ### Vote on Posts
-
+![Signup](gibhub/vote.webp)
 
 ### Search
+![Signup](gibhub/search.webp)
 
 ## Random Stuff
 
