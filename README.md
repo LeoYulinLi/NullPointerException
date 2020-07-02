@@ -1,29 +1,45 @@
 # NullPointerException
-A [Stack Overflow](http://stackoverflow.com/) Clone
+NullPointerException is a Q&A web application tailored towards software developers based off of [Stack Overflow](http://stackoverflow.com/).
+Main features include asking question, answer questions, improving each other's posts, and voting.
 
 ## Live Demo
 https://npe-app.herokuapp.com/
 
-## Left over stuff
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Technologies
+- Ruby on Rails
+- React
+- Redux
+- PostgreSQL
+- Webpack
 
-Things you may want to cover:
+## Features
+### User Auth
+- Signup
+- Login
+- Login as demo
 
-* Ruby version
+### Ask Question
 
-* System dependencies
 
-* Configuration
+### Answer Question
 
-* Database creation
 
-* Database initialization
+### Edit Posts
+- Can edit own post
+- Can edit other people's post
+- Editing is actually creating a new revision rather then overwriting the original one
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+### Vote on Posts
 
-* Deployment instructions
 
-* ...
+### Search
+
+## Random Stuff
+
+### What is up with the name `NullPointerException`?
+`StackOverflow` is a common runtime error in programs, and `NullPointerException` is even more prominent.
+It happens when the program try to access some properties of null objects.
+The name `NullPointerException` is specific to JVM languages, and it is similar to
+`TypeError: Cannot read property 'foo' of undefined` in JavaScript or
+`NoMethodError: undefined method 'foo' for nil:NilClass` in ruby. 
