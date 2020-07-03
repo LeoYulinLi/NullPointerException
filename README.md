@@ -15,28 +15,28 @@ https://npe-app.herokuapp.com/
 ## Features
 ### User Auth
 - Signup
-![Signup](gibhub/signup.webp)
+![SignUp](github/signup.gif)
 - Login
 - Login as demo
 
 ### Ask Question
-![Signup](gibhub/ask.webp)
+![Ask](github/ask.gif)
 
 ### Answer Question
-![Signup](gibhub/answer.webp)
+![Answer](github/answer.gif)
 
 ### Edit Posts
-![Signup](gibhub/edit.webp)
+![Edit](github/edit.gif)
 - Can edit own post
 - Can edit other people's post
 - Editing is actually creating a new revision rather then overwriting the original one
 
 
 ### Vote on Posts
-![Signup](gibhub/vote.webp)
+![Vote](github/vote.gif)
 
 ### Search
-![Signup](gibhub/search.webp)
+![Search](github/search.gif)
 
 ## Random Stuff
 
