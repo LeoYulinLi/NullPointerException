@@ -36,7 +36,7 @@ const AnswerForm = ({ id }) => {
     <h2>Your Answer</h2>
     <form onSubmit={ handleSubmit }>
       <FormBodyEditor body={ body } setBody={ setBody } rows={ 10 } disabled={ submitting }/>
-      <LoadingButton loading={ submitting }>Submitting</LoadingButton>
+      <LoadingButton loading={ submitting }>Post your answer</LoadingButton>
     </form>
   </div>
 
