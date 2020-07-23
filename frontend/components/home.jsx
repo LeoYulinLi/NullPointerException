@@ -6,9 +6,8 @@ const HomePage = () => {
     <div className="hero">
       <div className="hero-content">
         <h1>Null Pointer Exception</h1>
-        <p>This is a thing. A thing that you can do a thing with a thing. Thingy thing.</p>
-        <p>This background color hurts my eyes.</p>
-        <p>And I almost never use this page when I visit Stack Overflow anyway...</p>
+        <p>We build products that empower developers and connect them to solutions that enable productivity,
+          growth, and discovery.</p>
         <Link to="/questions" className="button button-success">See All Questions</Link>
       </div>
     </div>
