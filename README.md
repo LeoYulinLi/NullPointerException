@@ -39,12 +39,12 @@ https://npe-app.herokuapp.com/
 
 ## Features that might have gone unnoticed
 ### Voting when not logged in
-![Vote when not logged in will show a modal](github/vote_when_not_logged_in.png)
+<img src="github/vote_when_not_logged_in.png" alt="Vote when not logged in will show a modal" width="875">
 
 When you click on vote buttons while before logging in, stack overflow will shows you a modal. This behavior is replicated in this app too.
 
 ### Voting on your own post
-![You can't vote on your own post](github/cannot_vote_own.png)
+<img src="github/cannot_vote_own.png" alt="You can't vote on your own post" width="810">
 
 It doesn't make sense for user to vote on their own post. So it will shows a nice popup telling users that they can't do that.
 
@@ -75,17 +75,17 @@ export const Popup = ({ children, showUntil = () => true, timeOut = 3000, style 
 And the popup is a reusable component. (Also used in Signup and Login)
 
 ### Owner indicator
-![Owner indicator is author signature card that has a blue background](github/owner_indicator.png)
+<img src="github/owner_indicator.png" alt="Owner indicator is author signature card that has a blue background" width="735">
 
 You will notice that some signature has a blue background. That is a special signature indicating that user is the person who asked the question.
 
 ### Time tooltips
-![Showing excact time of the action](github/time_tooltips.png)
+<img src="github/time_tooltips.png" alt="Showing excact time of the action" width="422">
 
 When hovering over the Asked or Active span, you can see the excact time of the action.
 
 ### Input validation
-![The input box will turn red if the input is not valid](github/red_input.png)
+<img src="github/red_input.png" alt="The input box will turn red if the input is not valid" width="317">
 
 The input box will turn red if the input is not valid.
 
