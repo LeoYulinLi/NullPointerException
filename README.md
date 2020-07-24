@@ -90,7 +90,7 @@ When hovering over the Asked or Active span, you can see the excact time of the 
 The input box will turn red if the input is not valid.
 
 ### Loading indicators
-![Buttons also have a spinning indicator](github/loading_indicators.png)
+<img src="github/loading_indicators.png" alt="Buttons also have a spinning indicator" width="370">
 
 Beside that big orange spinning thing when the page is loading, buttons also have their own spinning indicator.
 Also, when you click the button, it will disable the whole from, preventing a duplicate submission.
