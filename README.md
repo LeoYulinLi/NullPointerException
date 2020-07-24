@@ -35,8 +35,65 @@ https://npe-app.herokuapp.com/
 ### Vote on Posts
 ![Vote](github/vote.gif)
 
-### Search
 ![Search](github/search.gif)
+
+## Features that might have gone unnoticed
+### Voting when not logged in
+![Vote when not logged in will show a modal](github/vote_when_not_logged_in.png)
+
+When you click on vote buttons while before logging in, stack overflow will shows you a modal. This behavior is replicated in this app too.
+
+### Voting on your own post
+![You can't vote on your own post](github/cannot_vote_own.png)
+
+It doesn't make sense for user to vote on their own post. So it will shows a nice popup telling users that they can't do that.
+
+```javascript
+export const Popup = ({ children, showUntil = () => true, timeOut = 3000, style = "danger" }) => {
+
+  const [show, setShow] = useState(true);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setShow(true);
+    const timer = setTimeout(() => {
+      setShow(false);
+      dispatch(clearPostError());
+    }, timeOut);
+    return () => {
+      clearTimeout(timer);
+      dispatch(clearPostError());
+    }
+  }, [children]);
+
+  return show ? <div className={ `alert ${ style } popup` }>
+    { children }
+  </div> : null;
+}
+```
+And the popup is a reusable component. (Also used in Signup and Login)
+
+### Owner indicator
+![Owner indicator is author signature card that has a blue background](github/owner_indicator.png)
+
+You will notice that some signature has a blue background. That is a special signature indicating that user is the person who asked the question.
+
+### Time tooltips
+![Showing excact time of the action](github/time_tooltips.png)
+
+When hovering over the Asked or Active span, you can see the excact time of the action.
+
+### Input validation
+![The input box will turn red if the input is not valid](github/red_input.png)
+
+The input box will turn red if the input is not valid.
+
+### Loading indicators
+![Buttons also have a spinning indicator](github/loading_indicators.png)
+
+Beside that big orange spinning thing when the page is loading, buttons also have their own spinning indicator.
+Also, when you click the button, it will disable the whole from, preventing a duplicate submission.
 
 ## Random Stuff
 
