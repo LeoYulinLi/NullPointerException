@@ -739,6 +739,14 @@ textarea {
     background: darken($color-muted, 5%);
   }
 
+  a {
+    color: $color-primary;
+    text-decoration: underline;
+    &:hover {
+      color: darken($color-primary, 5%);
+    }
+  }
+
   h1 {
     font-size: 1.5rem;
   }
@@ -767,6 +775,8 @@ textarea {
     border-left: 0.2em solid $border-color;
     padding-left: 0.5em;
   }
+
+
 }
 
 html, body, #root {
