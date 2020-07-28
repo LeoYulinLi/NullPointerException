@@ -8,6 +8,9 @@ const HomePage = () => {
         <h1>Null Pointer Exception</h1>
         <p>We build products that empower developers and connect them to solutions that enable productivity,
           growth, and discovery.</p>
+        <object className="rails-logo" />
+        <object className="react-logo" />
+        <object className="postgresql-logo" />
         <Link to="/questions" className="button button-success">See All Questions</Link>
       </div>
     </div>
