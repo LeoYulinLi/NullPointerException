@@ -916,6 +916,25 @@ html, body, #root {
   }
 }
 
+.footer {
+  background: #444444;
+  color: white;
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    max-width: 1200px;
+    padding: 1rem;
+    p {
+      margin: 0;
+    }
+    a {
+      text-decoration: none;
+      @include link-color(white);
+    }
+  }
+}
+
 * {
   box-sizing: border-box;
 }
