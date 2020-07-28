@@ -1,5 +1,6 @@
 import { RECEIVE_QUESTIONS, RECEIVE_THREAD } from "../actions/post_actions";
-import { RECEIVE_USER } from "../actions/session_actions";
+import { RECEIVE_SESSION } from "../actions/session_actions";
+import { RECEIVE_USER } from "../actions/user_actions";
 
 /**
  * @typedef {Object<number, User>} UserState
@@ -14,6 +15,7 @@ export default function userReducer(state = {}, action) {
     case RECEIVE_QUESTIONS:
       return { ...state, ...action.questions.users };
     case RECEIVE_USER:
+    case RECEIVE_SESSION:
       return { ...state, [action.user.id]: action.user };
     case RECEIVE_THREAD:
       return { ...state, ...action.thread.users };
