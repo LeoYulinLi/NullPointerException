@@ -112,6 +112,7 @@ const Thread = () => {
 
   useEffect(() => {
     dispatch(getQuestionThread(id));
+    window.scrollTo(0, 0);
   }, []);
 
   const question = allPosts[0]

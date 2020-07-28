@@ -15,12 +15,13 @@ import EditForm from "./post/edit_form";
 import SearchResult from "./search";
 import UserInfo from "./user/user_info";
 import HomePage from "./home";
+import Footer from "./footer";
 
 const App = () => {
 
   const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector(isLoggedInSelector)
+  const isLoggedIn = useSelector(isLoggedInSelector);
 
   useEffect(() => {
     dispatch(refreshSession());
@@ -51,6 +52,7 @@ const App = () => {
         </div>
       </Route>
     </Switch>
+    <Footer />
   </HashRouter>
 }
 

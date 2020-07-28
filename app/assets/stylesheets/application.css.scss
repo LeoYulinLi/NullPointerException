@@ -77,9 +77,9 @@ small {
 
 .main {
   max-width: 768px;
+  min-height: 100vh;
   margin: auto;
   display: flex;
-  justify-content: center;
   flex-flow: column;
   align-items: baseline;
   padding: 5rem 2rem 2rem 2rem;
@@ -883,15 +883,16 @@ html, body, #root {
 
 .home {
   padding-top: 2rem;
+  min-height: 100vh;
   .hero {
     background: #ffd739;
-    height: 50vh;
+    min-height: 50vh;
     padding-top: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     .hero-content {
-      padding: 0.5em;
+      padding: 1em;
       max-width: 768px;
       margin: auto;
       display: flex;
