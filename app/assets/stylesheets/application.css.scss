@@ -780,7 +780,7 @@ textarea {
 }
 
 html, body, #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 // Adapted from https://loading.io/css/
