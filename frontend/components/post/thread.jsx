@@ -75,7 +75,7 @@ const Post = ({ post, ownerId }) => {
       <div className="post-footer">
         <div className="post-menu">
           <Link to={ `/posts/${ post_id }/edit` }>
-            { currentUserId ? "edit" : "improve this question" }
+            { currentUserId ? "edit" : `improve this ${ post.is_question ? "question" : "answer"}` }
           </Link>
           { currentUserId === post.create.user_id && <a href="#" onClick={ handleDeletePost }>delete</a> }
         </div>
