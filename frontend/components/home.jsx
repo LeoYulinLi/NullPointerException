@@ -33,7 +33,7 @@ const HomePage = () => {
           <object className="postgresql-logo" />
           <h3>Database</h3>
           This application uses PostgreSQL. Most queries are handled by Rails Active Record, but when querying data such
-          as the current revisions of a question or an answer, SQL views and Rails Scenic were used to simplify active
+          as the current revision of a question or an answer, SQL views and Rails Scenic were used to simplify active
           record querying statements.
         </div>
       </div>
