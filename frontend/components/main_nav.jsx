@@ -91,7 +91,7 @@ const SearchBar = () => {
       autoComplete="off"
       value={ query }
       onChange={ event => setQuery(event.target.value) }
-      placeholder={ "Search..." }/>
+      placeholder={ "Search... (e.g.: demo)" }/>
     <span className="icon-box"><i className="fas fa-search search-icon"/></span>
   </form>
 }
@@ -107,7 +107,7 @@ const MainNav = () => {
   return <nav className="header">
     <div className="nav-container">
       <ul className="main-nav">
-        <li><Link to="/"><p>Logo</p></Link></li>
+        <li><Link to="/"><p>NullPointerException</p></Link></li>
         <li><Link to="/questions"><p>Questions</p></Link></li>
       </ul>
       <SearchBar/>
