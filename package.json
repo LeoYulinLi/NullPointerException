@@ -10,7 +10,7 @@
     "babel-loader": "^8.1.0",
     "lodash.debounce": "^4.0.8",
     "lodash.orderby": "^4.6.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-markdown": "^4.3.1",
