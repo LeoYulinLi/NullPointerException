@@ -33,7 +33,7 @@
     "start": "webpack -w --mode=development"
   },
   "engines": {
-    "node": "18.12",
+    "node": "16.18",
     "yarn": "1.22"
   },
   "license": "MIT",
